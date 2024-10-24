@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coming Soon - FANTOM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0d0d0d;
+      color: #f1f1f1;
+    }
+    .container {
+  display: flex;
+  flex-direction: column; /* Added */
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Changed from height to min-height */
+  text-align: center;
+  position: relative;
+  /* overflow: hidden; */ /* Removed */
+  background: url('static/outside.jpeg') no-repeat center center/cover;
+}
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1;
+    }
+    .content {
+      z-index: 2;
+      padding: 20px;
+      max-width: 100%;
+    }
+    .logo-space img {
+      max-height: 400px; /* Smaller default height */
+      width: auto;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #c5a775; /* Gold accent */
+      margin: 0;
+      letter-spacing: 2px;
+    }
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      font-size: 1.5em;
+      color: #f1f1f1;
+      margin-top: 20px;
+    }
+    .countdown div {
+      text-align: center;
+    }
+    .countdown span {
+      display: block;
+      font-size: 0.5em;
+      color: #888;
+    }
+    .social-links {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    .social-links a {
+      color: #c5a775;
+      font-size: 1.2em;
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+    .social-links a:hover {
+      color: #ffffff;
+    }
+    .email {
+  position: relative; /* Changed from absolute */
+  margin-top: 100; /* Adjusted spacing */
+  width: 100%;
+  text-align: center;
+  font-size: 1em;
+  color: #c5a775; /* Gold accent */
+  z-index: 2;
+}
+
+
+    /* Mobile adjustments */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2em;
+      }
+      .countdown {
+        font-size: 1.2em;
+        gap: 10px;
+      }
+      .logo-space img {
+        max-height: 200px; /* Smaller logo on mobile */
+      }
+      .email {
+        font-size: 0.9em;
+        padding: 0 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.8em;
+      }
+      .countdown {
+        font-size: 1em;
+        gap: 8px;
+      }
+      .logo-space img {
+        max-height: 200px; /* Even smaller logo on very small screens */
+      }
+      .social-links a {
+        font-size: 1em;
+      }
+      .email {
+        font-size: 0.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="background-animation"></div>
+    <div class="overlay"></div>
+    <div class="content">
+        <div class="logo-space">
+        <!-- Replace with your logo image here -->
+        <!-- Example: <img src="static/logo2.png" alt="FANTOM Logo"> -->
+        <img src="static/logo2.png" alt="FANTOM Logo">
+        </div>
+      <h1>Coming Fall 2025</h1>
+      <div class="countdown">
+        <div><span>Days</span><div id="days">00</div></div>
+        <div><span>Hours</span><div id="hours">00</div></div>
+        <div><span>Minutes</span><div id="minutes">00</div></div>
+        <div><span>Seconds</span><div id="seconds">00</div></div>
+      </div>
+
+    </div>
+    <div class="email">
+        <a href="mailto:jeremy@fantom-nyc.com" style="color: #c5a775; text-decoration: none;">
+            <i class="fas fa-envelope"></i> jeremy@fantom-nyc.com
+          </a>
+    </div>
+  </div>
+
+  <script>
+    // Set the date we're counting down to
+    const countdownDate = new Date("Sep 1, 2025 23:59:59").getTime();
+
+    // Update the countdown every 1 second
+    const countdownFunction = setInterval(function() {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerHTML = days;
+      document.getElementById("hours").innerHTML = hours;
+      document.getElementById("minutes").innerHTML = minutes;
+      document.getElementById("seconds").innerHTML = seconds;
+
+      if (distance < 0) {
+        clearInterval(countdownFunction);
+        document.querySelector(".countdown").innerHTML = "We're Open!";
+      }
+    }, 1000);
+  </script>
+
+  <!-- FontAwesome for social media icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

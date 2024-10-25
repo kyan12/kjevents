@@ -1,191 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coming Soon - FANTOM</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: 'Poppins', sans-serif;
-      background-color: #0d0d0d;
-      color: #f1f1f1;
-    }
-    .container {
-  display: flex;
-  flex-direction: column; /* Added */
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; /* Changed from height to min-height */
-  text-align: center;
-  position: relative;
-  /* overflow: hidden; */ /* Removed */
-  background: url('static/outside.jpeg') no-repeat center center/cover;
-}
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 1;
-    }
-    .content {
-      z-index: 2;
-      padding: 20px;
-      max-width: 100%;
-    }
-    .logo-space img {
-      max-height: 400px; /* Smaller default height */
-      width: auto;
-    }
-    h1 {
-      font-size: 2.5em;
-      color: #c5a775; /* Gold accent */
-      margin: 0;
-      letter-spacing: 2px;
-    }
-    .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      font-size: 1.5em;
-      color: #f1f1f1;
-      margin-top: 20px;
-    }
-    .countdown div {
-      text-align: center;
-    }
-    .countdown span {
-      display: block;
-      font-size: 0.5em;
-      color: #888;
-    }
-    .social-links {
-      margin-top: 30px;
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-    }
-    .social-links a {
-      color: #c5a775;
-      font-size: 1.2em;
-      transition: color 0.3s;
-      text-decoration: none;
-    }
-    .social-links a:hover {
-      color: #ffffff;
-    }
-    .email {
-  position: relative; /* Changed from absolute */
-  margin-top: 100; /* Adjusted spacing */
-  width: 100%;
-  text-align: center;
-  font-size: 1em;
-  color: #c5a775; /* Gold accent */
-  z-index: 2;
-}
-
-
-    /* Mobile adjustments */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2em;
-      }
-      .countdown {
-        font-size: 1.2em;
-        gap: 10px;
-      }
-      .logo-space img {
-        max-height: 200px; /* Smaller logo on mobile */
-      }
-      .email {
-        font-size: 0.9em;
-        padding: 0 10px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 1.8em;
-      }
-      .countdown {
-        font-size: 1em;
-        gap: 8px;
-      }
-      .logo-space img {
-        max-height: 200px; /* Even smaller logo on very small screens */
-      }
-      .social-links a {
-        font-size: 1em;
-      }
-      .email {
-        font-size: 0.8em;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kira Jia Weddings | Modern Luxury Wedding Planning</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .hero-gradient {
+            background: linear-gradient(
+                rgba(50, 59, 74, 0.1), 
+                rgba(50, 59, 74, 0.3) 30%,
+                rgba(50, 59, 74, 0.7) 60%,
+                rgba(50, 59, 74, 0.85)
+            );
+        }
+        .nav-blur {
+            backdrop-filter: blur(10px);
+            background-color: rgba(248, 241, 222, 0.85);
+        }
+        .heading-font {
+            font-family: 'Aboreto', serif;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .nav-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+        }
+    </style>
 </head>
-<body>
-
-  <div class="container">
-    <div class="background-animation"></div>
-    <div class="overlay"></div>
-    <div class="content">
-        <div class="logo-space">
-        <!-- Replace with your logo image here -->
-        <!-- Example: <img src="static/logo2.png" alt="FANTOM Logo"> -->
-        <img src="static/logo2.png" alt="FANTOM Logo">
+<body style="background-color: #F8F1DE">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 nav-blur">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-20">
+                <a href="#" class="heading-font text-2xl tracking-wide" style="color: #323B4A">KIRA JIA</a>
+                <div class="hidden md:flex space-x-12 nav-text text-sm">
+                    <a href="#about" style="color: #323B4A">ABOUT</a>
+                    <a href="#services" style="color: #323B4A">SERVICES</a>
+                    <a href="#process" style="color: #323B4A">PROCESS</a>
+                    <a href="#portfolio" style="color: #323B4A">PORTFOLIO</a>
+                    <a href="#contact" style="color: #7C311E">CONTACT</a>
+                </div>
+            </div>
         </div>
-      <h1>Coming Fall 2025</h1>
-      <div class="countdown">
-        <div><span>Days</span><div id="days">00</div></div>
-        <div><span>Hours</span><div id="hours">00</div></div>
-        <div><span>Minutes</span><div id="minutes">00</div></div>
-        <div><span>Seconds</span><div id="seconds">00</div></div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative h-screen">
+        <div class="absolute inset-0">
+            <img src="/static/wedding2.jpg" alt="Luxury wedding setup" class="w-full h-full object-cover"/>
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+        <div class="relative h-full flex items-center justify-center text-center px-4">
+            <div class="max-w-3xl">
+                <h1 class="heading-font text-5xl mb-6" style="color: #F8F1DE">
+                    Creating Unforgettable Western & Chinese Weddings
+                </h1>
+                <p class="text-xl mb-2 font-light tracking-wide" style="color: #C5B177">
+                    为您打造难忘的中西式婚礼
+                </p>
+                <p class="text-lg mb-12 font-light tracking-wide" style="color: #F8F1DE">
+                    Through personalized planning and flawless execution
+                </p>
+                <a href="#contact" 
+                   class="nav-text inline-block border px-12 py-4 text-sm transition duration-300 hover:bg-white hover:bg-opacity-10" 
+                   style="color: #F8F1DE; border-color: #F8F1DE">
+                   BEGIN YOUR JOURNEY
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <img src="/static/jj_twa.jpg" alt="Kira Jia" class="w-full rounded-lg"/>
+                </div>
+                <div class="space-y-6">
+                    <h2 class="heading-font text-3xl" style="color: #323B4A">
+                        Bridging Cultures Through Celebration
+                    </h2>
+                    <div class="h-px w-24" style="background-color: #C5B177"></div>
+                    <p class="text-lg font-light tracking-wide" style="color: #7C311E">专业中英双语婚礼策划师</p>
+                    <p class="leading-relaxed font-light" style="color: #323B4A">
+                        With extensive experience in both event planning and nightlife management, I understand how to create 
+                        seamless celebrations that honor both Western and Chinese traditions while incorporating modern luxury elements.
+                    </p>
+                    <ul class="space-y-3 font-light" style="color: #323B4A">
+                        <li>• Bilingual & bicultural expertise</li>
+                        <li>• Luxury venue partnerships</li>
+                        <li>• Personalized entertainment curation</li>
+                        <li>• Detailed planning process</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 px-6" style="background-color: #323B4A">
+      <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-16">
+              <h2 class="heading-font text-3xl mb-4" style="color: #F8F1DE">Services</h2>
+              <p class="font-light tracking-wide" style="color: #C5B177">专业服务</p>
+          </div>
+          <div class="grid md:grid-cols-3 gap-8">
+              <div class="rounded-lg p-8" style="background-color: #F8F1DE">
+                  <div class="space-y-4">
+                      <div class="h-px w-12 mb-6" style="background-color: #C5B177"></div>
+                      <h3 class="heading-font text-xl mb-3" style="color: #323B4A">Day-of Coordination</h3>
+                      <p class="font-medium mb-6" style="color: #7C311E">婚礼当日协调</p>
+                      <ul class="text-sm space-y-4 font-light" style="color: #323B4A">
+                          <li>• Venue walkthrough & layout planning</li>
+                          <li>• Vendor coordination & timeline</li>
+                          <li>• Ceremony & reception management</li>
+                          <li>• Bilingual vendor communication</li>
+                          <li>• Full day coordination coverage</li>
+                      </ul>
+                  </div>
+              </div>
+  
+              <div class="rounded-lg p-8" style="background-color: #F8F1DE">
+                  <div class="space-y-4">
+                      <div class="h-px w-12 mb-6" style="background-color: #C5B177"></div>
+                      <h3 class="heading-font text-xl mb-3" style="color: #323B4A">Partial Planning</h3>
+                      <p class="font-medium mb-6" style="color: #7C311E">部分策划服务</p>
+                      <ul class="text-sm space-y-4 font-light" style="color: #323B4A">
+                          <li>• Vendor recommendations & booking</li>
+                          <li>• Design & styling consultation</li>
+                          <li>• Budget management assistance</li>
+                          <li>• Monthly planning sessions</li>
+                          <li>• Day-of coordination included</li>
+                      </ul>
+                  </div>
+              </div>
+  
+              <div class="rounded-lg p-8" style="background-color: #F8F1DE">
+                  <div class="space-y-4">
+                      <div class="h-px w-12 mb-6" style="background-color: #C5B177"></div>
+                      <h3 class="heading-font text-xl mb-3" style="color: #323B4A">Full Planning</h3>
+                      <p class="font-medium mb-6" style="color: #7C311E">全程策划服务</p>
+                      <ul class="text-sm space-y-4 font-light" style="color: #323B4A">
+                          <li>• Comprehensive planning & design</li>
+                          <li>• Custom vendor curation</li>
+                          <li>• Custom mood boad creation</li>
+                          <li>• Cultural element integration</li>
+                          <li>• Premium day-of coordination</li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
       </div>
-
+  </section>
+  <section id="portfolio" class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <h2 class="heading-font text-3xl mb-4" style="color: #323B4A">Featured Wedding</h2>
+            <p class="font-light tracking-wide" style="color: #C5B177">精选婚礼</p>
+        </div>
+        
+        <!-- Wedding Showcase -->
+        <div class="grid md:grid-cols-2 gap-16">
+            <!-- Left Column - Images -->
+            <div class="space-y-8">
+                <img src="/static/jj_twa.jpg" alt="Jialin and Jon's TWA Hotel ceremony" class="w-full rounded-lg shadow-lg"/>
+                <div class="grid grid-cols-2 gap-4">
+                    <img src="/static/jj_dance2.png" alt="TWA Hotel wedding details" class="w-full rounded-lg shadow-lg"/>
+                    <img src="/static/jj_plane.png" alt="TWA Hotel wedding reception" class="w-full rounded-lg shadow-lg"/>
+                </div>
+            </div>
+            
+            <!-- Right Column - Details -->
+            <div class="space-y-8">
+                <div>
+                    <h3 class="heading-font text-2xl mb-3" style="color: #323B4A">Jialin & Jonathan</h3>
+                    <p class="font-light text-lg mb-2" style="color: #7C311E">TWA Hotel, JFK Airport</p>
+                    <div class="h-px w-24 mb-6" style="background-color: #C5B177"></div>
+                </div>
+                
+                <div class="space-y-6 font-light leading-relaxed" style="color: #323B4A">
+                    <p>
+                        A modern celebration that beautifully merged Chinese and Western traditions within the iconic TWA Hotel. 
+                        This stunning mid-century modern venue provided the perfect backdrop for a wedding that honored both 
+                        cultures while embracing contemporary luxury.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <h4 class="heading-font text-lg mb-2" style="color: #323B4A">Wedding Highlights</h4>
+                        <ul class="space-y-3">
+                            <li>• Traditional Chinese tea ceremony in the TWA Hotel's signature sunken lounge</li>
+                            <li>• Western ceremony with personalized bilingual vows</li>
+                            <li>• Fusion menu featuring both Chinese banquet and American cuisines</li>
+                            <li>• Custom cocktails inspired by the couple's travels</li>
+                            <li>• Bilingual MC services throughout the reception</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="italic" style="color: #7C311E">
+                        "Kira's understanding of both cultures made our fusion wedding absolutely perfect. She knew exactly how to 
+                        blend traditions while keeping everything modern and elegant."
+                        <div class="mt-2 font-medium">- Jialin & Jon</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="email">
-        <a href="mailto:jeremy@fantom-nyc.com" style="color: #c5a775; text-decoration: none;">
-            <i class="fas fa-envelope"></i> jeremy@fantom-nyc.com
-          </a>
-    </div>
-  </div>
-
-  <script>
-    // Set the date we're counting down to
-    const countdownDate = new Date("Sep 1, 2025 23:59:59").getTime();
-
-    // Update the countdown every 1 second
-    const countdownFunction = setInterval(function() {
-      const now = new Date().getTime();
-      const distance = countdownDate - now;
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      document.getElementById("days").innerHTML = days;
-      document.getElementById("hours").innerHTML = hours;
-      document.getElementById("minutes").innerHTML = minutes;
-      document.getElementById("seconds").innerHTML = seconds;
-
-      if (distance < 0) {
-        clearInterval(countdownFunction);
-        document.querySelector(".countdown").innerHTML = "We're Open!";
-      }
-    }, 1000);
-  </script>
-
-  <!-- FontAwesome for social media icons -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</section>
+    <!-- Rest of sections follow same pattern -->
 
 </body>
 </html>

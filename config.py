@@ -16,9 +16,12 @@ class Config(object):
     USER_REQUIRE_INVITATION = True
     USER_ENABLE_INVITE_USER = True
     CSRF_ENABLED = True
-    SERVER_NAME = os.environ.get('SERVER_NAME') or 'kirajiaevents.com'
+    SERVER_NAME = os.environ.get('SERVER_NAME') or 'localhost:5000'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     MAX_CONTENT_LENGTH = 64 * 1024 * 1024
     ROOT_DIRECTORY = os.path.dirname(__file__)
 
     LOG_DIR = os.path.join(ROOT_DIRECTORY, 'logs')
+    SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
+    SENDGRID_FROM_EMAIL = os.environ.get('SENDGRID_FROM_EMAIL', 'kira@kirajiaevents.com')
+    SENDGRID_FROM_NAME = os.environ.get('SENDGRID_FROM_NAME', 'Kira Jia Weddings')

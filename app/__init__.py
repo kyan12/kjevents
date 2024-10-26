@@ -5,6 +5,7 @@ Main App
 import os
 import logging
 import smtplib
+from sendgrid import SendGridAPIClient
 from logging.handlers import TimedRotatingFileHandler
 from flask import Flask, request, current_app
 from flask_sqlalchemy import SQLAlchemy
@@ -17,6 +18,18 @@ from flask_user.signals import user_sent_invitation, user_registered
 db = SQLAlchemy()
 migrate = Migrate()
 bootstrap = Bootstrap()
+sg = None
+
+def init_sendgrid(app):
+    """Initialize SendGrid client with app config"""
+    global sg
+    try:
+        sg = SendGridAPIClient(app.config['SENDGRID_API_KEY'])
+        app.logger.info('SendGrid initialized successfully')
+    except Exception as e:
+        app.logger.error(f'SendGrid initialization failed: {str(e)}')
+        sg = None
+
 
 def create_app(config_class=Config):
     app = Flask(__name__, subdomain_matching=True)
@@ -24,6 +37,8 @@ def create_app(config_class=Config):
 
     db.init_app(app)
     migrate.init_app(app, db)
+
+    init_sendgrid(app)
 
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)

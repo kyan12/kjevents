@@ -346,19 +346,20 @@
                     </div>
                     <div class="flex items-center space-x-4">
                         <div class="w-8 h-px" style="background-color: #C5B177"></div>
-                        <p class="font-light" style="color: #323B4A">Email: hello@kirajiaweddings.com</p>
+                        <p class="font-light" style="color: #323B4A">Email: kira@kirajiaevents.com</p>
                     </div>
                 </div>
             </div>
 
             <!-- Right Column - Contact Form -->
             <div class="rounded-lg p-8" style="background-color: #323B4A">
-                <form class="space-y-6">
+                <form id="contactForm" class="space-y-6" onsubmit="handleSubmit(event)">
                     <!-- Name Fields -->
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm mb-2 font-light" style="color: #F8F1DE">First Name</label>
                             <input type="text" 
+                                   name="firstName"
                                    class="w-full p-3 rounded-lg font-light focus:outline-none focus:ring-2 transition duration-200" 
                                    style="background-color: #F8F1DE; color: #323B4A; border: 1px solid #C5B177;"
                                    required>
@@ -366,6 +367,7 @@
                         <div>
                             <label class="block text-sm mb-2 font-light" style="color: #F8F1DE">Last Name</label>
                             <input type="text" 
+                                   name="lastName"
                                    class="w-full p-3 rounded-lg font-light focus:outline-none focus:ring-2 transition duration-200" 
                                    style="background-color: #F8F1DE; color: #323B4A; border: 1px solid #C5B177;"
                                    required>
@@ -376,6 +378,7 @@
                     <div>
                         <label class="block text-sm mb-2 font-light" style="color: #F8F1DE">Email</label>
                         <input type="email" 
+                               name="email"
                                class="w-full p-3 rounded-lg font-light focus:outline-none focus:ring-2 transition duration-200" 
                                style="background-color: #F8F1DE; color: #323B4A; border: 1px solid #C5B177;"
                                required>
@@ -384,6 +387,7 @@
                     <div>
                         <label class="block text-sm mb-2 font-light" style="color: #F8F1DE">Phone (Optional)</label>
                         <input type="tel" 
+                               name="phone"
                                class="w-full p-3 rounded-lg font-light focus:outline-none focus:ring-2 transition duration-200" 
                                style="background-color: #F8F1DE; color: #323B4A; border: 1px solid #C5B177;">
                     </div>
@@ -392,19 +396,28 @@
                     <div>
                         <label class="block text-sm mb-2 font-light" style="color: #F8F1DE">Wedding Date (if known)</label>
                         <input type="date" 
+                               name="weddingDate"
                                class="w-full p-3 rounded-lg font-light focus:outline-none focus:ring-2 transition duration-200" 
                                style="background-color: #F8F1DE; color: #323B4A; border: 1px solid #C5B177;">
                     </div>
 
                     <div>
                         <label class="block text-sm mb-2 font-light" style="color: #F8F1DE">Tell us about your vision</label>
-                        <textarea class="w-full p-3 rounded-lg font-light focus:outline-none focus:ring-2 transition duration-200 h-32" 
+                        <textarea name="vision"
+                                  class="w-full p-3 rounded-lg font-light focus:outline-none focus:ring-2 transition duration-200 h-32" 
                                   style="background-color: #F8F1DE; color: #323B4A; border: 1px solid #C5B177;"
                                   required></textarea>
                     </div>
 
+                    <!-- Message Display for Success/Error -->
+                    <div id="messageDisplay" 
+                         class="hidden rounded-lg p-4 text-center font-light"
+                         style="background-color: #F8F1DE; color: #323B4A;">
+                    </div>
+
                     <!-- Submit Button -->
                     <button type="submit" 
+                            id="submitButton"
                             class="w-full p-4 rounded-lg nav-text transition duration-300 hover:bg-opacity-90" 
                             style="background-color: #C5B177; color: #323B4A">
                         SEND MESSAGE
@@ -413,6 +426,66 @@
             </div>
         </div>
     </div>
+
+    <script>
+        async function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Get form and message elements
+            const form = event.target;
+            const submitButton = document.getElementById('submitButton');
+            const messageDisplay = document.getElementById('messageDisplay');
+            
+            // Update button state
+            submitButton.disabled = true;
+            submitButton.textContent = 'SENDING...';
+            messageDisplay.classList.add('hidden');
+            
+            try {
+                // Collect form data
+                const formData = {
+                    firstName: form.firstName.value,
+                    lastName: form.lastName.value,
+                    email: form.email.value,
+                    phone: form.phone.value,
+                    weddingDate: form.weddingDate.value,
+                    vision: form.vision.value
+                };
+                
+                // Send form data to backend
+                const response = await fetch('/submit_contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                // Show success message
+                if (response.ok) {
+                    messageDisplay.style.backgroundColor = '#F8F1DE';
+                    messageDisplay.style.color = '#323B4A';
+                    messageDisplay.classList.remove('hidden');
+                    messageDisplay.textContent = 'Thank you for your message! We will be in touch soon.';
+                    form.reset();
+                } else {
+                    throw new Error(result.message || 'Failed to send message');
+                }
+            } catch (error) {
+                // Show error message
+                messageDisplay.style.backgroundColor = '#7C311E';
+                messageDisplay.style.color = '#F8F1DE';
+                messageDisplay.classList.remove('hidden');
+                messageDisplay.textContent = 'There was an error sending your message. Please try again later.';
+            } finally {
+                // Reset button state
+                submitButton.disabled = false;
+                submitButton.textContent = 'SEND MESSAGE';
+            }
+        }
+    </script>
 </section>
     <!-- Rest of sections follow same pattern -->
 

@@ -33,7 +33,7 @@ a {
 
 /* Global Typography Defaults */
 h1, h2, h3, h4 {
-  font-family: var(--font-hello-paris), serif;
+  font-family: var(--font-aboreto), serif;
   font-weight: 400;
   color: var(--text-main);
 }

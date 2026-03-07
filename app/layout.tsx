@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Montserrat } from 'next/font/google';
+import { Montserrat, Aboreto } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 
@@ -15,6 +15,13 @@ const montserrat = Montserrat({
   display: 'swap',
 });
 
+const aboreto = Aboreto({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-aboreto',
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
   title: 'Kira Jia Events | Refined, Intentional & Deeply Personal',
   description: 'Bespoke weddings blending Western elegance, Chinese heritage, and modern fusion storytelling. Curated experiences at every scale.',
@@ -26,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${helloParis.variable} ${montserrat.variable}`}>
+    <html lang="en" className={`${helloParis.variable} ${montserrat.variable} ${aboreto.variable}`}>
       <body className="font-sans antialiased">
         {children}
       </body>

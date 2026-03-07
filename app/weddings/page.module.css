@@ -278,7 +278,7 @@
 
 .venueLoc {
   display: block;
-  font-family: var(--font-hello-paris);
+  font-family: var(--font-aboreto);
   font-size: 1.1rem;
   margin-bottom: 2rem;
   color: var(--text-main); /* Was taupe, now main text color for contrast */

@@ -122,7 +122,7 @@ export default function WeddingsPage() {
           <div className={styles.featureContent}>
             <h3>Jialin & Jonathan</h3>
             <p className={styles.testimonial}>
-              "Kira knew exactly how to blend traditions while keeping everything modern and elegant... our wedding went so smoothly because she facilitated the whole thing."
+              "Kira brought structure, calm, and intention to every part of our wedding. She understood exactly how to blend our traditions while keeping the entire day elegant and seamless. From planning through day-of coordination, she was incredibly organized, proactive with vendors and family, and always one step ahead. Because of her, we were fully present and able to enjoy every moment without stress."
             </p>
           </div>
         </div>

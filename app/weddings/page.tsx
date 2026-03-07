@@ -36,10 +36,16 @@ export default function WeddingsPage() {
             </ul>
           </div>
           
-          <div className={styles.availabilityCard}>
-            <h3>Availability</h3>
-            <p><strong>2026:</strong> Currently accepting Wedding Day Management Inquiries, with limited Partial Planning engagements.</p>
-            <p><strong>2027:</strong> Full Planning inquiries are now open.</p>
+          <div className={styles.aboutSide}>
+            <div className={styles.kiraPortraitWrapper}>
+              <Image src="/images/kira_portrait.jpg" alt="Kira Jia" fill style={{ objectFit: 'cover' }} priority />
+            </div>
+
+            <div className={styles.availabilityCard}>
+              <h3>Availability</h3>
+              <p><strong>2026:</strong> Currently accepting Wedding Day Management Inquiries, with limited Partial Planning engagements.</p>
+              <p><strong>2027:</strong> Full Planning inquiries are now open.</p>
+            </div>
           </div>
         </div>
       </section>

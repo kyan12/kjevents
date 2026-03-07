@@ -80,12 +80,6 @@
   align-items: start;
 }
 
-.aboutSide {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
 .kiraPortraitWrapper {
   position: relative;
   width: 100%;
@@ -142,6 +136,46 @@
 .availabilityCard p {
   margin-bottom: 1rem;
   line-height: 1.6;
+}
+
+.availabilityCardWide {
+  max-width: 1200px;
+  margin: 2.5rem auto 0;
+  background-color: var(--secondary-bg);
+  padding: 2.2rem 2.5rem;
+  border-left: 4px solid var(--accent-garnet);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2rem;
+}
+
+.availabilityCardWide h3 {
+  font-size: 1.35rem;
+  color: var(--accent-garnet);
+  margin-right: 1rem;
+}
+
+.availabilityCardWide p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.availabilityCta {
+  margin-left: auto;
+  text-decoration: none;
+  border: 1px solid var(--accent-garnet);
+  color: var(--accent-garnet);
+  padding: 0.7rem 1.3rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  transition: all 0.25s ease;
+}
+
+.availabilityCta:hover {
+  background-color: var(--accent-garnet);
+  color: var(--primary-bg);
 }
 
 /* Services */
@@ -364,11 +398,33 @@
   .servicesGrid {
     gap: 2rem;
   }
-  
+
+  .availabilityCardWide {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    display: block;
+  }
+
+  .availabilityCardWide h3 {
+    margin: 0 0 0.8rem;
+  }
+
+  .availabilityCardWide p {
+    margin-bottom: 0.65rem;
+  }
+
+  .availabilityCta {
+    display: inline-block;
+    margin: 0.8rem 0 0;
+  }
   
   .featureBlock, .featureBlockAlternate {
     grid-template-columns: 1fr;
     padding: 2rem;
     gap: 2rem;
+  }
+
+  .felicityBottomRow {
+    gap: 0.9rem;
   }
 }

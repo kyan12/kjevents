@@ -36,17 +36,16 @@ export default function WeddingsPage() {
             </ul>
           </div>
           
-          <div className={styles.aboutSide}>
-            <div className={styles.kiraPortraitWrapper}>
-              <Image src="/images/kira_portrait.jpg" alt="Kira Jia" fill style={{ objectFit: 'cover' }} priority />
-            </div>
-
-            <div className={styles.availabilityCard}>
-              <h3>Availability</h3>
-              <p><strong>2026:</strong> Currently accepting Wedding Day Management Inquiries, with limited Partial Planning engagements.</p>
-              <p><strong>2027:</strong> Full Planning inquiries are now open.</p>
-            </div>
+          <div className={styles.kiraPortraitWrapper}>
+            <Image src="/images/kira_portrait.jpg" alt="Kira Jia" fill style={{ objectFit: 'cover' }} priority />
           </div>
+        </div>
+
+        <div className={styles.availabilityCardWide}>
+          <h3>Availability</h3>
+          <p><strong>2026:</strong> Currently accepting Wedding Day Management Inquiries, with limited Partial Planning engagements.</p>
+          <p><strong>2027:</strong> Full Planning inquiries are now open.</p>
+          <a href="#contact" className={styles.availabilityCta}>Inquire About Your Date</a>
         </div>
       </section>
 
@@ -138,7 +137,7 @@ export default function WeddingsPage() {
                 <Image src="/images/felicity-detail.jpg" alt="Felicity and Leon invitation details" fill style={{ objectFit: 'cover' }} />
               </div>
               <div className={styles.imageWrapper}>
-                <Image src="/images/felicity-stairs-couple.jpg" alt="Felicity and Leon walking down the staircase" fill style={{ objectFit: 'cover' }} />
+                <Image src="/images/felicity-flowers.jpg" alt="Felicity and Leon bridal bouquet detail" fill style={{ objectFit: 'cover' }} />
               </div>
             </div>
           </div>
@@ -161,7 +160,9 @@ export default function WeddingsPage() {
         </div>
       </section>
 
-      <ContactForm />
+      <section id="contact">
+        <ContactForm />
+      </section>
 
     </main>
   );

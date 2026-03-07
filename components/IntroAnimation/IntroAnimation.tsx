@@ -58,7 +58,7 @@ export default function IntroAnimation() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ delay: 1.4, duration: 1, ease: 'easeOut' }}
             >
-              KIRA JIA EVENTS
+              Kira Jia Events
             </motion.div>
           </div>
         </motion.div>

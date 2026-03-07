@@ -1,15 +1,47 @@
 :root {
-  --primary-bg: #F3EFEA;
-  --secondary-bg: #ECE6DD;
-  --warm-taupe: #7A6B61;
-  --accent-garnet: #6E0F17;
-  --text-main: #2F2A28;
+  /* OKLCH Color Palette - Editorial Fine Art */
+  /* Primary Backgrounds */
+  --color-primary-bg: oklch(96% 0.01 70); /* Soft parchment/bone */
+  --color-secondary-bg: oklch(92% 0.015 70); /* Deeper parchment */
+  --color-surface-glass: oklch(96% 0.01 70 / 0.6);
   
-  /* Other Events Palette */
+  /* Text and Accents */
+  --color-text-main: oklch(25% 0.01 70); /* Very dark taupe, near black */
+  --color-text-muted: oklch(50% 0.01 70);
+  
+  --color-warm-taupe-300: oklch(75% 0.03 60);
+  --color-warm-taupe-500: oklch(65% 0.04 60); /* Base warm taupe */
+  --color-warm-taupe-800: oklch(45% 0.04 60);
+  
+  --color-accent-garnet-300: oklch(55% 0.12 15);
+  --color-accent-garnet-500: oklch(42% 0.12 15); /* Deep rich garnet */
+  --color-accent-garnet-800: oklch(28% 0.09 15);
+
+  /* Other Events Palette (Kept for backwards compatibility if used elsewhere) */
   --events-bg: #2D302F;
   --events-accent: #C5A059;
   --events-text: #D7D0C7;
   --events-secondary: #7A5938;
+
+  /* Spacing Tokens */
+  --sp-xs: 0.5rem;   /* 8px */
+  --sp-sm: 1rem;     /* 16px */
+  --sp-md: 2rem;     /* 32px */
+  --sp-lg: 4rem;     /* 64px */
+  --sp-xl: 6rem;     /* 96px */
+  --sp-xxl: 10rem;   /* 160px */
+
+  /* Easing & Animation */
+  --ease-lux: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-slow: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 0.3s;
+  --duration-medium: 0.6s;
+  --duration-slow: 1.2s;
+  
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-pill: 9999px;
 }
 
 * {
@@ -22,8 +54,10 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  background-color: var(--primary-bg);
-  color: var(--text-main);
+  background-color: var(--color-primary-bg);
+  color: var(--color-text-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -35,10 +69,18 @@ a {
 h1, h2, h3, h4 {
   font-family: var(--font-aboreto), serif;
   font-weight: 400;
-  color: var(--text-main);
+  color: var(--color-text-main);
+  line-height: 1.1;
 }
 
 p, li, span, button {
   font-family: var(--font-montserrat), sans-serif;
-  color: var(--text-main);
+  color: var(--color-text-main);
+}
+
+/* Fluid type for main mobile constraints */
+p, li {
+  font-size: clamp(1rem, 1vw + 0.5rem, 1.1rem);
+  line-height: 1.8;
+  font-weight: 300;
 }

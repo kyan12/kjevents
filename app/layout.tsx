@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Montserrat, Aboreto } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
+import SmoothScroll from '@/components/SmoothScroll';
 
 const helloParis = localFont({
   src: '../public/fonts/hello-paris-serif.ttf',
@@ -35,7 +36,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${helloParis.variable} ${montserrat.variable} ${aboreto.variable}`}>
       <body className="font-sans antialiased">
-        {children}
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );

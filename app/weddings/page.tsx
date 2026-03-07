@@ -117,7 +117,7 @@ export default function WeddingsPage() {
         
         <div className={styles.featureBlock}>
           <div className={styles.imageWrapper}>
-            <Image src="/images/wedding_staircase.jpg" alt="Jialin & Jonathan Wedding Celebration" fill style={{ objectFit: 'cover' }} />
+            <Image src="/images/jialin-jonathan-ceremony.jpg" alt="Jialin & Jonathan wedding ceremony" fill style={{ objectFit: 'cover' }} />
           </div>
           <div className={styles.featureContent}>
             <h3>Jialin & Jonathan</h3>

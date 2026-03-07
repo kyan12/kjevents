@@ -260,7 +260,7 @@
 .featureBlockAlternate {
   background-color: var(--primary-bg);
   border: 1px solid var(--secondary-bg);
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: 1.05fr 1fr;
 }
 
 .imageWrapper {
@@ -279,10 +279,20 @@
   overflow: hidden;
 }
 
-.galleryWrapper {
+.felicityGallery {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.25rem;
+}
+
+.felicityBottomRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.felicityBottomRow .imageWrapper {
+  aspect-ratio: 3 / 4;
 }
 
 .featureContent h3 {

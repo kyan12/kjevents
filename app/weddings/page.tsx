@@ -129,6 +129,20 @@ export default function WeddingsPage() {
         </div>
 
         <div className={styles.featureBlockAlternate}>
+          <div className={styles.felicityGallery}>
+            <div className={styles.imageWrapperWide}>
+              <Image src="/images/felicity-stairs-group.jpg" alt="Felicity and Leon wedding portrait on the staircase" fill style={{ objectFit: 'cover' }} />
+            </div>
+            <div className={styles.felicityBottomRow}>
+              <div className={styles.imageWrapper}>
+                <Image src="/images/felicity-detail.jpg" alt="Felicity and Leon invitation details" fill style={{ objectFit: 'cover' }} />
+              </div>
+              <div className={styles.imageWrapper}>
+                <Image src="/images/felicity-stairs-couple.jpg" alt="Felicity and Leon walking down the staircase" fill style={{ objectFit: 'cover' }} />
+              </div>
+            </div>
+          </div>
+
           <div className={styles.featureContent}>
             <h3>Felicity & Leon</h3>
             <span className={styles.venueLoc}>The Mansion at Glen Cove, Long Island</span>
@@ -143,14 +157,6 @@ export default function WeddingsPage() {
                 <li>Bilingual coordination with vendors, guests, and family members</li>
               </ul>
             </div>
-          </div>
-          <div className={styles.galleryWrapper}>
-             <div className={styles.imageWrapperWide}>
-               <Image src="/images/wedding_mansion_ext.jpg" alt="The Mansion at Glen Cove Exterior" fill style={{ objectFit: 'cover' }} />
-             </div>
-             <div className={styles.imageWrapper}>
-               <Image src="/images/wedding_mansion_group.jpg" alt="Bridal Party Group Photo" fill style={{ objectFit: 'cover' }} />
-             </div>
           </div>
         </div>
       </section>

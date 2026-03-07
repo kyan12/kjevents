@@ -30,13 +30,13 @@
 
 .letterK {
   transform-origin: center right;
-  margin-right: 3rem;
+  margin-right: 3.8rem;
   margin-bottom: 2.5rem;
 }
 
 .letterJ {
   transform-origin: center left;
-  margin-left: 3rem;
+  margin-left: 3.8rem;
   margin-top: 2.5rem;
 }
 
@@ -48,7 +48,7 @@
   letter-spacing: 0.25em;
   font-weight: 400;
   background-color: var(--primary-bg);
-  padding: 0.5rem 1.5rem;
+  padding: 0.3rem 1.5rem;
   text-align: center;
 }
 
@@ -59,17 +59,17 @@
   }
   
   .letterK {
-    margin-right: 2rem;
+    margin-right: 2.5rem;
     margin-bottom: 1.5rem;
   }
   
   .letterJ {
-    margin-left: 2rem;
+    margin-left: 2.5rem;
     margin-top: 1.5rem;
   }
   
   .fullName {
     font-size: 1rem;
-    padding: 0.5rem 1rem;
+    padding: 0.3rem 1rem;
   }
 }

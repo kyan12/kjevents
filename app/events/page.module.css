@@ -87,6 +87,7 @@
 .divisionHeader h2 {
   font-size: 2rem;
   line-height: 1.3;
+  color: var(--events-text);
 }
 
 .divisionDesc {
@@ -163,6 +164,7 @@
 .testimonialsTitle {
   font-size: 2.5rem;
   margin-bottom: 2rem;
+  color: var(--events-text);
 }
 
 .testimonialsPending {

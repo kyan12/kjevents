@@ -1,10 +1,20 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import styles from './SplitScreen.module.css';
 
 export default function SplitScreen() {
+  const [contentDelay, setContentDelay] = useState(3.5);
+
+  useEffect(() => {
+    const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
+    if (hasSeenIntro) {
+      setContentDelay(0.2);
+    }
+  }, []);
+
   return (
     <section className={styles.container}>
       <Link href="/weddings" className={`${styles.half} ${styles.weddings}`}>
@@ -18,7 +28,7 @@ export default function SplitScreen() {
           className={styles.content}
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 3.5, duration: 1 }} // delayed to appear after intro animation
+          transition={{ delay: contentDelay, duration: 1 }}
         >
           <span className={styles.category}>Kira Jia</span>
           <h2 className={styles.title}>Weddings</h2>
@@ -37,7 +47,7 @@ export default function SplitScreen() {
           className={styles.content}
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 3.7, duration: 1 }} // slightly staggered after weddings
+          transition={{ delay: contentDelay + 0.2, duration: 1 }}
         >
           <span className={styles.category}>Kira Jia</span>
           <h2 className={styles.title}>Events</h2>

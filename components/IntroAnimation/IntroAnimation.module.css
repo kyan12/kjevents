@@ -50,7 +50,7 @@
   line-height: 1;
   display: inline-block;
   background-color: var(--primary-bg);
-  padding: 0 1.5rem;
+  padding: 0.08rem 1.5rem;
   text-align: center;
 }
 
@@ -72,6 +72,6 @@
   
   .fullName {
     font-size: 1rem;
-    padding: 0 1rem;
+    padding: 0.06rem 1rem;
   }
 }

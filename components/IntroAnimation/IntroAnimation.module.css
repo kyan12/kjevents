@@ -1,0 +1,75 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background-color: var(--primary-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-hello-paris);
+  color: var(--text-main);
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.letterK, .letterJ {
+  position: absolute;
+  font-size: 8rem;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.letterK {
+  transform-origin: center right;
+  margin-right: 3rem;
+  margin-bottom: 2.5rem;
+}
+
+.letterJ {
+  transform-origin: center left;
+  margin-left: 3rem;
+  margin-top: 2.5rem;
+}
+
+.fullName {
+  position: absolute;
+  z-index: 10;
+  font-family: var(--font-hello-paris);
+  font-size: 1.2rem;
+  letter-spacing: 0.25em;
+  font-weight: 400;
+  background-color: var(--primary-bg);
+  padding: 0.5rem 1.5rem;
+  text-align: center;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .letterK, .letterJ {
+    font-size: 5rem;
+  }
+  
+  .letterK {
+    margin-right: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .letterJ {
+    margin-left: 2rem;
+    margin-top: 1.5rem;
+  }
+  
+  .fullName {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+}

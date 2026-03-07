@@ -1,0 +1,349 @@
+.main {
+  background-color: var(--primary-bg);
+  min-height: 100vh;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  height: 90vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-image: url('/images/wedding_hero.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(47, 42, 40, 0.5), rgba(47, 42, 40, 0.8));
+  z-index: 1;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 2rem;
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  color: var(--primary-bg);
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.heroSubtext {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--primary-bg); /* changed from secondary-bg for better contrast against dark overlay */
+  margin-bottom: 3rem;
+  font-weight: 300;
+}
+
+.journeyBtn {
+  background: transparent;
+  color: var(--primary-bg);
+  border: 1px solid var(--primary-bg);
+  padding: 1rem 3rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.journeyBtn:hover {
+  background-color: var(--primary-bg);
+  color: var(--text-main);
+}
+
+/* About */
+.aboutSection {
+  padding: 8rem 2rem;
+  background-color: var(--primary-bg);
+}
+
+.aboutContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.aboutText p {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+.aboutList {
+  list-style-type: none;
+  margin-top: 2rem;
+}
+
+.aboutList li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.aboutList li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--accent-garnet); /* Darker and more visible than taupe */
+}
+
+.availabilityCard {
+  background-color: var(--secondary-bg);
+  padding: 3rem;
+  border-left: 4px solid var(--accent-garnet);
+}
+
+.availabilityCard h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--accent-garnet);
+}
+
+.availabilityCard p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+/* Services */
+.servicesSection {
+  padding: 8rem 2rem;
+  background-color: var(--secondary-bg);
+  text-align: center;
+}
+
+.servicesHeader {
+  font-size: 2.5rem;
+  margin-bottom: 4rem;
+}
+
+.servicesGrid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  text-align: left;
+}
+
+.serviceCard {
+  background-color: var(--primary-bg);
+  padding: 3rem 2rem;
+  border-top: 2px solid var(--warm-taupe);
+  transition: transform 0.3s ease;
+}
+
+.serviceCard:hover {
+  transform: translateY(-10px);
+}
+
+.serviceCard h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.chineseSubtext {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-main); /* Higher contrast than taupe */
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+.serviceDesc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  min-height: 100px;
+}
+
+.serviceList {
+  list-style-type: none;
+}
+
+.serviceList li {
+  font-size: 0.9rem;
+  padding-left: 1.2rem;
+  position: relative;
+  margin-bottom: 0.8rem;
+  line-height: 1.4;
+}
+
+.serviceList li::before {
+  content: '-';
+  position: absolute;
+  left: 0;
+  color: var(--accent-garnet); /* Stronger indicator */
+  font-weight: bold;
+}
+
+.servicesBottom {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.pricingNote {
+  font-style: italic;
+  color: var(--warm-taupe);
+}
+
+.servicesImageWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  aspect-ratio: 16/9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Featured */
+.featuredSection {
+  padding: 8rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.featureBlock, .featureBlockAlternate {
+  margin-top: 4rem;
+  padding: 4rem;
+  background-color: var(--secondary-bg);
+  border-radius: 8px; /* Slight soft edge */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.featureBlockAlternate {
+  background-color: var(--primary-bg);
+  border: 1px solid var(--secondary-bg);
+  grid-template-columns: 1fr 1.2fr;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.imageWrapperWide {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.galleryWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.featureContent h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--accent-garnet);
+}
+
+.venueLoc {
+  display: block;
+  font-family: var(--font-hello-paris);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: var(--text-main); /* Was taupe, now main text color for contrast */
+  font-weight: bold;
+}
+
+.testimonial {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  font-style: italic;
+  color: var(--text-main);
+  border-left: 3px solid var(--accent-garnet);
+  padding-left: 1.5rem;
+}
+
+/* Overriding feature text for alternate block */
+.featureBlockAlternate p {
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.highlightsContainer h4 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.highlightsContainer ul {
+  list-style-type: none;
+}
+
+.highlightsContainer li {
+  margin-bottom: 0.8rem;
+  line-height: 1.5;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.highlightsContainer li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--accent-garnet);
+  font-size: 0.8rem;
+  top: 3px;
+}  
+
+/* Mobile Adjustments */
+@media (max-width: 900px) {
+  .aboutContainer, .servicesGrid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+  
+  .servicesGrid {
+    gap: 2rem;
+  }
+  
+  
+  .featureBlock, .featureBlockAlternate {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+    gap: 2rem;
+  }
+}

@@ -1,0 +1,44 @@
+:root {
+  --primary-bg: #F3EFEA;
+  --secondary-bg: #ECE6DD;
+  --warm-taupe: #7A6B61;
+  --accent-garnet: #6E0F17;
+  --text-main: #2F2A28;
+  
+  /* Other Events Palette */
+  --events-bg: #2D302F;
+  --events-accent: #C5A059;
+  --events-text: #D7D0C7;
+  --events-secondary: #7A5938;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--primary-bg);
+  color: var(--text-main);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Global Typography Defaults */
+h1, h2, h3, h4 {
+  font-family: var(--font-hello-paris), serif;
+  font-weight: 400;
+  color: var(--text-main);
+}
+
+p, li, span, button {
+  font-family: var(--font-montserrat), sans-serif;
+  color: var(--text-main);
+}

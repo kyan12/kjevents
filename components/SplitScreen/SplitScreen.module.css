@@ -1,0 +1,93 @@
+.container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--primary-bg);
+}
+
+.half {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+}
+
+.weddings {
+  background-image: url('/images/wedding_hero.png');
+}
+
+.otherEvents {
+  background-image: url('/images/other_hero_1.png');
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background-color: rgba(47, 42, 40, 0.5); /* Stronger default contrast */
+}
+
+.content {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--text-main);
+}
+
+.category {
+  font-family: var(--font-montserrat);
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  color: var(--secondary-bg); /* Use light sand for better contrast on dark images instead of garnet */
+  font-weight: 500;
+}
+
+.title {
+  font-family: var(--font-aboreto);
+  font-size: 4.5rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  margin-bottom: 2rem;
+  color: var(--primary-bg);
+}
+
+.exploreBtn {
+  font-family: var(--font-montserrat);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--primary-bg);
+  padding-bottom: 0.25rem;
+  transition: opacity 0.3s ease;
+  opacity: 0.8;
+  color: var(--primary-bg);
+}
+
+.half:hover .exploreBtn {
+  opacity: 1;
+}
+
+/* Mobile Adjustments (Stacked) */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .title {
+    font-size: 3.5rem;
+  }
+}

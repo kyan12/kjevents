@@ -16,7 +16,7 @@ const testimonials = [
   {
     quote: "Kira brought structure, calm, and intention to every part of our wedding. She understood exactly how to blend our traditions while keeping the entire day elegant and seamless. From planning through day-of coordination, she was incredibly organized, proactive with vendors and family, and always one step ahead. Because of her, we were fully present and able to enjoy every moment without stress.",
     name: "JIALIN & JONATHAN",
-    detail: "New York, 2024",
+    detail: "TWA Hotel, JFK",
     featuredImage: { src: '/images/jialin-jonathan-ceremony.jpg', alt: 'Jialin & Jonathan wedding ceremony' },
     detailImage: null as { src: string; alt: string } | null,
     imagePosition: 'left' as const,

@@ -1,19 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import styles from './SplitScreen.module.css';
 
 export default function SplitScreen() {
-  const [contentDelay, setContentDelay] = useState(3.5);
-
-  useEffect(() => {
-    const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
-    if (hasSeenIntro) {
-      setContentDelay(0.2);
-    }
-  }, []);
+  const contentDelay = 3.5;
 
   return (
     <section className={styles.container}>

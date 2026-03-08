@@ -1,15 +1,16 @@
 "use client";
 
 import { motion, Variants } from 'framer-motion';
+import { Separator } from '@/components/ui/separator';
 import styles from './EventsProcess.module.css';
 
 const steps = [
-  { n: '01', title: 'DISCOVER', desc: 'Brief intake & alignment' },
-  { n: '02', title: 'STRATEGY', desc: 'Venue & budget planning' },
-  { n: '03', title: 'DESIGN', desc: 'Creative concept & theme' },
-  { n: '04', title: 'PRODUCTION', desc: 'Vendor & logistics mgmt' },
-  { n: '05', title: 'EXECUTION', desc: 'On-site command & control' },
-  { n: '06', title: 'DEBRIEF', desc: 'Post-event reporting' },
+  { n: '01', title: 'DISCOVER', desc: 'Your vision, goals, and constraints \u2014 distilled into a strategic foundation.' },
+  { n: '02', title: 'STRATEGY', desc: 'Venue shortlists, budget architecture, and timeline mapping.' },
+  { n: '03', title: 'DESIGN', desc: 'Theme development, spatial design, and sensory experience planning.' },
+  { n: '04', title: 'PRODUCTION', desc: 'Vendor coordination, contracts, technical production, and rehearsals.' },
+  { n: '05', title: 'EXECUTION', desc: 'Full team deployment. Every detail managed in real time.' },
+  { n: '06', title: 'DEBRIEF', desc: 'Performance analysis, media recap, and lessons for next time.' },
 ];
 
 const fadeInUp: Variants = {
@@ -33,7 +34,7 @@ export default function EventsProcess() {
           HOW WE WORK
         </motion.p>
         <div className={styles.timeline}>
-          <div className={styles.timelineLine} />
+          <Separator className="absolute top-[5px] left-[8%] right-[8%] h-px bg-gradient-to-r from-e-border via-e-gold/30 to-e-border" orientation="horizontal" />
           {steps.map((s, i) => (
             <motion.div key={i} className={styles.step} custom={i + 1} variants={fadeInUp}>
               <div className={styles.dot} />

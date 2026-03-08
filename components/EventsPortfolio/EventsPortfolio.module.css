@@ -31,73 +31,13 @@
   gap: 3px;
 }
 
-.card {
-  background: var(--e-bg);
-  border: 1px solid var(--e-border);
-  overflow: hidden;
-  transition: all 0.35s ease;
-}
-
-.cardHover {
-  background: var(--e-bg-mid);
-  border-color: var(--e-gold);
-  transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-}
-
-.cardMuted {
-  opacity: 0.45;
-}
-
-.imageWrap {
-  position: relative;
-  height: 210px;
-  overflow: hidden;
-}
-
-.placeholderImage {
-  height: 210px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--e-bg-mid);
-}
-
-.placeholderText {
-  font-family: var(--font-dm), system-ui, sans-serif;
-  font-size: 14px;
-  color: var(--e-muted);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-.cardContent {
-  border-top: 2px solid var(--e-gold);
-  padding: 30px;
-}
-
 .cardTitle {
   font-family: var(--font-bebas), Impact, sans-serif;
   font-size: 19px;
   letter-spacing: 0.06em;
   color: var(--e-text);
-  margin-bottom: 6px;
+  margin-bottom: 10px;
   font-weight: 400;
-}
-
-.cardCity {
-  font-family: var(--font-dm), system-ui, sans-serif;
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  color: var(--e-gold);
-  margin-bottom: 12px;
-}
-
-.cardStats {
-  font-family: var(--font-dm), system-ui, sans-serif;
-  font-size: 11px;
-  color: var(--e-muted);
-  margin-bottom: 18px;
 }
 
 .cardQuote {

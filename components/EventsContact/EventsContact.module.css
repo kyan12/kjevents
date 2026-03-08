@@ -51,9 +51,7 @@
   grid-column: 1 / -1;
 }
 
-.input,
-.select,
-.textarea {
+.select {
   width: 100%;
   background: transparent;
   border: none;
@@ -65,9 +63,6 @@
   outline: none;
   letter-spacing: 0.04em;
   transition: border-color 0.3s ease;
-}
-
-.select {
   cursor: pointer;
   appearance: none;
 }
@@ -76,55 +71,9 @@
   color: var(--e-muted);
 }
 
-.textarea {
-  resize: none;
-}
-
-.input:focus,
-.select:focus,
-.textarea:focus {
+.select:focus {
   border-bottom-color: var(--e-gold);
   background: rgba(197, 160, 89, 0.05);
-}
-
-.submitBtn:focus-visible {
-  outline: 2px solid var(--e-gold);
-  outline-offset: 2px;
-}
-
-.submitBtn:active {
-  transform: scale(0.97);
-}
-
-.input::placeholder,
-.textarea::placeholder {
-  color: var(--e-muted);
-  opacity: 0.8;
-}
-
-.submitBtn {
-  grid-column: 1 / -1;
-  margin-top: 26px;
-  width: 100%;
-  padding: 18px;
-  background: var(--e-gold);
-  border: none;
-  color: var(--e-bg);
-  font-family: var(--font-dm), system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.submitBtn:hover:not(:disabled) {
-  background: var(--e-gold-lt);
-}
-
-.submitBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
 }
 
 .successMsg {

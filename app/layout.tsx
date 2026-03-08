@@ -54,7 +54,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={cn(helloParis.variable, cormorant.variable, jost.variable, bebas.variable, dmSans.variable, "font-sans", geist.variable)}>
-      <body className="font-sans antialiased">
+      <body>
         <SmoothScroll>
           {children}
         </SmoothScroll>

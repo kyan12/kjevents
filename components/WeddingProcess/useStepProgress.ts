@@ -1,49 +1,68 @@
 "use client";
 
-import { useState, useRef, useCallback, RefObject } from 'react';
-import { useLenis } from 'lenis/react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 
-interface StepProgress {
+const STEP_DURATION = 3000; // ms per step
+
+export interface StepProgressResult {
   activeStep: number;
-  progressRef: RefObject<{ total: number; sub: number; throw: number; complete: boolean }>;
+  progressRef: React.RefObject<{ total: number; sub: number; throw: number; complete: boolean }>;
+  start: () => void;
 }
 
-export function useStepProgress(
-  sectionRef: RefObject<HTMLElement | null>,
-  stepCount: number,
-  enabled: boolean,
-): StepProgress {
+export function useStepProgress(stepCount: number): StepProgressResult {
   const [activeStep, setActiveStep] = useState(0);
-  const prevStepRef = useRef(0);
   const progressRef = useRef({ total: 0, sub: 0, throw: 0, complete: false });
+  const rafRef = useRef<number>(0);
+  const startTimeRef = useRef(0);
+  const runningRef = useRef(false);
+  const stepRef = useRef(0);
 
-  useLenis(useCallback(() => {
-    if (!enabled || !sectionRef.current) return;
+  const animate = useCallback((timestamp: number) => {
+    if (!runningRef.current) return;
+    if (!startTimeRef.current) startTimeRef.current = timestamp;
 
-    const rect = sectionRef.current.getBoundingClientRect();
-    const scrollableDistance = sectionRef.current.offsetHeight - window.innerHeight;
-    if (scrollableDistance <= 0) return;
+    const elapsed = timestamp - startTimeRef.current;
+    const sub = Math.min(1, elapsed / STEP_DURATION);
+    const totalElapsed = stepRef.current * STEP_DURATION + elapsed;
+    const totalDuration = stepCount * STEP_DURATION;
+    const total = Math.min(1, totalElapsed / totalDuration);
 
-    const rawProgress = Math.max(0, Math.min(1, -rect.top / scrollableDistance));
     const p = progressRef.current;
-    p.total = rawProgress;
+    p.sub = sub;
+    p.total = total;
+    p.throw = total > 0.83 ? Math.min(1, (total - 0.83) / 0.17) : 0;
+    p.complete = total >= 0.99;
 
-    const step = Math.min(stepCount - 1, Math.floor(rawProgress * stepCount));
-    if (step !== prevStepRef.current) {
-      prevStepRef.current = step;
-      setActiveStep(step);
+    if (elapsed >= STEP_DURATION && stepRef.current < stepCount - 1) {
+      stepRef.current += 1;
+      startTimeRef.current = timestamp;
+      setActiveStep(stepRef.current);
     }
 
-    const stepSize = 1 / stepCount;
-    const stepStart = step * stepSize;
-    p.sub = Math.min(1, (rawProgress - stepStart) / stepSize);
+    if (stepRef.current < stepCount - 1 || sub < 1) {
+      rafRef.current = requestAnimationFrame(animate);
+    } else {
+      p.sub = 1;
+      p.total = 1;
+      p.complete = true;
+      p.throw = 1;
+    }
+  }, [stepCount]);
 
-    const throwStart = 0.83;
-    p.throw = rawProgress > throwStart
-      ? Math.min(1, (rawProgress - throwStart) / (1 - throwStart))
-      : 0;
-    p.complete = rawProgress >= 0.99;
-  }, [enabled, sectionRef, stepCount]));
+  const start = useCallback(() => {
+    if (runningRef.current) return;
+    runningRef.current = true;
+    stepRef.current = 0;
+    startTimeRef.current = 0;
+    setActiveStep(0);
+    progressRef.current = { total: 0, sub: 0, throw: 0, complete: false };
+    rafRef.current = requestAnimationFrame(animate);
+  }, [animate]);
 
-  return { activeStep, progressRef };
+  useEffect(() => {
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+  }, []);
+
+  return { activeStep, progressRef, start };
 }

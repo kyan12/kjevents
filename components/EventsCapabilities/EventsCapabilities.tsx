@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 import { motion, Variants } from 'framer-motion';
+import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { cn } from '@/lib/utils';
 import styles from './EventsCapabilities.module.css';
 
 const caps = [
@@ -66,24 +69,39 @@ export default function EventsCapabilities() {
           {caps.map((c, i) => (
             <motion.div
               key={i}
-              className={`${styles.card} ${hov === i ? styles.cardHover : ''}`}
               custom={i}
               variants={fadeInUp}
               onMouseEnter={() => setHov(i)}
               onMouseLeave={() => setHov(null)}
             >
-              <p className={`${styles.ghostNum} ${hov === i ? styles.ghostNumHover : ''}`}>
-                {c.n}
-              </p>
-              <div className={styles.divider} />
-              <p className={styles.cardTitle}>{c.title}</p>
-              <p className={styles.cardDesc}>{c.desc}</p>
-              {c.items.map((item, j) => (
-                <div key={j} className={styles.item}>
-                  <span className={styles.itemDash}>&mdash;</span>
-                  <p>{item}</p>
-                </div>
-              ))}
+              <Card className={cn(
+                'bg-e-bg border-e-border rounded-none h-full py-0',
+                'ring-0 ring-transparent',
+                'transition-all duration-300',
+                hov === i && 'bg-[#444840] border-e-gold shadow-[0_8px_24px_rgba(0,0,0,0.2)]'
+              )}>
+                <CardHeader className="px-[30px] pt-[36px] pb-0">
+                  <span className={cn(
+                    'font-[var(--font-bebas)] text-[48px] text-e-gold leading-none mb-1',
+                    'transition-opacity duration-300',
+                    hov === i ? 'opacity-65' : 'opacity-22',
+                    styles.ghostNum
+                  )}>
+                    {c.n}
+                  </span>
+                  <Separator className="bg-e-gold/28 mb-[18px]" />
+                </CardHeader>
+                <CardContent className="px-[30px] pb-[32px]">
+                  <p className={styles.cardTitle}>{c.title}</p>
+                  <p className={styles.cardDesc}>{c.desc}</p>
+                  {c.items.map((item, j) => (
+                    <div key={j} className={styles.item}>
+                      <span className={styles.itemDash}>&mdash;</span>
+                      <p>{item}</p>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>

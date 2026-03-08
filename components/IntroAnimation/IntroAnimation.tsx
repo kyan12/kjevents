@@ -10,16 +10,11 @@ export default function IntroAnimation() {
 
   useEffect(() => {
     setIsMounted(true);
-    const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
-    if (!hasSeenIntro) {
-      setShowAnimation(true);
-      // It takes about 3 seconds total
-      const timer = setTimeout(() => {
-        sessionStorage.setItem('hasSeenIntro', 'true');
-        setShowAnimation(false);
-      }, 3500);
-      return () => clearTimeout(timer);
-    }
+    setShowAnimation(true);
+    const timer = setTimeout(() => {
+      setShowAnimation(false);
+    }, 3500);
+    return () => clearTimeout(timer);
   }, []);
 
   if (!isMounted) return null; // Prevent hydration mismatch

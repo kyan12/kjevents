@@ -23,16 +23,6 @@
   position: relative;
 }
 
-.timelineLine {
-  position: absolute;
-  top: 5px;
-  left: 8%;
-  right: 8%;
-  height: 1px;
-  background: var(--e-gold);
-  opacity: 0.18;
-}
-
 .step {
   text-align: center;
   padding: 0 8px;
@@ -47,6 +37,11 @@
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px var(--e-bg-mid);
+  transition: box-shadow 0.3s ease;
+}
+
+.step:hover .dot {
+  box-shadow: 0 0 0 4px var(--e-bg-mid), 0 0 0 8px rgba(184, 144, 64, 0.2);
 }
 
 .stepTitle {
@@ -75,10 +70,6 @@
   .timeline {
     grid-template-columns: repeat(3, 1fr);
     gap: 32px 0;
-  }
-
-  .timelineLine {
-    display: none;
   }
 }
 

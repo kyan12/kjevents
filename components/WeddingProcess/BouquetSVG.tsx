@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useCallback, RefObject } from 'react';
-import { useLenis } from 'lenis/react';
+import { useRef, useEffect, RefObject } from 'react';
 import {
   STEM_MAIN, PEONY_PETALS, LEAF_1,
   BRANCH_LEFT, RANUNCULUS, LEAF_2A, LEAF_2B,
@@ -23,6 +22,7 @@ export default function BouquetSVG({
   const cachedPaths = useRef<SVGPathElement[][]>([]);
   const lengthCache = useRef<WeakMap<SVGPathElement, number>>(new WeakMap());
   const initialized = useRef(false);
+  const rafRef = useRef<number>(0);
 
   // Cache paths and set initial dasharray after mount
   useEffect(() => {
@@ -49,32 +49,36 @@ export default function BouquetSVG({
     initialized.current = true;
   }, [staticMode]);
 
-  // Single scroll callback for all path animations
-  useLenis(useCallback(() => {
+  // RAF loop to read progressRef and update paths
+  useEffect(() => {
     if (staticMode || !initialized.current) return;
-    const p = progressRef.current;
 
-    for (let layerIdx = 0; layerIdx < 5; layerIdx++) {
-      const paths = cachedPaths.current[layerIdx];
-      if (!paths) continue;
-
-      for (const path of paths) {
-        const length = lengthCache.current.get(path);
-        if (length === undefined) continue;
-
-        if (layerIdx < activeStep) {
-          path.style.strokeDashoffset = '0';
-          path.style.opacity = '1';
-        } else if (layerIdx > activeStep) {
-          path.style.strokeDashoffset = `${length}`;
-          path.style.opacity = '0.15';
-        } else {
-          path.style.opacity = '1';
-          path.style.strokeDashoffset = `${length * (1 - p.sub)}`;
+    const tick = () => {
+      const p = progressRef.current;
+      for (let layerIdx = 0; layerIdx < 5; layerIdx++) {
+        const paths = cachedPaths.current[layerIdx];
+        if (!paths) continue;
+        for (const path of paths) {
+          const length = lengthCache.current.get(path);
+          if (length === undefined) continue;
+          if (layerIdx < activeStep) {
+            path.style.strokeDashoffset = '0';
+            path.style.opacity = '1';
+          } else if (layerIdx > activeStep) {
+            path.style.strokeDashoffset = `${length}`;
+            path.style.opacity = '0.15';
+          } else {
+            path.style.opacity = '1';
+            path.style.strokeDashoffset = `${length * (1 - p.sub)}`;
+          }
         }
       }
-    }
-  }, [staticMode, activeStep, progressRef]));
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+  }, [staticMode, activeStep, progressRef]);
 
   const burgundy = 'var(--w-burgundy)';
   const burgundyLt = 'var(--w-burgundy-lt)';

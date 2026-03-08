@@ -3,44 +3,43 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 import styles from './EventsPortfolio.module.css';
 
 const projects = [
   {
     image: '/images/other_hero_1.png',
-    title: 'Featured Corporate Summit',
+    title: 'A:Round Events Series',
     city: 'New York City',
-    stats: '500 Attendees \u00B7 3-Day Event',
-    quote: '\u201CThe most organized event we have ever hosted.\u201D',
-    attr: '\u2014 Event Chair',
-    comingSoon: false,
+    stats: '300+ Guests · Multi-Night Series',
+    quote: '\u201CThe most electrifying recurring event series in the city. Every edition raises the bar.\u201D',
+    attr: '\u2014 Series Producer',
   },
   {
     image: '/images/other_hero_2.png',
-    title: 'Annual Gala Production',
+    title: 'Dream Asia Festival',
     city: 'New York City',
-    stats: '800 Guests \u00B7 Black-Tie',
-    quote: '\u201CFlawless from first course to final bow.\u201D',
-    attr: '\u2014 Executive Director',
-    comingSoon: false,
+    stats: 'Multi-Day · Large-Scale Outdoor',
+    quote: '\u201CA celebration of culture, food, and art — produced at a scale that honored every detail.\u201D',
+    attr: '\u2014 Festival Director',
   },
   {
-    image: null,
-    title: 'Coming Soon',
-    city: '',
-    stats: '',
-    quote: '',
-    attr: '',
-    comingSoon: true,
+    image: '/images/other_hero_1.png',
+    title: 'Rico Rico Fiesta',
+    city: 'New York City',
+    stats: 'Full Sensory Production',
+    quote: '\u201CVibrant, bold, unforgettable. The energy was unlike anything we\u2019ve experienced.\u201D',
+    attr: '\u2014 Event Host',
   },
   {
-    image: null,
-    title: 'Coming Soon',
-    city: '',
-    stats: '',
-    quote: '',
-    attr: '',
-    comingSoon: true,
+    image: '/images/other_hero_2.png',
+    title: "Bella\u2019s Wild One",
+    city: 'New York City',
+    stats: 'Milestone Celebration',
+    quote: '\u201CIntimate yet grand. Every detail was designed with whimsy and elegance.\u201D',
+    attr: '\u2014 Client Family',
   },
 ];
 
@@ -73,46 +72,43 @@ export default function EventsPortfolio() {
           {projects.map((p, i) => (
             <motion.div
               key={i}
-              className={`${styles.card} ${p.comingSoon ? styles.cardMuted : ''} ${hov === i ? styles.cardHover : ''}`}
               custom={i}
               variants={fadeInUp}
-              onMouseEnter={() => !p.comingSoon && setHov(i)}
+              onMouseEnter={() => setHov(i)}
               onMouseLeave={() => setHov(null)}
             >
-              {p.image ? (
-                <div className={styles.imageWrap}>
+              <Card className={cn(
+                'bg-e-bg border-e-border rounded-none overflow-hidden py-0',
+                'ring-0 ring-transparent',
+                'transition-all duration-350 ease-out',
+                hov === i && 'border-e-gold -translate-y-1 shadow-[0_12px_40px_rgba(0,0,0,0.3)]'
+              )}>
+                <div className="relative h-[210px] overflow-hidden">
                   <Image
                     src={p.image}
                     alt={p.title}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    style={{
-                      objectFit: 'cover',
-                      transform: hov === i ? 'scale(1.05)' : 'scale(1)',
-                      transition: 'transform 0.7s ease',
-                    }}
+                    className={cn(
+                      'object-cover transition-transform duration-700 ease-out',
+                      hov === i && 'scale-105'
+                    )}
                   />
                 </div>
-              ) : (
-                <div className={styles.placeholderImage}>
-                  <p className={styles.placeholderText}>Portfolio</p>
-                </div>
-              )}
-              <div className={styles.cardContent}>
-                <p className={styles.cardTitle}>{p.title}</p>
-                {p.city && (
-                  <p className={styles.cardCity}>{p.city}</p>
-                )}
-                {p.stats && (
-                  <p className={styles.cardStats}>{p.stats}</p>
-                )}
-                {p.quote && (
+                <CardContent className="border-t-2 border-e-gold px-[30px] py-[30px]">
+                  <p className={styles.cardTitle}>{p.title}</p>
+                  <div className="flex gap-2 mb-3">
+                    <Badge className="bg-e-gold/15 text-e-gold border-e-gold/30 rounded-none text-[10px] tracking-[0.1em] font-normal h-auto px-2 py-0.5 hover:bg-e-gold/25">
+                      {p.city}
+                    </Badge>
+                    <Badge className="bg-transparent text-e-muted border-e-border rounded-none text-[10px] tracking-[0.05em] font-normal h-auto px-2 py-0.5 hover:bg-e-bg-mid">
+                      {p.stats}
+                    </Badge>
+                  </div>
                   <p className={styles.cardQuote}>{p.quote}</p>
-                )}
-                {p.attr && (
                   <p className={styles.cardAttr}>{p.attr}</p>
-                )}
-              </div>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>

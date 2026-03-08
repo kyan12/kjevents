@@ -2,6 +2,10 @@
 
 import { useState } from 'react';
 import { motion, Variants } from 'framer-motion';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import styles from './EventsContact.module.css';
 
 const fadeInUp: Variants = {
@@ -19,6 +23,15 @@ const budgetOptions = [
   '$150K \u2013 $500K',
   '$500K+',
 ];
+
+const inputClasses = cn(
+  'h-auto rounded-none border-0 border-b border-[#6A6A60] bg-transparent',
+  'text-e-text text-[13px] tracking-[0.04em] px-0 py-[13px]',
+  'placeholder:text-e-muted placeholder:opacity-80',
+  'focus-visible:border-b-e-gold focus-visible:bg-[rgba(197,160,89,0.05)]',
+  'focus-visible:ring-0',
+  'transition-colors duration-300'
+);
 
 export default function EventsContact() {
   const [budget, setBudget] = useState('');
@@ -82,25 +95,27 @@ export default function EventsContact() {
           custom={2.2}
           variants={fadeInUp}
         >
-          <input
-            name="organization"
-            placeholder="ORGANIZATION NAME"
-            className={`${styles.input} ${styles.fullWidth}`}
-            required
-            disabled={isSubmitting}
-          />
-          <div className={styles.row}>
-            <input name="yourName" placeholder="YOUR NAME" className={styles.input} required disabled={isSubmitting} />
-            <input name="title" placeholder="YOUR TITLE" className={styles.input} disabled={isSubmitting} />
+          <div className="col-span-full">
+            <Input
+              name="organization"
+              placeholder="ORGANIZATION NAME"
+              className={inputClasses}
+              required
+              disabled={isSubmitting}
+            />
           </div>
           <div className={styles.row}>
-            <input name="email" type="email" placeholder="EMAIL ADDRESS" className={styles.input} required disabled={isSubmitting} />
-            <input name="phone" type="tel" placeholder="PHONE NUMBER" className={styles.input} disabled={isSubmitting} />
+            <Input name="yourName" placeholder="YOUR NAME" className={inputClasses} required disabled={isSubmitting} />
+            <Input name="title" placeholder="YOUR TITLE" className={inputClasses} disabled={isSubmitting} />
+          </div>
+          <div className={styles.row}>
+            <Input name="email" type="email" placeholder="EMAIL ADDRESS" className={inputClasses} required disabled={isSubmitting} />
+            <Input name="phone" type="tel" placeholder="PHONE NUMBER" className={inputClasses} disabled={isSubmitting} />
           </div>
           <select
             value={budget}
             onChange={(e) => setBudget(e.target.value)}
-            className={`${styles.select} ${styles.fullWidth} ${!budget ? styles.selectPlaceholder : ''}`}
+            className={cn(styles.select, styles.fullWidth, !budget && styles.selectPlaceholder)}
             disabled={isSubmitting}
           >
             <option value="">ESTIMATED BUDGET RANGE</option>
@@ -108,23 +123,35 @@ export default function EventsContact() {
               <option key={o} value={o}>{o}</option>
             ))}
           </select>
-          <textarea
-            name="brief"
-            placeholder="PROJECT BRIEF — tell us about your event, vision, and timeline"
-            rows={5}
-            className={`${styles.textarea} ${styles.fullWidth}`}
-            required
-            disabled={isSubmitting}
-          />
-          <motion.button
-            type="submit"
-            className={styles.submitBtn}
-            disabled={isSubmitting}
-            custom={3.2}
-            variants={fadeInUp}
-          >
-            {isSubmitting ? 'SENDING...' : 'SUBMIT YOUR BRIEF \u2192'}
-          </motion.button>
+          <div className="col-span-full">
+            <Textarea
+              name="brief"
+              placeholder="PROJECT BRIEF — tell us about your event, vision, and timeline"
+              rows={5}
+              className={cn(
+                inputClasses,
+                'resize-none min-h-[unset]'
+              )}
+              required
+              disabled={isSubmitting}
+            />
+          </div>
+          <div className="col-span-full mt-[26px]">
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className={cn(
+                'w-full rounded-none h-auto py-[18px]',
+                'bg-e-gold hover:bg-e-gold-lt text-e-bg',
+                'text-[10px] font-semibold tracking-[0.3em]',
+                'transition-colors duration-300',
+                'focus-visible:ring-e-gold',
+                'disabled:opacity-50 disabled:cursor-not-allowed'
+              )}
+            >
+              {isSubmitting ? 'SENDING...' : 'SUBMIT YOUR BRIEF \u2192'}
+            </Button>
+          </div>
         </motion.form>
         {status === 'success' && (
           <p className={styles.successMsg}>Thank you. We will be in touch within 24 hours.</p>

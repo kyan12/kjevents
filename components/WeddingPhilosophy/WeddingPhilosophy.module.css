@@ -1,20 +1,20 @@
 .section {
   background: var(--w-bg);
-  padding: 120px 80px;
+  padding: 120px 0 120px 80px;
 }
 
 .grid {
-  max-width: 1160px;
-  margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  grid-template-columns: 45% 1fr;
+  gap: 0;
   align-items: center;
 }
 
 .textCol {
   display: flex;
   flex-direction: column;
+  max-width: 520px;
+  padding-right: 60px;
 }
 
 .preLabel {
@@ -75,19 +75,50 @@
 
 .photoCol {
   position: relative;
-  height: 520px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  align-self: stretch;
 }
 
 .photoPrimary {
-  position: relative;
-  width: 85%;
-  height: 90%;
-  margin: 0 auto;
-  transform: rotate(1.5deg);
+  position: absolute;
+  inset: 0;
   overflow: hidden;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0.12) 0%, transparent 15%),
+    linear-gradient(to top, rgba(0, 0, 0, 0.08) 0%, transparent 20%);
+}
+
+/* ─── Silk Ribbon Curvy SVG Divider ─── */
+.silkRibbon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 48px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.silkRibbon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.shimmerRect {
+  transform: translateY(calc((var(--shimmer-progress, 0) - 0.5) * 100%));
+  transition: transform 0.1s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmerRect {
+    display: none;
+  }
 }
 
 @media (max-width: 900px) {
@@ -97,15 +128,26 @@
 
   .grid {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 0;
+  }
+
+  .textCol {
+    max-width: none;
+    padding-right: 0;
+    margin-bottom: 32px;
   }
 
   .photoCol {
-    height: 400px;
+    min-height: 400px;
+    position: relative;
   }
 
-  .photoPrimary {
-    width: 90%;
-    height: 85%;
+  .silkRibbon {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    width: 100%;
+    height: 28px;
   }
 }

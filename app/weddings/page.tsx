@@ -10,13 +10,11 @@ import WeddingProcess from '@/components/WeddingProcess/WeddingProcess';
 import WeddingTestimonials from '@/components/WeddingTestimonials/WeddingTestimonials';
 import WeddingContact from '@/components/WeddingContact/WeddingContact';
 import { ScrollEffectsProvider } from '@/components/ScrollEffects/ScrollEffectsProvider';
-import { ParticleCanvas } from '@/components/ScrollEffects/ParticleCanvas';
 import styles from './page.module.css';
 
 export default function WeddingsPage() {
   return (
     <ScrollEffectsProvider theme="wedding">
-      <ParticleCanvas />
       <Nav mode="wedding" />
       <main className={styles.main}>
         <WeddingHero />

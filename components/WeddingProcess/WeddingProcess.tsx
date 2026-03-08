@@ -1,8 +1,7 @@
 "use client";
 
-import { useRef, useCallback } from 'react';
-import { motion, Variants } from 'framer-motion';
-import { useLenis } from 'lenis/react';
+import { useRef, useEffect } from 'react';
+import { motion, useInView, Variants } from 'framer-motion';
 import { useIsMobile } from '../ScrollEffects/useIsMobile';
 import { useStepProgress } from './useStepProgress';
 import BouquetSVG from './BouquetSVG';
@@ -29,34 +28,48 @@ export default function WeddingProcess() {
   const timelineFillRef = useRef<HTMLDivElement>(null);
   const bouquetWrapperRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
-  const { activeStep, progressRef } = useStepProgress(sectionRef, steps.length, !isMobile);
+  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const { activeStep, progressRef, start } = useStepProgress(steps.length);
 
-  // Direct DOM updates for timeline fill and bouquet throw
-  useLenis(useCallback(() => {
+  // Start the timer when section enters viewport
+  useEffect(() => {
+    if (isInView && !isMobile) {
+      start();
+    }
+  }, [isInView, isMobile, start]);
+
+  // RAF loop for timeline fill + bouquet throw (reads progressRef)
+  useEffect(() => {
     if (isMobile) return;
-    const p = progressRef.current;
-    if (timelineFillRef.current) {
-      timelineFillRef.current.style.transform = `scaleY(${p.total})`;
-    }
-    if (bouquetWrapperRef.current) {
-      if (p.throw > 0) {
-        if (p.throw < 0.6) {
-          const t = p.throw / 0.6;
-          bouquetWrapperRef.current.style.transform =
-            `translateY(${-120 * t}px) rotate(${-15 * t}deg) scale(${1 + 0.1 * t})`;
-          bouquetWrapperRef.current.style.opacity = '';
-        } else {
-          const t = (p.throw - 0.6) / 0.4;
-          bouquetWrapperRef.current.style.transform =
-            `translateY(-120px) rotate(-15deg) scale(${1.1 - 0.5 * t})`;
-          bouquetWrapperRef.current.style.opacity = `${1 - t}`;
-        }
-      } else {
-        bouquetWrapperRef.current.style.transform = '';
-        bouquetWrapperRef.current.style.opacity = '';
+    let raf: number;
+    const tick = () => {
+      const p = progressRef.current;
+      if (timelineFillRef.current) {
+        timelineFillRef.current.style.transform = `scaleY(${p.total})`;
       }
-    }
-  }, [isMobile, progressRef]));
+      if (bouquetWrapperRef.current) {
+        if (p.throw > 0) {
+          if (p.throw < 0.6) {
+            const t = p.throw / 0.6;
+            bouquetWrapperRef.current.style.transform =
+              `translateY(${-120 * t}px) rotate(${-15 * t}deg) scale(${1 + 0.1 * t})`;
+            bouquetWrapperRef.current.style.opacity = '';
+          } else {
+            const t = (p.throw - 0.6) / 0.4;
+            bouquetWrapperRef.current.style.transform =
+              `translateY(-120px) rotate(-15deg) scale(${1.1 - 0.5 * t})`;
+            bouquetWrapperRef.current.style.opacity = `${1 - t}`;
+          }
+        } else {
+          bouquetWrapperRef.current.style.transform = '';
+          bouquetWrapperRef.current.style.opacity = '';
+        }
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [isMobile, progressRef]);
 
   // Mobile: static layout
   if (isMobile) {
@@ -94,14 +107,14 @@ export default function WeddingProcess() {
     );
   }
 
-  // Desktop: scroll-linked layout
+  // Desktop: timer-driven layout (no scroll pinning)
   return (
     <section
       id="wedding-process"
       ref={sectionRef}
-      className={styles.scrollSection}
+      className={styles.section}
     >
-      <div className={styles.sticky}>
+      <div className={styles.container}>
         <div className={styles.header}>
           <p className={styles.preLabel}>HOW WE WORK</p>
           <h2 className={styles.heading}>The Process</h2>

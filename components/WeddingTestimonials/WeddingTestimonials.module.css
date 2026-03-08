@@ -64,8 +64,37 @@
   width: 50%;
   height: 55%;
   transform: rotate(-1deg);
-  border: 6px solid var(--w-cream);
+  border: 4px solid var(--w-bg);
   overflow: hidden;
+}
+
+/* Chinese Seal Accent */
+.sealWrapperDesktop {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  width: 50px;
+  height: 50px;
+  z-index: 10;
+  transform: rotate(4deg);
+  opacity: 0.85;
+}
+
+.sealWrapperMobile {
+  position: absolute;
+  bottom: -20px;
+  right: 20px;
+  width: 45px;
+  height: 45px;
+  z-index: 10;
+  transform: rotate(-3deg);
+  opacity: 0.9;
+}
+
+.chineseSeal {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 10px rgba(139, 43, 49, 0.2));
 }
 
 .textCol {
@@ -104,40 +133,161 @@
   color: var(--w-ash);
 }
 
-@media (max-width: 768px) {
+/* Mobile Carousel Styles */
+@media (max-width: 900px) {
   .section {
-    padding: 80px 24px;
+    padding: 80px 0;
+    /* Full bleed padding */
+  }
+
+  .container {
+    padding: 0;
+  }
+
+  .preLabel {
+    padding: 0 24px;
+    margin-bottom: 40px;
   }
 
   .storyList {
-    gap: 80px;
+    display: none;
   }
 
-  .storyCard {
-    grid-template-columns: 1fr;
-    gap: 40px;
+  .mobileCarouselWrapper {
+    position: relative;
+    width: 100%;
   }
 
-  .storyCardAlt .photoCol {
-    order: 0;
+  .mobileCarousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0 24px;
+    gap: 16px;
   }
 
-  .storyCardAlt .textCol {
-    order: 0;
+  .mobileCarousel::-webkit-scrollbar {
+    display: none;
   }
 
-  .photoCol {
-    height: 320px;
+  .carouselItem {
+    flex: 0 0 100%;
+    min-width: 100%;
+    scroll-snap-align: center;
+    background: var(--w-bg);
+    border-radius: 4px;
+    padding: 32px 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(139, 43, 49, 0.05);
   }
 
-  .photoPrimary {
-    width: 85%;
-    height: 80%;
-    transform: none;
+  .photoColMobile {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    margin-bottom: 40px;
   }
 
-  .photoSecondary {
-    width: 50%;
-    height: 50%;
+  .photoPrimaryMobile {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 2px;
+  }
+
+  .textColMobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .quoteMobile {
+    font-family: var(--font-cormorant), Georgia, serif;
+    font-size: clamp(16px, 5vw, 22px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--w-ink);
+    margin-bottom: 24px;
+  }
+
+  .dividerMobile {
+    width: 40px;
+    height: 1px;
+    background: var(--w-burgundy);
+    margin-bottom: 24px;
+  }
+
+  .nameMobile {
+    font-family: var(--font-jost), system-ui, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--w-burgundy);
+    margin-bottom: 8px;
+  }
+
+  .detailMobile {
+    font-family: var(--font-jost), system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--w-ash);
+  }
+
+  .carouselControls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .ctrlBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--w-border);
+    background: transparent;
+    color: var(--w-ink);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .ctrlBtn:hover {
+    border-color: var(--w-burgundy);
+    color: var(--w-burgundy);
+  }
+
+  .ctrlDisabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .carouselDots {
+    display: flex;
+    gap: 8px;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--w-border);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .dotActive {
+    background: var(--w-burgundy);
+    transform: scale(1.5);
   }
 }

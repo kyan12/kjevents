@@ -10,6 +10,7 @@ import WeddingProcess from '@/components/WeddingProcess/WeddingProcess';
 import WeddingTestimonials from '@/components/WeddingTestimonials/WeddingTestimonials';
 import WeddingContact from '@/components/WeddingContact/WeddingContact';
 import { ScrollEffectsProvider } from '@/components/ScrollEffects/ScrollEffectsProvider';
+import FallingPetals from '@/components/FallingPetals/FallingPetals';
 import styles from './page.module.css';
 
 export default function WeddingsPage() {
@@ -25,6 +26,7 @@ export default function WeddingsPage() {
         <WeddingProcess />
         <WeddingTestimonials />
         <WeddingContact />
+        <FallingPetals />
       </main>
     </ScrollEffectsProvider>
   );

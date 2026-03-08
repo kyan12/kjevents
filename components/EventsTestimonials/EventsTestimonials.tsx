@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, Variants } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import styles from './EventsTestimonials.module.css';
 
@@ -48,22 +47,15 @@ export default function EventsTestimonials() {
         </motion.h2>
         <div className={styles.grid}>
           {testimonials.map((t, i) => (
-            <motion.div key={i} custom={i + 2} variants={fadeInUp}>
-              <Card className={cn(
-                'bg-e-bg border-e-border rounded-none py-0',
-                'ring-0 ring-transparent',
-                'transition-all duration-300',
-                'hover:border-e-gold hover:shadow-[0_8px_24px_rgba(0,0,0,0.2)]'
-              )}>
-                <CardContent className="px-8 py-10">
-                  <span className={styles.quoteMark}>&ldquo;</span>
-                  <p className={styles.quote}>{t.quote}</p>
-                  <div className={styles.attribution}>
-                    <p className={styles.name}>{t.name}</p>
-                    <p className={styles.title}>{t.title}</p>
-                  </div>
-                </CardContent>
-              </Card>
+            <motion.div key={i} className={styles.testimonialCard} custom={i + 2} variants={fadeInUp}>
+              <div className={styles.cardContent}>
+                <span className={styles.quoteMark}>&ldquo;</span>
+                <p className={styles.quote}>{t.quote}</p>
+                <div className={styles.attribution}>
+                  <p className={styles.name}>{t.name}</p>
+                  <p className={styles.title}>{t.title}</p>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>

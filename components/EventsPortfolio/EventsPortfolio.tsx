@@ -62,55 +62,55 @@ export default function EventsPortfolio() {
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
       >
-        <motion.p className={styles.preLabel} custom={0} variants={fadeInUp}>
-          OUR WORK
-        </motion.p>
-        <motion.h2 className={styles.heading} custom={1} variants={fadeInUp}>
-          SELECTED PROJECTS
-        </motion.h2>
+        <div className={styles.headerRow}>
+          <div>
+            <motion.p className={styles.preLabel} custom={0} variants={fadeInUp}>
+              OUR WORK
+            </motion.p>
+            <motion.h2 className={styles.heading} custom={1} variants={fadeInUp}>
+              SELECTED PROJECTS
+            </motion.h2>
+          </div>
+        </div>
+
         <div className={styles.grid}>
-          {projects.map((p, i) => (
-            <motion.div
-              key={i}
-              custom={i}
-              variants={fadeInUp}
-              onMouseEnter={() => setHov(i)}
-              onMouseLeave={() => setHov(null)}
-            >
-              <Card className={cn(
-                'bg-e-bg border-e-border rounded-none overflow-hidden py-0',
-                'ring-0 ring-transparent',
-                'transition-all duration-350 ease-out',
-                hov === i && 'border-e-gold -translate-y-1 shadow-[0_12px_40px_rgba(0,0,0,0.3)]'
-              )}>
-                <div className="relative h-[210px] overflow-hidden">
-                  <Image
-                    src={p.image}
-                    alt={p.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className={cn(
-                      'object-cover transition-transform duration-700 ease-out',
-                      hov === i && 'scale-105'
-                    )}
-                  />
+          {projects.map((p, i) => {
+            const isLarge = i % 3 === 0;
+            const gc = isLarge ? 'span 7' : 'span 5';
+            const hr = isLarge ? '750px' : '550px';
+            const mt = (i % 2 !== 0 && !isLarge) ? '80px' : '0px';
+
+            return (
+              <motion.div
+                key={i}
+                className={styles.projectWrapper}
+                custom={i}
+                variants={fadeInUp}
+                onMouseEnter={() => setHov(i)}
+                onMouseLeave={() => setHov(null)}
+                style={{ gridColumn: gc, height: hr, marginTop: mt }}
+              >
+                <img
+                  src={p.image}
+                  alt=""
+                  className={cn(styles.projectImage, hov === i && styles.projectImageHover)}
+                />
+
+                <div className={cn(styles.glassPanel, hov === i ? styles.glassPanelActive : '')}>
+                  <p className={styles.panelTitle}>{p.title}</p>
+                  <p className={styles.panelCity}>{p.city}</p>
+                  <div className={styles.panelDiv} />
+                  <p className={styles.panelStats}>{p.stats}</p>
+                  <p className={styles.panelQuote}>{p.quote}</p>
+                  <p className={styles.panelAttr}>{p.attr}</p>
                 </div>
-                <CardContent className="border-t-2 border-e-gold px-[30px] py-[30px]">
-                  <p className={styles.cardTitle}>{p.title}</p>
-                  <div className="flex gap-2 mb-3">
-                    <Badge className="bg-e-gold/15 text-e-gold border-e-gold/30 rounded-none text-[10px] tracking-[0.1em] font-normal h-auto px-2 py-0.5 hover:bg-e-gold/25">
-                      {p.city}
-                    </Badge>
-                    <Badge className="bg-transparent text-e-muted border-e-border rounded-none text-[10px] tracking-[0.05em] font-normal h-auto px-2 py-0.5 hover:bg-e-bg-mid">
-                      {p.stats}
-                    </Badge>
-                  </div>
-                  <p className={styles.cardQuote}>{p.quote}</p>
-                  <p className={styles.cardAttr}>{p.attr}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+
+                <div className={cn(styles.anchorLabel, hov === i ? styles.anchorLabelHidden : '')}>
+                  <p className={styles.anchorText}>{p.title}</p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </motion.div>
     </section>

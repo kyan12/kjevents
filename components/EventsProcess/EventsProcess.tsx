@@ -30,18 +30,41 @@ export default function EventsProcess() {
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
       >
-        <motion.p className={styles.preLabel} custom={0} variants={fadeInUp}>
-          HOW WE WORK
-        </motion.p>
-        <div className={styles.timeline}>
-          <Separator className="absolute top-[5px] left-[8%] right-[8%] h-px bg-gradient-to-r from-e-border via-e-gold/30 to-e-border" orientation="horizontal" />
-          {steps.map((s, i) => (
-            <motion.div key={i} className={styles.step} custom={i + 1} variants={fadeInUp}>
-              <div className={styles.dot} />
-              <p className={styles.stepTitle}>{s.title}</p>
-              <p className={styles.stepDesc}>{s.desc}</p>
-            </motion.div>
-          ))}
+        <div className={styles.headerArea}>
+          <motion.p className={styles.preLabel} custom={0} variants={fadeInUp}>
+            HOW WE WORK
+          </motion.p>
+          <motion.h2 className={styles.heading} custom={1} variants={fadeInUp}>
+            THE NARRATIVE
+          </motion.h2>
+        </div>
+
+        <div className={styles.stickyContainer}>
+          {steps.map((step, i) => {
+            const topOffset = 180 + (i * 40);
+            return (
+              <motion.div
+                key={i}
+                className={styles.card}
+                custom={i + 1}
+                variants={fadeInUp}
+                style={{
+                  top: `${topOffset}px`,
+                  transform: `scale(${1 - (steps.length - 1 - i) * 0.02})`,
+                  zIndex: i,
+                }}
+              >
+                <div className={styles.cardNumberWrapper}>
+                  <p className={styles.cardNumber}>{step.n}</p>
+                </div>
+                <div className={styles.cardDivider} />
+                <div>
+                  <p className={styles.cardTitle}>{step.title}</p>
+                  <p className={styles.cardDesc}>{step.desc}</p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </motion.div>
     </section>

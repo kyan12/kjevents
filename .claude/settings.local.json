@@ -4,7 +4,13 @@
       "Bash(npm ls:*)",
       "Bash(npm run:*)",
       "Bash(npm install:*)",
-      "Bash(npx shadcn@latest:*)"
+      "Bash(npx shadcn@latest:*)",
+      "Bash(ls:*)",
+      "Bash(taskkill:*)",
+      "Bash(tasklist:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }

@@ -94,9 +94,14 @@ export default function WeddingServices() {
                   </div>
                 ))}
               </div>
-              <p className={`${styles.price} ${hov === i ? styles.priceVisible : ''}`}>
-                {s.price}
-              </p>
+              <div className={styles.cardFooter}>
+                <p className={`${styles.price} ${hov === i ? styles.priceVisible : ''}`}>
+                  {s.price}
+                </p>
+                <button className={`${styles.ctaButton} ${hov === i ? styles.ctaButtonHover : ''}`}>
+                  Explore
+                </button>
+              </div>
             </motion.div>
           ))}
         </div>

@@ -93,32 +93,14 @@
     linear-gradient(to top, rgba(0, 0, 0, 0.08) 0%, transparent 20%);
 }
 
-/* ─── Silk Ribbon Curvy SVG Divider ─── */
-.silkRibbon {
+.leftRibbonOverlay {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: -10%;
+  bottom: -10%;
   left: 0;
-  width: 48px;
-  z-index: 2;
+  width: 22%;
+  z-index: 10;
   pointer-events: none;
-}
-
-.silkRibbon svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.shimmerRect {
-  transform: translateY(calc((var(--shimmer-progress, 0) - 0.5) * 100%));
-  transition: transform 0.1s linear;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .shimmerRect {
-    display: none;
-  }
 }
 
 @media (max-width: 900px) {
@@ -140,14 +122,13 @@
   .photoCol {
     min-height: 400px;
     position: relative;
+    overflow: hidden;
   }
 
-  .silkRibbon {
-    top: 0;
+  .leftRibbonOverlay {
+    top: -5%;
+    bottom: -5%;
     left: 0;
-    right: 0;
-    bottom: auto;
-    width: 100%;
-    height: 28px;
+    width: 25%;
   }
 }

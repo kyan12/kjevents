@@ -15,15 +15,15 @@
   --w-border: #C4B8AC;
   --w-cream: #F2EDE6;
 
-  /* ─── Events Tokens ─── */
-  --e-bg: #363830;
-  --e-bg-mid: #3E4038;
+  /* ─── Events Tokens (Light Space Redesign) ─── */
+  --e-bg: #F9F6F0;
+  --e-bg-mid: #F2EDE6;
   --e-gold: #B89040;
   --e-gold-lt: #CDA84C;
   --e-banner: #8B6B3A;
-  --e-text: #E8E0D4;
-  --e-muted: #A89E90;
-  --e-border: #4E5048;
+  --e-text: #2E2A27;
+  --e-muted: #7A6E65;
+  --e-border: #D5CDC4;
 
   /* ─── Backward-compat aliases (used by ContactForm, SplitScreen, IntroAnimation) ─── */
   --color-primary-bg: var(--w-bg);
@@ -117,19 +117,26 @@ a {
 }
 
 /* Global Typography Defaults */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: var(--font-cormorant), Georgia, serif;
   font-weight: 300;
   color: var(--w-ink);
   line-height: 1.1;
 }
 
-p, li, span, button {
+p,
+li,
+span,
+button {
   font-family: var(--font-jost), system-ui, sans-serif;
   color: var(--w-ink);
 }
 
-p, li {
+p,
+li {
   font-size: clamp(1rem, 1vw + 0.5rem, 1.1rem);
   line-height: 1.8;
   font-weight: 300;
@@ -144,7 +151,10 @@ p, li {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -212,3 +222,40 @@ p, li {
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* ─── Global Motif: Falling Petals ─── */
+@keyframes petalFall {
+  0% {
+    transform: translate3d(0, -10px, 0) rotate(0deg) scale(var(--scale, 1));
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.35;
+  }
+
+  85% {
+    opacity: 0.35;
+  }
+
+  100% {
+    transform: translate3d(calc(var(--sway) * 1px), 100vh, 0) rotate(var(--rot)) scale(var(--scale, 1));
+    opacity: 0;
+  }
+}
+
+.global-petal {
+  position: fixed;
+  top: -20px;
+  width: 14px;
+  height: 18px;
+  background: radial-gradient(circle at 30% 30%, rgba(139, 43, 49, 0.4), rgba(107, 51, 51, 0.2));
+  border-radius: 50% 0 50% 50%;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1000;
+  filter: blur(1.5px);
+  animation: petalFall linear infinite;
+  animation-duration: var(--dur);
+  animation-delay: var(--del);
+  left: calc(var(--start) * 1vw);
+}

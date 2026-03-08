@@ -21,7 +21,6 @@ export default function WeddingHero() {
         <p className={styles.attribution}>&mdash; Kira Jia</p>
         <div className={styles.scrollIndicator}>
           <div className={styles.scrollLine} />
-          <p className={styles.scrollText}>SCROLL</p>
         </div>
       </div>
     </section>

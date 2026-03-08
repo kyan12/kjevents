@@ -5,7 +5,7 @@ import './globals.css';
 import SmoothScroll from '@/components/SmoothScroll';
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
 const helloParis = localFont({
   src: '../public/fonts/hello-paris-serif.ttf',

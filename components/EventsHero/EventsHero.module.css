@@ -1,26 +1,36 @@
 .hero {
   min-height: 100vh;
-  background-image: url('/images/other_hero_2.png');
-  background-size: cover;
-  background-position: center;
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
+  padding-top: 72px;
 }
 
 .bgTexture {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(54,56,48,0.9), rgba(54,56,48,0.4));
+  background-image: url('https://picsum.photos/seed/evlight8/1600/1000');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.15;
+  filter: grayscale(100%) contrast(120%);
   z-index: 1;
+}
+
+.bgGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(250, 250, 250, 0.9), rgba(250, 250, 250, 0.4));
+  z-index: 2;
 }
 
 .content {
   position: relative;
-  z-index: 2;
-  padding: 80px;
-  max-width: 1100px;
+  z-index: 3;
+  padding: 8vw;
+  max-width: 1400px;
+  width: 100%;
 }
 
 .categoryBar {
@@ -39,82 +49,100 @@
 .goldLine {
   width: 36px;
   height: 1px;
-  background: var(--e-gold);
+  background: #E2C275;
+  /* E.goldLt */
 }
 
 .categoryText {
   font-family: var(--font-dm), system-ui, sans-serif;
   font-size: 9px;
-  letter-spacing: 0.55em;
-  color: var(--e-gold);
+  letter-spacing: 0.45em;
+  color: #CDA84C;
+  /* E.gold */
+  font-weight: 500;
   white-space: nowrap;
-}
-
-.goldLineFade {
-  flex: 1;
-  height: 1px;
-  background: var(--e-gold);
-  opacity: 0.25;
 }
 
 .heading {
   font-family: var(--font-bebas), Impact, sans-serif;
-  font-size: clamp(64px, 11vw, 148px);
-  color: var(--e-text);
-  line-height: 0.92;
-  letter-spacing: 0.06em;
+  font-size: clamp(64px, 11vw, 160px);
+  color: #1A1A1A;
+  /* E.text */
+  line-height: 0.85;
+  letter-spacing: 0.01em;
   margin: 0;
-  font-weight: 400;
+  text-shadow: 0 4px 32px rgba(255, 255, 255, 0.9), 0 0 12px rgba(255, 255, 255, 0.7);
 }
 
-.word {
-  display: block;
-  transition: opacity 0.7s ease, transform 0.7s ease;
+.wordWrapper {
+  overflow: hidden;
+  padding-bottom: 10px;
+}
+
+.goldHighlight {
+  color: #CDA84C;
+  /* E.gold */
+}
+
+.letterRevealBase {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.letter {
+  display: inline-block;
 }
 
 .scrollIndicator {
-  margin-top: 80px;
+  margin-top: 12vh;
   display: flex;
   gap: 14px;
-  align-items: flex-end;
+  align-items: flex-start;
   opacity: 0;
-  transition: opacity 1s ease 1.5s;
+  transition: opacity 1s ease 1.8s;
+}
+
+.visibleScroll {
+  opacity: 1;
 }
 
 .scrollLine {
   width: 1px;
-  height: 52px;
-  background: var(--e-gold);
-  opacity: 0.45;
+  height: 64px;
+  background: #CDA84C;
+  /* E.gold */
+  opacity: 0.3;
 }
 
 .scrollText {
   font-family: var(--font-dm), system-ui, sans-serif;
   font-size: 8px;
   letter-spacing: 0.45em;
-  color: var(--e-muted);
+  color: #737373;
+  /* E.muted */
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
 }
 
 @keyframes scrollBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(6px);
+  }
 }
 
-.visible .scrollLine {
+.visibleScroll .scrollLine {
   animation: scrollBounce 2.5s ease-in-out infinite;
 }
 
 @media (max-width: 768px) {
   .content {
     padding: 60px 24px;
-  }
-
-  .categoryBar {
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .goldLineFade {
-    display: none;
   }
 }

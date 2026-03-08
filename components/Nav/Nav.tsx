@@ -52,7 +52,7 @@ export default function Nav({ mode }: NavProps) {
   };
 
   const contactId = mode === 'wedding' ? 'wedding-contact' : 'events-contact';
-  const ctaLabel = mode === 'wedding' ? 'INQUIRE' : 'START A PROJECT';
+  const ctaLabel = 'INQUIRE';
   const crossLink = mode === 'wedding' ? '/events' : '/weddings';
   const crossLabel = mode === 'wedding' ? 'EVENTS' : 'WEDDINGS';
 

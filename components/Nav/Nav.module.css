@@ -178,7 +178,7 @@
 /* ─── Mobile ─── */
 @media (max-width: 768px) {
   .nav {
-    padding: 0 20px;
+    padding: 0 16px;
   }
 
   .anchors,
@@ -186,7 +186,22 @@
     display: none;
   }
 
+  .brand.wedding,
+  .brand.events {
+    font-size: 11px;
+  }
+
+  .crossLink {
+    padding: 6px 10px;
+    font-size: 9px;
+  }
+
+  .cta {
+    padding: 8px 14px;
+    font-size: 9px;
+  }
+
   .right {
-    gap: 16px;
+    gap: 10px;
   }
 }

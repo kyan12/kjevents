@@ -8,6 +8,7 @@ export interface StepProgressResult {
   activeStep: number;
   progressRef: React.RefObject<{ total: number; sub: number; throw: number; complete: boolean }>;
   start: () => void;
+  jumpTo: (step: number) => void;
 }
 
 export function useStepProgress(stepCount: number): StepProgressResult {
@@ -60,9 +61,16 @@ export function useStepProgress(stepCount: number): StepProgressResult {
     rafRef.current = requestAnimationFrame(animate);
   }, [animate]);
 
+  const jumpTo = useCallback((targetStep: number) => {
+    setActiveStep(targetStep);
+    stepRef.current = targetStep;
+    startTimeRef.current = 0; // Reset local elapsed timer for the new step
+    if (!runningRef.current) start(); // Ensure it runs if clicked before scrolling
+  }, [start]);
+
   useEffect(() => {
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
   }, []);
 
-  return { activeStep, progressRef, start };
+  return { activeStep, progressRef, start, jumpTo };
 }

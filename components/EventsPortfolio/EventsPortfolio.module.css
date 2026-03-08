@@ -1,59 +1,154 @@
 .section {
-  background: var(--e-bg);
-  padding: 120px 80px;
+  background: #FAFAFA;
+  /* E.bg */
+  padding: 12vw 8vw;
 }
 
 .container {
-  max-width: 1160px;
+  max-width: 1400px;
   margin: 0 auto;
+}
+
+.headerRow {
+  text-align: center;
+  margin-bottom: 80px;
 }
 
 .preLabel {
   font-family: var(--font-dm), system-ui, sans-serif;
   font-size: 9px;
   letter-spacing: 0.5em;
-  color: var(--e-gold);
+  color: #CDA84C;
+  /* E.gold */
   margin-bottom: 16px;
 }
 
 .heading {
   font-family: var(--font-bebas), Impact, sans-serif;
-  font-size: clamp(38px, 5.5vw, 72px);
-  color: var(--e-text);
-  letter-spacing: 0.08em;
-  margin-bottom: 72px;
+  font-size: clamp(44px, 6.5vw, 96px);
+  color: #111;
+  letter-spacing: 0.02em;
+  margin: 0;
   font-weight: 400;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3px;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2vw;
 }
 
-.cardTitle {
+.projectWrapper {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.projectImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.projectImageHover {
+  transform: scale(1.06);
+}
+
+.glassPanel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  transform: translateY(100%);
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glassPanelActive {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.panelTitle {
   font-family: var(--font-bebas), Impact, sans-serif;
-  font-size: 19px;
-  letter-spacing: 0.06em;
-  color: var(--e-text);
-  margin-bottom: 10px;
-  font-weight: 400;
-}
-
-.cardQuote {
-  font-family: var(--font-dm), system-ui, sans-serif;
-  font-size: 13px;
-  color: var(--e-text);
-  font-style: italic;
-  line-height: 1.65;
+  font-size: 28px;
+  letter-spacing: 0.04em;
+  color: #111;
   margin-bottom: 8px;
 }
 
-.cardAttr {
+.panelCity {
   font-family: var(--font-dm), system-ui, sans-serif;
-  font-size: 10px;
-  color: var(--e-gold);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: #CDA84C;
+  /* E.gold */
+  margin-bottom: 20px;
+}
+
+.panelDiv {
+  width: 40px;
+  height: 1px;
+  background: #CDA84C;
+  /* E.gold */
+  margin-bottom: 20px;
+  opacity: 0.3;
+}
+
+.panelStats {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 13px;
+  color: #737373;
+  /* E.muted */
+  margin-bottom: 24px;
   letter-spacing: 0.05em;
+}
+
+.panelQuote {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 15px;
+  color: #111;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.panelAttr {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 11px;
+  color: #E2C275;
+  /* E.goldLt */
+  letter-spacing: 0.05em;
+}
+
+.anchorLabel {
+  position: absolute;
+  bottom: 32px;
+  left: 32px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 12px 24px;
+  border-radius: 2px;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.anchorLabelHidden {
+  opacity: 0;
+}
+
+.anchorText {
+  font-family: var(--font-bebas), Impact, sans-serif;
+  font-size: 18px;
+  color: #111;
+  margin: 0;
 }
 
 @media (max-width: 768px) {
@@ -62,7 +157,14 @@
   }
 
   .grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 16px;
+  }
+
+  .projectWrapper {
+    grid-column: span 12 !important;
+    height: 450px !important;
+    margin-top: 0 !important;
   }
 }

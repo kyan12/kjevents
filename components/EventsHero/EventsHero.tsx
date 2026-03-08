@@ -21,30 +21,40 @@ export default function EventsHero() {
           <p className={styles.categoryText}>
             CORPORATE &middot; GALAS &middot; LAUNCHES &middot; SUMMITS
           </p>
-          <div className={styles.goldLineFade} />
         </div>
 
         <h1 className={styles.heading}>
-          {words.map((w, i) => (
-            <span
-              key={i}
-              className={styles.word}
-              style={{
-                transitionDelay: `${0.5 + i * 0.09}s`,
-                opacity: on ? 1 : 0,
-                transform: on ? 'none' : 'translateY(64px)',
-              }}
-            >
-              {w}
-            </span>
-          ))}
+          <div className={styles.wordWrapper}>
+            <LetterReveal text="WE PRODUCE" delayOffset={0.4} on={on} />
+          </div>
+          <div className={styles.wordWrapper}>
+            <LetterReveal text="EVENTS THAT" delayOffset={0.7} on={on} />
+          </div>
+          <div className={`${styles.wordWrapper} ${styles.goldHighlight}`}>
+            <LetterReveal text="PEOPLE TALK ABOUT." delayOffset={1.0} on={on} />
+          </div>
         </h1>
 
-        <div className={`${styles.scrollIndicator} ${on ? styles.visible : ''}`}>
+        <div className={`${styles.scrollIndicator} ${on ? styles.visibleScroll : ''}`}>
           <div className={styles.scrollLine} />
-          <p className={styles.scrollText}>OUR WORK &darr;</p>
+          <p className={styles.scrollText}>SCROLL</p>
         </div>
       </div>
     </section>
   );
 }
+
+const LetterReveal = ({ text, delayOffset, on }: { text: string, delayOffset: number, on: boolean }) => (
+  <span className={styles.letterRevealBase}>
+    {text.split('').map((char, i) => (
+      <span key={i} className={styles.letter} style={{
+        opacity: on ? 1 : 0,
+        transform: on ? 'translateY(0)' : 'translateY(100%)',
+        transition: `transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${delayOffset + (i * 0.03)}s, opacity 0.8s ease ${delayOffset + (i * 0.03)}s`,
+        whiteSpace: char === ' ' ? 'pre' : 'normal'
+      }}>
+        {char}
+      </span>
+    ))}
+  </span>
+);

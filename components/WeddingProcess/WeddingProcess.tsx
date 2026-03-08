@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from 'react';
 import { motion, useInView, Variants } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useIsMobile } from '../ScrollEffects/useIsMobile';
 import { useStepProgress } from './useStepProgress';
 import BouquetSVG from './BouquetSVG';
@@ -29,7 +30,7 @@ export default function WeddingProcess() {
   const bouquetWrapperRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
-  const { activeStep, progressRef, start } = useStepProgress(steps.length);
+  const { activeStep, progressRef, start, jumpTo } = useStepProgress(steps.length);
 
   // Start the timer when section enters viewport
   useEffect(() => {
@@ -89,18 +90,47 @@ export default function WeddingProcess() {
           </motion.h2>
 
           <div className={styles.mobileBouquet}>
-            <BouquetSVG activeStep={4} progressRef={progressRef} static />
+            <BouquetSVG activeStep={activeStep} progressRef={progressRef} static />
           </div>
 
           <div className={styles.mobileTimeline}>
-            {steps.map((step, i) => (
-              <motion.div key={i} className={styles.mobileStep} custom={i + 2} variants={fadeInUp}>
-                <div className={styles.dot}><div className={styles.dotInner} /></div>
-                <p className={styles.stepNum}>{step.n}</p>
-                <p className={styles.stepTitle}>{step.title}</p>
-                <p className={styles.stepDesc}>{step.desc}</p>
-              </motion.div>
-            ))}
+            <motion.div
+              key={`m-step-${activeStep}`}
+              className={styles.mobileStep}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+            >
+              <p className={styles.stepNum}>{steps[activeStep].n}</p>
+              <p className={styles.stepTitle}>{steps[activeStep].title}</p>
+              <p className={styles.stepDesc}>{steps[activeStep].desc}</p>
+            </motion.div>
+
+            <div className={styles.mobileControls}>
+              <button
+                className={styles.controlBtn}
+                onClick={() => jumpTo(Math.max(0, activeStep - 1))}
+                disabled={activeStep === 0}
+              >
+                <ChevronLeft size={20} strokeWidth={1} />
+              </button>
+              <div className={styles.mobileDots}>
+                {steps.map((_, i) => (
+                  <span
+                    key={i}
+                    className={i === activeStep ? styles.activeDot : styles.dotIndicator}
+                    onClick={() => jumpTo(i)}
+                  />
+                ))}
+              </div>
+              <button
+                className={styles.controlBtn}
+                onClick={() => jumpTo(Math.min(steps.length - 1, activeStep + 1))}
+                disabled={activeStep === steps.length - 1}
+              >
+                <ChevronRight size={20} strokeWidth={1} />
+              </button>
+            </div>
           </div>
         </motion.div>
       </section>
@@ -128,7 +158,7 @@ export default function WeddingProcess() {
               {steps.map((step, i) => {
                 const state = i < activeStep ? 'completed' : i === activeStep ? 'active' : 'upcoming';
                 return (
-                  <div key={i} className={styles.step} data-state={state}>
+                  <div key={i} className={styles.step} data-state={state} onClick={() => jumpTo(i)}>
                     <div className={styles.dot}>
                       <div className={styles.dotInner} />
                     </div>

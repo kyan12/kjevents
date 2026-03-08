@@ -1,64 +1,114 @@
 .section {
-  background: var(--w-bg);
-  padding: 80px 80px;
+  position: relative;
+  z-index: 20;
+  margin: -40px 0;
+  background-image: url('/images/event_hero.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  padding: 100px 80px;
+  overflow: hidden;
+  box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.4), 0 24px 60px rgba(0, 0, 0, 0.4);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(20, 18, 17, 0.95) 0%, rgba(20, 18, 17, 0.8) 100%);
+  z-index: 2;
 }
 
 .container {
-  max-width: 860px;
+  max-width: 900px;
   margin: 0 auto;
-  display: flex;
-  gap: 80px;
-  align-items: flex-start;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  position: relative;
+  z-index: 3;
 }
 
 .textBlock {
-  border-left: 2px solid var(--w-burgundy);
-  padding-left: 36px;
-  flex: 1 1 400px;
+  width: 100%;
+  max-width: 700px;
 }
 
 .label {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.4em;
-  color: var(--w-burgundy);
-  margin-bottom: 28px;
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.6em;
+  color: var(--w-border);
+  margin-bottom: 40px;
   text-transform: uppercase;
 }
 
-.textBlock p {
-  font-family: var(--font-jost), system-ui, sans-serif;
-  font-size: 14px;
-  line-height: 1.95;
-  color: var(--w-ink);
-  margin-bottom: 10px;
+.highlightTile {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  padding: 40px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 32px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
-.textBlock strong {
-  font-weight: 500;
+.tileContent {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
-.ctaBlock {
-  padding-top: 48px;
-}
-
-.cta {
-  font-family: var(--font-jost), system-ui, sans-serif;
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  color: var(--w-burgundy);
-  text-decoration: underline;
-  text-underline-offset: 5px;
+.highlightYear {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 48px;
   font-weight: 400;
-  white-space: nowrap;
-  transition: opacity 0.3s ease;
+  color: #FFFFFF;
+  line-height: 1;
 }
 
-.cta:hover {
-  opacity: 0.7;
+.availabilityText {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #EAE6DF;
+  font-weight: 300;
+  margin: 0;
+}
+
+.ctaButton {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--w-ink);
+  background: var(--w-cream);
+  text-decoration: none;
+  padding: 16px 32px;
+  border-radius: 2px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.ctaButton:hover {
+  background: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+.standardRow {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 40px;
+}
+
+.standardYear {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1;
 }
 
 @media (max-width: 768px) {
@@ -66,12 +116,27 @@
     padding: 60px 24px;
   }
 
-  .container {
+  .highlightTile {
     flex-direction: column;
-    gap: 32px;
+    align-items: flex-start;
+    padding: 32px 24px;
   }
 
-  .ctaBlock {
-    padding-top: 0;
+  .tileContent {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .ctaButton {
+    width: 100%;
+    text-align: center;
+  }
+
+  .standardRow {
+    padding: 0 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 }

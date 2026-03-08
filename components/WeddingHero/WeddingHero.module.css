@@ -12,12 +12,10 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to right,
-    rgba(46, 42, 39, 0.75) 0%,
-    rgba(46, 42, 39, 0.4) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(to right,
+      rgba(46, 42, 39, 0.75) 0%,
+      rgba(46, 42, 39, 0.4) 50%,
+      transparent 100%);
   z-index: 1;
 }
 
@@ -103,8 +101,15 @@
 }
 
 @keyframes scrollBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(6px);
+  }
 }
 
 .visible .scrollLine {
@@ -113,20 +118,24 @@
 
 @media (max-width: 768px) {
   .content {
-    padding: 60px 24px;
+    padding: 40px 20px 40px 20px;
+    margin-left: auto;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .scrollIndicator {
+    align-items: flex-end;
   }
 
   .hero {
     align-items: flex-end;
-    padding-bottom: 60px;
+    padding-bottom: 0;
   }
 
   .overlay {
-    background: linear-gradient(
-      to top,
-      rgba(46, 42, 39, 0.85) 0%,
-      rgba(46, 42, 39, 0.3) 60%,
-      transparent 100%
-    );
+    background: transparent;
   }
 }

@@ -1,66 +1,64 @@
 .section {
-  background: var(--e-bg);
-  padding: 56px 80px;
-  border-top: 1px solid var(--e-border);
-  border-bottom: 1px solid var(--e-border);
+  background: var(--e-text);
+  padding: 80px 40px;
 }
 
 .container {
-  max-width: 1160px;
+  max-width: 1400px;
   margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .stat {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  position: relative;
-}
-
-.stat:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  right: -50%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 36px;
-  background: var(--e-border);
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 40px 48px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  margin-left: -1px;
 }
 
 .number {
   font-family: var(--font-bebas), Impact, sans-serif;
-  font-size: clamp(32px, 4vw, 48px);
-  color: var(--e-gold);
-  letter-spacing: 0.04em;
+  font-size: clamp(64px, 8vw, 140px);
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
   font-weight: 400;
-  line-height: 1;
+  line-height: 0.85;
+  margin-bottom: 32px;
 }
 
 .label {
   font-family: var(--font-dm), system-ui, sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  color: var(--e-muted);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: #FFFFFF;
+  opacity: 0.7;
   text-transform: uppercase;
+  font-weight: 500;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .section {
-    padding: 48px 24px;
+    padding: 60px 24px;
   }
 
   .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px 0;
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .stat:not(:last-child)::after {
-    display: none;
+  .stat {
+    padding: 32px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: -1px;
+  }
+}
+
+@media (max-width: 500px) {
+  .container {
+    grid-template-columns: 1fr;
   }
 }

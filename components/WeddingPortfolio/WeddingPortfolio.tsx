@@ -47,7 +47,7 @@ export default function WeddingPortfolio() {
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
         >
-          <div className="flex flex-col mb-[72px] md:mb-[120px] gap-8">
+          <div className="flex flex-col items-center text-center mb-[48px] md:mb-[80px] gap-4">
             <div>
               <motion.p className={styles.preLabel} custom={0} variants={fadeInUp}>
                 OUR WORK
@@ -60,39 +60,105 @@ export default function WeddingPortfolio() {
 
           {/* Desktop Masonry (Hidden on Mobile) */}
           <div className={styles.desktopMasonry}>
-            {images.map((img, i) => (
-              <motion.div
-                key={i}
-                className={styles.masonryItem}
-                custom={i + 2}
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-60px' }}
-              >
-                <div className={styles.imageWrapper}>
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    style={{ objectFit: 'cover' }}
-                    loading="lazy"
-                  />
-                  <div className={styles.imageOverlay} />
-                </div>
-              </motion.div>
-            ))}
-          </div>
+            {/* Column 1 */}
+            <div className={styles.masonryCol}>
+              {[0, 1].map((i) => {
+                const img = images[i];
+                const aspectRatio = i === 0 ? '5/6.6' : '5/4.2';
+                return (
+                  <motion.div
+                    key={i}
+                    className={styles.masonryItem}
+                    custom={i + 2}
+                    variants={fadeInUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: '-60px' }}
+                  >
+                    <div className={styles.imageWrapper} style={{ aspectRatio }}>
+                      <Image
+                        src={img.src}
+                        alt={img.alt}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        style={{ objectFit: 'cover' }}
+                        loading="lazy"
+                      />
+                      <div className={styles.imageOverlay} />
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
 
-          <div className={styles.desktopCtaRow}>
-            <motion.button
-              className={styles.seeAllBtn}
-              variants={fadeInUp}
-              onClick={() => setShowMasterAlbum(true)}
-            >
-              SEE ALL WORK
-            </motion.button>
+            {/* Column 2 */}
+            <div className={styles.masonryCol}>
+              {[2, 3].map((i) => {
+                const img = images[i];
+                const aspectRatio = i === 2 ? '5/5.2' : '5/4.2';
+                return (
+                  <motion.div
+                    key={i}
+                    className={styles.masonryItem}
+                    custom={i + 2}
+                    variants={fadeInUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: '-60px' }}
+                  >
+                    <div className={styles.imageWrapper} style={{ aspectRatio }}>
+                      <Image
+                        src={img.src}
+                        alt={img.alt}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        style={{ objectFit: 'cover' }}
+                        loading="lazy"
+                      />
+                      <div className={styles.imageOverlay} />
+                    </div>
+                  </motion.div>
+                );
+              })}
+              <motion.button
+                className={styles.seeAllBtn}
+                variants={fadeInUp}
+                onClick={() => setShowMasterAlbum(true)}
+              >
+                ALL WORK
+              </motion.button>
+            </div>
+
+            {/* Column 3 */}
+            <div className={styles.masonryCol}>
+              {[4, 5].map((i) => {
+                const img = images[i];
+                const aspectRatio = i === 4 ? '5/6.2' : '5/4.8';
+                return (
+                  <motion.div
+                    key={i}
+                    className={styles.masonryItem}
+                    custom={i + 2}
+                    variants={fadeInUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: '-60px' }}
+                  >
+                    <div className={styles.imageWrapper} style={{ aspectRatio }}>
+                      <Image
+                        src={img.src}
+                        alt={img.alt}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        style={{ objectFit: 'cover' }}
+                        loading="lazy"
+                      />
+                      <div className={styles.imageOverlay} />
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
 
           {/* Mobile Stable Linear Bento Grid */}
@@ -111,11 +177,12 @@ export default function WeddingPortfolio() {
                 </div>
               );
             })}
+
             <button
               className={styles.mobileSeeAllBtn}
               onClick={() => setShowMasterAlbum(true)}
             >
-              SEE ALL WORK
+              ALL WORK
             </button>
           </div>
         </motion.div>

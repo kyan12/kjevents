@@ -2,24 +2,18 @@
   position: relative;
   z-index: 20;
   margin: -40px 0;
-  background-image: url('/images/event_hero.jpg');
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  padding: 100px 80px;
+  background: var(--w-burgundy);
+  padding: 60px 80px;
   overflow: hidden;
   box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.4), 0 24px 60px rgba(0, 0, 0, 0.4);
 }
 
 .overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, rgba(20, 18, 17, 0.95) 0%, rgba(20, 18, 17, 0.8) 100%);
-  z-index: 2;
+  display: none;
 }
 
 .container {
-  max-width: 900px;
+  max-width: 1160px;
   margin: 0 auto;
   position: relative;
   z-index: 3;
@@ -27,7 +21,7 @@
 
 .textBlock {
   width: 100%;
-  max-width: 700px;
+  max-width: 1160px;
 }
 
 .label {
@@ -36,7 +30,7 @@
   font-weight: 500;
   letter-spacing: 0.6em;
   color: var(--w-border);
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   text-transform: uppercase;
 }
 
@@ -44,13 +38,13 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(12px);
-  padding: 40px;
+  padding: 32px 40px;
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
@@ -113,13 +107,13 @@
 
 @media (max-width: 768px) {
   .section {
-    padding: 60px 24px;
+    padding: 40px 24px;
   }
 
   .highlightTile {
     flex-direction: column;
     align-items: flex-start;
-    padding: 32px 24px;
+    padding: 24px;
   }
 
   .tileContent {
@@ -134,7 +128,7 @@
   }
 
   .standardRow {
-    padding: 0 24px;
+    padding: 0 16px;
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;

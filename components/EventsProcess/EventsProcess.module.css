@@ -1,17 +1,20 @@
 .section {
   background: var(--e-bg-mid);
-  padding: 12vw 8vw;
+  padding: 8vh 0;
   position: relative;
 }
 
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .headerArea {
   text-align: center;
-  margin-bottom: 12vh;
+  margin-bottom: 4vh;
+  padding: 0 4vw;
 }
 
 .preLabel {
@@ -33,33 +36,77 @@
   font-weight: 400;
 }
 
-.stickyContainer {
+.trackViewport {
   position: relative;
-  padding-bottom: 10vh;
-}
-
-.card {
-  position: sticky;
-  margin-bottom: 100px;
-  background: #FAFAFA;
-  /* E.bg */
-  border: 1px solid var(--e-border);
-  box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.04);
-  padding: 60px 80px;
+  width: 100%;
   display: flex;
-  gap: 60px;
   align-items: center;
-  transform-origin: top center;
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
 }
 
-.cardNumberWrapper {
-  width: 120px;
-  flex-shrink: 0;
+.trackViewport::-webkit-scrollbar {
+  display: none;
+}
+
+.horizontalTrack {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2vw;
+  position: relative;
+  padding: 60px 4vw;
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* 
+ * The continuous gold line running behind the nodes.
+ * We attach it to the horizontal track and inset it precisely
+ * through the midline of the number nodes.
+ */
+.horizontalTrack::before {
+  content: "";
+  position: absolute;
+  top: 78px;
+  /* Offset to center line vertically through the 64px numbers */
+  left: 4vw;
+  right: 4vw;
+  height: 1px;
+  background: rgba(205, 168, 76, 0.3);
+  /* Transparent E.gold */
+  z-index: 0;
+}
+
+.trackSpacer {
+  display: none;
+}
+
+.stepColumn {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+  /* Keep text/numbers above track line */
+}
+
+.nodeAnchor {
+  margin-bottom: 24px;
+  background: var(--e-bg-mid);
+  /* Hide line passing strictly behind the number */
+  padding-right: 16px;
+  /* Slight visual breathing room */
 }
 
 .cardNumber {
   font-family: var(--font-bebas), Impact, sans-serif;
-  font-size: 80px;
+  font-size: clamp(40px, 4vw, 64px);
   color: #E2C275;
   /* E.goldLt */
   line-height: 0.8;
@@ -67,47 +114,91 @@
   font-weight: 400;
 }
 
-.cardDivider {
-  width: 1px;
-  height: 100px;
-  background: #CDA84C;
-  /* E.gold */
-  opacity: 0.2;
+.cardContent {
+  /* Minimalist spacing for the narrative text */
+  padding-right: 12px;
 }
 
 .cardTitle {
   font-family: var(--font-bebas), Impact, sans-serif;
-  font-size: 32px;
+  font-size: clamp(20px, 2vw, 28px);
   color: #111;
-  letter-spacing: 0.04em;
-  margin-bottom: 16px;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
   font-weight: 400;
+  word-wrap: break-word;
 }
 
 .cardDesc {
   font-family: var(--font-dm), system-ui, sans-serif;
-  font-size: 15px;
-  color: #737373;
-  /* E.muted */
-  line-height: 1.8;
+  font-size: clamp(13px, 1.1vw, 16px);
+  color: #555;
+  line-height: 1.6;
   margin: 0;
 }
 
 @media (max-width: 768px) {
   .section {
-    padding: 80px 24px;
+    padding: 8vh 0;
   }
 
-  .card {
-    padding: 40px 32px;
-    gap: 32px;
+  /* Reset track to a vertical column */
+  .horizontalTrack {
     flex-direction: column;
-    align-items: flex-start;
+    gap: 0;
+    /* Remove horizontal gap, use padding/margin on steps */
+    padding: 24px 0;
+    width: 100%;
   }
 
-  .cardDivider {
-    width: 60px;
-    height: 1px;
-    margin: -16px 0;
+  /* Hide the horizontal line */
+  .horizontalTrack::before {
+    display: none;
+  }
+
+  /* Draw a new vertical line down the left side */
+  .horizontalTrack::after {
+    content: "";
+    position: absolute;
+    top: 24px;
+    bottom: 24px;
+    left: 20px;
+    /* Offset to center under the numbers if aligned left */
+    width: 1px;
+    background: rgba(205, 168, 76, 0.3);
+    z-index: 0;
+  }
+
+  /* Expand steps to full width & add vertical spacing */
+  .stepColumn {
+    width: 100%;
+    padding-bottom: 48px;
+    /* Vertical gap between steps */
+  }
+
+  /* Remove padding from spacers since we are vertical */
+  .trackSpacer {
+    display: none;
+  }
+
+  /* Smaller typography for mobile */
+  .nodeAnchor {
+    margin-bottom: 16px;
+    padding-right: 0;
+  }
+
+  .cardNumber {
+    font-size: 48px;
+  }
+
+  /* Shift content slightly right to clear the vertical line */
+  .cardContent {
+    padding-right: 0;
+    padding-left: 20px;
+  }
+
+  .cardTitle {
+    font-size: 24px;
+    margin-bottom: 8px;
   }
 }

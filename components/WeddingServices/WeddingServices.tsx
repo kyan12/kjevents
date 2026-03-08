@@ -6,7 +6,7 @@ import styles from './WeddingServices.module.css';
 
 const services = [
   {
-    en: 'Wedding Day Management',
+    en: 'Wedding Day\nManagement',
     zh: '婚礼当日协调',
     price: 'From $800',
     desc: 'Designed for couples who have completed their planning and seek professional coordination to ensure the wedding day unfolds seamlessly.',
@@ -19,7 +19,7 @@ const services = [
     ],
   },
   {
-    en: 'Partial Planning',
+    en: 'Partial\nPlanning',
     zh: '部分策划服务',
     price: 'By Inquiry',
     desc: 'Ideal for couples who have begun planning and seek professional guidance to refine logistics, coordinate vendors, and ensure a cohesive celebration.',
@@ -32,7 +32,7 @@ const services = [
     ],
   },
   {
-    en: 'Full Planning',
+    en: 'Full\nPlanning',
     zh: '全程婚礼策划',
     price: 'By Inquiry',
     desc: 'Designed for couples seeking a fully guided planning experience, from initial concept to the final moment of celebration.',

@@ -13,6 +13,7 @@ const anchors: Record<string, { label: string; wedding: string; events: string }
     { label: 'SERVICES', wedding: 'wedding-services', events: 'events-capabilities' },
     { label: 'PORTFOLIO', wedding: 'wedding-portfolio', events: 'events-portfolio' },
     { label: 'PROCESS', wedding: 'wedding-process', events: 'events-process' },
+    { label: 'TESTIMONIALS', wedding: 'wedding-testimonials', events: 'events-testimonials' },
   ],
 };
 

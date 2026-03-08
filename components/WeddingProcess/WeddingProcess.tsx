@@ -48,24 +48,8 @@ export default function WeddingProcess() {
       if (timelineFillRef.current) {
         timelineFillRef.current.style.transform = `scaleY(${p.total})`;
       }
-      if (bouquetWrapperRef.current) {
-        if (p.throw > 0) {
-          if (p.throw < 0.6) {
-            const t = p.throw / 0.6;
-            bouquetWrapperRef.current.style.transform =
-              `translateY(${-120 * t}px) rotate(${-15 * t}deg) scale(${1 + 0.1 * t})`;
-            bouquetWrapperRef.current.style.opacity = '';
-          } else {
-            const t = (p.throw - 0.6) / 0.4;
-            bouquetWrapperRef.current.style.transform =
-              `translateY(-120px) rotate(-15deg) scale(${1.1 - 0.5 * t})`;
-            bouquetWrapperRef.current.style.opacity = `${1 - t}`;
-          }
-        } else {
-          bouquetWrapperRef.current.style.transform = '';
-          bouquetWrapperRef.current.style.opacity = '';
-        }
-      }
+      // Note: bouquetWrapperRef dynamic scale/throw transform removed.
+      // Dynamic vertical alignment is now handled declaratively on the container.
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -76,18 +60,11 @@ export default function WeddingProcess() {
   if (isMobile) {
     return (
       <section id="wedding-process" className={styles.section}>
-        <motion.div
-          className={styles.container}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-        >
-          <motion.p className={styles.preLabel} custom={0} variants={fadeInUp}>
-            HOW WE WORK
-          </motion.p>
-          <motion.h2 className={styles.heading} custom={1} variants={fadeInUp}>
-            The Process
-          </motion.h2>
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <p className={styles.preLabel}>HOW WE WORK</p>
+            <h2 className={styles.heading}>The Process</h2>
+          </div>
 
           <div className={styles.mobileBouquet}>
             <BouquetSVG activeStep={activeStep} progressRef={progressRef} static />
@@ -101,8 +78,10 @@ export default function WeddingProcess() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
             >
-              <p className={styles.stepNum}>{steps[activeStep].n}</p>
-              <p className={styles.stepTitle}>{steps[activeStep].title}</p>
+              <div className={styles.stepHeader}>
+                <p className={styles.stepNum}>{steps[activeStep].n}</p>
+                <p className={styles.stepTitle}>{steps[activeStep].title}</p>
+              </div>
               <p className={styles.stepDesc}>{steps[activeStep].desc}</p>
             </motion.div>
 
@@ -132,7 +111,7 @@ export default function WeddingProcess() {
               </button>
             </div>
           </div>
-        </motion.div>
+        </div>
       </section>
     );
   }
@@ -163,8 +142,10 @@ export default function WeddingProcess() {
                       <div className={styles.dotInner} />
                     </div>
                     <div className={styles.stepContent}>
-                      <p className={styles.stepNum}>{step.n}</p>
-                      <p className={styles.stepTitle}>{step.title}</p>
+                      <div className={styles.stepHeader}>
+                        <p className={styles.stepNum}>{step.n}</p>
+                        <p className={styles.stepTitle}>{step.title}</p>
+                      </div>
                       <p className={styles.stepDesc}>{step.desc}</p>
                     </div>
                   </div>
@@ -173,9 +154,9 @@ export default function WeddingProcess() {
             </div>
           </div>
 
-          {/* Bouquet column */}
+          {/* Bouquet column (SVG illustration) */}
           <div className={styles.bouquetCol}>
-            <div ref={bouquetWrapperRef}>
+            <div ref={bouquetWrapperRef} className={styles.bouquetWrapper}>
               <BouquetSVG activeStep={activeStep} progressRef={progressRef} />
             </div>
           </div>

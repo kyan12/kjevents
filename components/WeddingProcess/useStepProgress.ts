@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 
-const STEP_DURATION = 3000; // ms per step
+const STEP_DURATION = 6000; // ms per step
 
 export interface StepProgressResult {
   activeStep: number;
@@ -32,6 +32,7 @@ export function useStepProgress(stepCount: number): StepProgressResult {
     const p = progressRef.current;
     p.sub = sub;
     p.total = total;
+    // Removed specific 'throw' logic for final phase fading
     p.throw = total > 0.83 ? Math.min(1, (total - 0.83) / 0.17) : 0;
     p.complete = total >= 0.99;
 

@@ -29,18 +29,9 @@ const testimonials = [
     name: "FELICITY & LEON",
     detail: "The Mansion at Glen Cove, Long Island",
     chineseName: "费莉西蒂 & 里昂",
-    featuredImage: { src: '/images/felicity-stairs-couple.jpg', alt: 'Felicity & Leon on the staircase' },
+    featuredImage: { src: '/images/felicity-stairs-couple.jpg', alt: 'Felicity & Leon on the staircase', objectPosition: '100% center' },
     detailImage: { src: '/images/felicity-detail.jpg', alt: 'Felicity & Leon invitation details' },
     imagePosition: 'right' as const,
-  },
-  {
-    quote: "An absolute lifesaver. From our first consultation to the final dance, everything was orchestrated flawlessly. We truly felt like guests at our own wedding.",
-    name: "SARAH & MICHAEL",
-    detail: "The Plaza Hotel, NYC",
-    chineseName: "莎拉 & 迈克尔",
-    featuredImage: { src: '/images/wedding_mansion_ext.jpg', alt: 'Sarah & Michael Wedding' },
-    detailImage: null,
-    imagePosition: 'left' as const,
   }
 ];
 
@@ -106,7 +97,7 @@ export default function WeddingTestimonials() {
   };
 
   return (
-    <section className={styles.section}>
+    <section id="wedding-testimonials" className={styles.section}>
       <div className={styles.container}>
         <motion.p
           className={styles.preLabel}
@@ -117,6 +108,15 @@ export default function WeddingTestimonials() {
         >
           KIND WORDS
         </motion.p>
+        <motion.h2
+          className={styles.heading}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+        >
+          TESTIMONIALS
+        </motion.h2>
 
         {isMobile ? (
           // Mobile: Centered Carousel
@@ -135,7 +135,10 @@ export default function WeddingTestimonials() {
                         alt={t.featuredImage.alt}
                         fill
                         sizes="80vw"
-                        style={{ objectFit: 'cover' }}
+                        style={{
+                          objectFit: 'cover',
+                          objectPosition: (t.featuredImage as any).objectPosition || 'center'
+                        }}
                         loading="lazy"
                       />
                     </div>
@@ -200,7 +203,10 @@ export default function WeddingTestimonials() {
                       alt={t.featuredImage.alt}
                       fill
                       sizes="45vw"
-                      style={{ objectFit: 'cover' }}
+                      style={{
+                        objectFit: 'cover',
+                        objectPosition: (t.featuredImage as any).objectPosition || 'center'
+                      }}
                       loading="lazy"
                     />
                   </div>

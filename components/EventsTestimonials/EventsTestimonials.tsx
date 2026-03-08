@@ -32,7 +32,7 @@ const fadeInUp: Variants = {
 
 export default function EventsTestimonials() {
   return (
-    <section className={styles.section}>
+    <section id="events-testimonials" className={styles.section}>
       <motion.div
         className={styles.container}
         initial="hidden"

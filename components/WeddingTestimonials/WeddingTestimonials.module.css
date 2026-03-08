@@ -1,0 +1,143 @@
+.section {
+  background: var(--w-bg-dark);
+  padding: 120px 80px;
+}
+
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.preLabel {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.5em;
+  color: var(--w-ash);
+  margin-bottom: 72px;
+  text-align: center;
+}
+
+.storyList {
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+}
+
+.storyCard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.storyCardAlt {
+  composes: storyCard;
+}
+
+.storyCardAlt .photoCol {
+  order: 2;
+}
+
+.storyCardAlt .textCol {
+  order: 1;
+}
+
+.photoCol {
+  position: relative;
+  height: 480px;
+}
+
+.photoPrimary {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80%;
+  height: 80%;
+  transform: rotate(1.5deg);
+  overflow: hidden;
+}
+
+.photoSecondary {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+  height: 55%;
+  transform: rotate(-1deg);
+  border: 6px solid var(--w-cream);
+  overflow: hidden;
+}
+
+.textCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.quote {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(18px, 2.2vw, 28px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--w-ink);
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--w-border);
+  margin: 28px 0;
+}
+
+.name {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--w-burgundy);
+  margin-bottom: 8px;
+}
+
+.detail {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--w-ash);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 80px 24px;
+  }
+
+  .storyList {
+    gap: 80px;
+  }
+
+  .storyCard {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .storyCardAlt .photoCol {
+    order: 0;
+  }
+
+  .storyCardAlt .textCol {
+    order: 0;
+  }
+
+  .photoCol {
+    height: 320px;
+  }
+
+  .photoPrimary {
+    width: 85%;
+    height: 80%;
+    transform: none;
+  }
+
+  .photoSecondary {
+    width: 50%;
+    height: 50%;
+  }
+}

@@ -1,0 +1,120 @@
+.hero {
+  min-height: 100vh;
+  background-image: url('/images/other_hero_2.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.bgTexture {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(54,56,48,0.9), rgba(54,56,48,0.4));
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  padding: 80px;
+  max-width: 1100px;
+}
+
+.categoryBar {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 60px;
+  opacity: 0;
+  transition: opacity 1s ease 0.3s;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.goldLine {
+  width: 36px;
+  height: 1px;
+  background: var(--e-gold);
+}
+
+.categoryText {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.55em;
+  color: var(--e-gold);
+  white-space: nowrap;
+}
+
+.goldLineFade {
+  flex: 1;
+  height: 1px;
+  background: var(--e-gold);
+  opacity: 0.25;
+}
+
+.heading {
+  font-family: var(--font-bebas), Impact, sans-serif;
+  font-size: clamp(64px, 11vw, 148px);
+  color: var(--e-text);
+  line-height: 0.92;
+  letter-spacing: 0.06em;
+  margin: 0;
+  font-weight: 400;
+}
+
+.word {
+  display: block;
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.scrollIndicator {
+  margin-top: 80px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-end;
+  opacity: 0;
+  transition: opacity 1s ease 1.5s;
+}
+
+.scrollLine {
+  width: 1px;
+  height: 52px;
+  background: var(--e-gold);
+  opacity: 0.45;
+}
+
+.scrollText {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.45em;
+  color: var(--e-muted);
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+.visible .scrollLine {
+  animation: scrollBounce 2.5s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 60px 24px;
+  }
+
+  .categoryBar {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .goldLineFade {
+    display: none;
+  }
+}

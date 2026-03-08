@@ -1,0 +1,260 @@
+/* ─── Mobile / Reduced Motion ─── */
+.section {
+  background: var(--w-bg);
+  padding: 120px 80px;
+}
+
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.preLabel {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.5em;
+  color: var(--w-ash);
+  margin-bottom: 20px;
+}
+
+.heading {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(30px, 3.5vw, 48px);
+  font-weight: 300;
+  color: var(--w-ink);
+  margin-bottom: 48px;
+}
+
+.mobileBouquet {
+  max-width: 240px;
+  margin: 0 auto 48px;
+}
+
+.mobileTimeline {
+  position: relative;
+  padding-left: 28px;
+  border-left: 1px solid var(--w-ash);
+}
+
+.mobileStep {
+  margin-bottom: 48px;
+  position: relative;
+}
+
+.mobileStep:last-child {
+  margin-bottom: 0;
+}
+
+/* ─── Desktop Scroll-Linked ─── */
+.scrollSection {
+  position: relative;
+  height: 600vh;
+  background: var(--w-bg);
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 100px 80px 60px;
+  overflow: hidden;
+}
+
+.header {
+  flex-shrink: 0;
+  margin-bottom: 32px;
+}
+
+.splitLayout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 55% 45%;
+  gap: 40px;
+  min-height: 0;
+}
+
+/* ─── Timeline Column ─── */
+.timelineCol {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 16px;
+  overflow: hidden;
+}
+
+.timelineTrack {
+  position: relative;
+  padding-left: 36px;
+}
+
+.timelineTrack::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--w-border);
+}
+
+.timelineFill {
+  position: absolute;
+  left: 7px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--w-burgundy);
+  transform-origin: top;
+  transform: scaleY(0);
+}
+
+/* ─── Step States ─── */
+.step {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 36px;
+  position: relative;
+  transition: opacity 0.4s var(--ease-lux), transform 0.4s var(--ease-lux);
+}
+
+.step:last-child {
+  margin-bottom: 0;
+}
+
+.step[data-state="upcoming"] {
+  opacity: 0.3;
+  transform: translateX(20px);
+}
+
+.step[data-state="active"] {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.step[data-state="completed"] {
+  opacity: 0.55;
+  transform: translateX(0);
+}
+
+.stepContent {
+  flex: 1;
+}
+
+/* ─── Shared Dot ─── */
+.dot {
+  position: absolute;
+  left: -44px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--w-burgundy);
+  background: var(--w-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dotInner {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--w-burgundy);
+  transition: transform 0.4s var(--ease-lux);
+}
+
+.step[data-state="active"] .dotInner {
+  animation: dotPulse 1.8s ease-in-out infinite;
+}
+
+.step[data-state="completed"] .dot {
+  background: var(--w-burgundy);
+}
+
+.step[data-state="completed"] .dotInner {
+  background: var(--w-cream);
+}
+
+@keyframes dotPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.5); }
+}
+
+/* ─── Step Text ─── */
+.stepNum {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  color: var(--w-burgundy);
+  margin-bottom: 8px;
+}
+
+.step[data-state="active"] .stepNum {
+  color: var(--w-burgundy);
+}
+
+.stepTitle {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--w-ink);
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+
+.stepDesc {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--w-ash);
+}
+
+/* ─── Bouquet Column ─── */
+.bouquetCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.bouquetCol svg {
+  max-height: 70vh;
+  width: auto;
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 768px) {
+  .section {
+    padding: 80px 24px;
+  }
+
+  .scrollSection {
+    height: auto;
+    padding: 80px 24px;
+  }
+
+  .sticky {
+    position: relative;
+    height: auto;
+    padding: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollSection {
+    height: auto;
+  }
+
+  .sticky {
+    position: relative;
+    height: auto;
+  }
+
+  .step {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

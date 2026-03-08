@@ -1,0 +1,89 @@
+.section {
+  background: var(--e-bg-mid);
+  padding: 96px 80px;
+}
+
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.preLabel {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.5em;
+  color: var(--e-gold);
+  margin-bottom: 56px;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  position: relative;
+}
+
+.timelineLine {
+  position: absolute;
+  top: 5px;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: var(--e-gold);
+  opacity: 0.18;
+}
+
+.step {
+  text-align: center;
+  padding: 0 8px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--e-gold);
+  margin: 0 auto 20px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 0 4px var(--e-bg-mid);
+}
+
+.stepTitle {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--e-text);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.stepDesc {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--e-muted);
+  line-height: 1.65;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 24px;
+  }
+
+  .timeline {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 0;
+  }
+
+  .timelineLine {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

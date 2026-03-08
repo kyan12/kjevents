@@ -1,0 +1,155 @@
+.section {
+  background: var(--e-bg);
+  padding: 120px 80px;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.preLabel {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.5em;
+  color: var(--e-gold);
+  margin-bottom: 28px;
+}
+
+.heading {
+  font-family: var(--font-bebas), Impact, sans-serif;
+  font-size: clamp(36px, 5.5vw, 68px);
+  color: var(--e-text);
+  letter-spacing: 0.07em;
+  margin-bottom: 18px;
+  line-height: 0.95;
+  font-weight: 400;
+}
+
+.subtext {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 14px;
+  color: var(--e-muted);
+  line-height: 1.85;
+  margin-bottom: 60px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 32px;
+}
+
+.row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #6A6A60;
+  color: var(--e-text);
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 13px;
+  padding: 13px 0;
+  outline: none;
+  letter-spacing: 0.04em;
+  transition: border-color 0.3s ease;
+}
+
+.select {
+  cursor: pointer;
+  appearance: none;
+}
+
+.selectPlaceholder {
+  color: var(--e-muted);
+}
+
+.textarea {
+  resize: none;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-bottom-color: var(--e-gold);
+  background: rgba(197, 160, 89, 0.05);
+}
+
+.submitBtn:focus-visible {
+  outline: 2px solid var(--e-gold);
+  outline-offset: 2px;
+}
+
+.submitBtn:active {
+  transform: scale(0.97);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--e-muted);
+  opacity: 0.8;
+}
+
+.submitBtn {
+  grid-column: 1 / -1;
+  margin-top: 26px;
+  width: 100%;
+  padding: 18px;
+  background: var(--e-gold);
+  border: none;
+  color: var(--e-bg);
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: var(--e-gold-lt);
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.successMsg {
+  text-align: center;
+  color: #81b29a;
+  font-weight: 400;
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.errorMsg {
+  text-align: center;
+  color: var(--e-gold);
+  font-weight: 400;
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 80px 24px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}

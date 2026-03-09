@@ -1,7 +1,9 @@
 .container {
   display: flex;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh + env(safe-area-inset-top));
+  margin-top: calc(env(safe-area-inset-top) * -1);
+  padding-top: env(safe-area-inset-top);
   overflow: hidden;
   background-color: var(--w-bg);
 }

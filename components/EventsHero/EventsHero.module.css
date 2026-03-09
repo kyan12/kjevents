@@ -1,10 +1,11 @@
 .hero {
-  min-height: 100vh;
+  min-height: calc(100vh + env(safe-area-inset-top));
+  margin-top: calc(env(safe-area-inset-top) * -1);
+  padding-top: calc(72px + env(safe-area-inset-top));
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding-top: 72px;
 }
 
 .bgTexture {

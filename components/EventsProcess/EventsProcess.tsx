@@ -49,20 +49,36 @@ export default function EventsProcess() {
             {/* Start spacer so the first item begins near the center/right */}
             <div className={styles.trackSpacer} />
 
-            {steps.map((step, i) => (
-              <div key={i} className={styles.stepColumn}>
-
-                {/* Connection line dot / number anchor */}
-                <div className={styles.nodeAnchor}>
-                  <p className={styles.cardNumber}>{step.n}</p>
+            {/* Grouping for mobile layout: 1-3 on left, 4-6 on right. Desktop can just flex-row them or display contents. */}
+            <div className={styles.halfTrack}>
+              {steps.slice(0, 3).map((step, i) => (
+                <div key={i} className={styles.stepColumn}>
+                  <div className={styles.stepDecor} />
+                  <div className={styles.nodeAnchor}>
+                    <p className={styles.cardNumber}>{step.n}</p>
+                  </div>
+                  <div className={styles.cardContent}>
+                    <p className={styles.cardTitle}>{step.title}</p>
+                    <p className={styles.cardDesc}>{step.desc}</p>
+                  </div>
                 </div>
+              ))}
+            </div>
 
-                <div className={styles.cardContent}>
-                  <p className={styles.cardTitle}>{step.title}</p>
-                  <p className={styles.cardDesc}>{step.desc}</p>
+            <div className={styles.halfTrack}>
+              {steps.slice(3, 6).map((step, i) => (
+                <div key={i + 3} className={styles.stepColumn}>
+                  <div className={styles.stepDecor} />
+                  <div className={styles.nodeAnchor}>
+                    <p className={styles.cardNumber}>{step.n}</p>
+                  </div>
+                  <div className={styles.cardContent}>
+                    <p className={styles.cardTitle}>{step.title}</p>
+                    <p className={styles.cardDesc}>{step.desc}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
 
             {/* End spacer so the last item can leave exactly at the edge */}
             <div className={styles.trackSpacer} />

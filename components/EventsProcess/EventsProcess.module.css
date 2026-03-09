@@ -71,18 +71,24 @@
 .horizontalTrack::before {
   content: "";
   position: absolute;
-  top: 78px;
-  /* Offset to center line vertically through the 64px numbers */
+  top: 130px;
+  /* Lowered to accommodate thicker top padding of polished tiles */
   left: 4vw;
   right: 4vw;
   height: 1px;
-  background: rgba(205, 168, 76, 0.3);
-  /* Transparent E.gold */
+  background: rgba(205, 168, 76, 0.2);
+  /* Lighter E.gold */
   z-index: 0;
 }
 
 .trackSpacer {
   display: none;
+}
+
+.halfTrack {
+  display: flex;
+  gap: 2vw;
+  flex: 1;
 }
 
 .stepColumn {
@@ -93,37 +99,84 @@
   align-items: flex-start;
   position: relative;
   z-index: 1;
-  /* Keep text/numbers above track line */
+
+  /* Deep Premium Polish */
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.7) 0%, rgba(252, 250, 245, 0.4) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(205, 168, 76, 0.15);
+  border-radius: 20px;
+  padding: 40px 32px;
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: hidden;
+  min-height: 280px;
+  /* Ensure uniform height on desktop */
+}
+
+/* Decorative corner accent */
+.stepDecor {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle at top right, rgba(205, 168, 76, 0.1) 0%, transparent 70%);
+  border-radius: 0 20px 0 100%;
+  pointer-events: none;
+}
+
+.stepColumn:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow:
+    0 20px 40px -15px rgba(205, 168, 76, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(252, 250, 245, 0.6) 100%);
+  border-color: rgba(205, 168, 76, 0.35);
+}
+
+.stepColumn:hover .stepDecor {
+  background: radial-gradient(circle at top right, rgba(205, 168, 76, 0.2) 0%, transparent 70%);
 }
 
 .nodeAnchor {
   margin-bottom: 24px;
-  background: var(--e-bg-mid);
-  /* Hide line passing strictly behind the number */
-  padding-right: 16px;
-  /* Slight visual breathing room */
 }
 
 .cardNumber {
   font-family: var(--font-bebas), Impact, sans-serif;
-  font-size: clamp(40px, 4vw, 64px);
-  color: #E2C275;
-  /* E.goldLt */
+  font-size: clamp(48px, 4vw, 72px);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(205, 168, 76, 0.6);
+  background: linear-gradient(180deg, rgba(205, 168, 76, 1) 0%, rgba(205, 168, 76, 0.4) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
   line-height: 0.8;
   margin: 0;
   font-weight: 400;
+  transition: all 0.5s ease;
+}
+
+.stepColumn:hover .cardNumber {
+  color: rgba(205, 168, 76, 0.1);
+  -webkit-text-stroke: 1px rgba(205, 168, 76, 0.9);
 }
 
 .cardContent {
   /* Minimalist spacing for the narrative text */
-  padding-right: 12px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .cardTitle {
   font-family: var(--font-bebas), Impact, sans-serif;
-  font-size: clamp(20px, 2vw, 28px);
+  font-size: clamp(20px, 2vw, 24px);
   color: #111;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   margin-bottom: 12px;
   font-weight: 400;
   word-wrap: break-word;
@@ -131,24 +184,39 @@
 
 .cardDesc {
   font-family: var(--font-dm), system-ui, sans-serif;
-  font-size: clamp(13px, 1.1vw, 16px);
-  color: #555;
+  font-size: clamp(14px, 1.1vw, 15px);
+  color: #666;
   line-height: 1.6;
   margin: 0;
 }
 
 @media (max-width: 768px) {
   .section {
-    padding: 8vh 0;
+    padding: 6vh 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
-  /* Reset track to a vertical column */
+  /* The track is now a simple flex row or flex grid */
   .horizontalTrack {
-    flex-direction: column;
-    gap: 0;
-    /* Remove horizontal gap, use padding/margin on steps */
-    padding: 24px 0;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    padding: 16px 20px;
     width: 100%;
+    align-items: stretch;
+  }
+
+  /* Each halfTrack acts as a column holding 3 tiles */
+  .halfTrack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+    /* Both columns take equal exactly half width */
+    min-width: 0;
   }
 
   /* Hide the horizontal line */
@@ -156,49 +224,44 @@
     display: none;
   }
 
-  /* Draw a new vertical line down the left side */
+  /* No vertical line either */
   .horizontalTrack::after {
-    content: "";
-    position: absolute;
-    top: 24px;
-    bottom: 24px;
-    left: 20px;
-    /* Offset to center under the numbers if aligned left */
-    width: 1px;
-    background: rgba(205, 168, 76, 0.3);
-    z-index: 0;
-  }
-
-  /* Expand steps to full width & add vertical spacing */
-  .stepColumn {
-    width: 100%;
-    padding-bottom: 48px;
-    /* Vertical gap between steps */
-  }
-
-  /* Remove padding from spacers since we are vertical */
-  .trackSpacer {
     display: none;
   }
 
-  /* Smaller typography for mobile */
+  /* Tiles become more compact and perfectly uniform */
+  .stepColumn {
+    width: 100%;
+    padding: 20px 16px;
+    border-radius: 16px;
+    min-height: auto;
+    flex: 1;
+    /* This ensures all 3 tiles stretch to be the exact same height */
+    justify-content: flex-start;
+  }
+
+  /* Maintain decor in mobile but slightly smaller */
+  .stepDecor {
+    width: 40px;
+    height: 40px;
+  }
+
   .nodeAnchor {
-    margin-bottom: 16px;
-    padding-right: 0;
+    margin-bottom: 12px;
   }
 
   .cardNumber {
-    font-size: 48px;
-  }
-
-  /* Shift content slightly right to clear the vertical line */
-  .cardContent {
-    padding-right: 0;
-    padding-left: 20px;
+    font-size: 36px;
   }
 
   .cardTitle {
-    font-size: 24px;
+    font-size: 16px;
     margin-bottom: 8px;
+    letter-spacing: 0.04em;
+  }
+
+  .cardDesc {
+    font-size: 11px;
+    line-height: 1.5;
   }
 }

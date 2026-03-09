@@ -20,6 +20,7 @@ const anchors: Record<string, { label: string; wedding: string; events: string }
 export default function Nav({ mode }: NavProps) {
   const [scrolled, setScrolled] = useState(false);
   const [activeId, setActiveId] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
@@ -27,6 +28,14 @@ export default function Nav({ mode }: NavProps) {
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 768px)');
+    const onChange = () => setIsMobile(mql.matches);
+    onChange();
+    mql.addEventListener('change', onChange);
+    return () => mql.removeEventListener('change', onChange);
   }, []);
 
   useEffect(() => {
@@ -58,7 +67,15 @@ export default function Nav({ mode }: NavProps) {
   const crossLabel = mode === 'wedding' ? 'EVENTS' : 'WEDDINGS';
 
   return (
-    <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ''} ${styles[mode]}`}>
+    <nav
+      className={`${styles.nav} ${scrolled ? styles.scrolled : ''} ${styles[mode]}`}
+      style={isMobile ? {
+        background: 'transparent',
+        backdropFilter: 'none',
+        WebkitBackdropFilter: 'none',
+        borderBottomColor: 'transparent',
+      } : undefined}
+    >
       <button className={styles.brand} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
         KIRA JIA EVENTS
       </button>

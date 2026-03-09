@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#E8E0D4',
+  themeColor: 'transparent',
 };
 
 export default function WeddingsLayout({ children }: { children: React.ReactNode }) {

@@ -26,6 +26,16 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
 
   const startTransition = useCallback((href: string, color?: string) => {
     if (isTransitioning) return;
+
+    const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
+
+    // On mobile, skip full-screen transition overlay to avoid browser chrome paint artifacts.
+    if (isMobile) {
+      router.push(href);
+      window.scrollTo(0, 0);
+      return;
+    }
+
     setTransitionColor(color || 'var(--w-bg)');
     setIsTransitioning(true);
 

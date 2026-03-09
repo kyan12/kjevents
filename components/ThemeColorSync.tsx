@@ -23,18 +23,22 @@ export default function ThemeColorSync() {
   const pathname = usePathname();
 
   useEffect(() => {
-    let meta = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement | null;
+    const ensureMeta = () => {
+      const metas = document.querySelectorAll('meta[name="theme-color"]') as NodeListOf<HTMLMetaElement>;
+      if (metas.length > 0) return Array.from(metas);
 
-    if (!meta) {
-      meta = document.createElement('meta');
+      const meta = document.createElement('meta');
       meta.setAttribute('name', 'theme-color');
       document.head.appendChild(meta);
-    }
+      return [meta];
+    };
 
     const apply = () => {
+      const activePath = window.location.pathname || pathname || '/';
       const scrolled = window.scrollY > 50;
-      const color = resolveThemeColor(pathname || '/', scrolled);
-      meta!.setAttribute('content', color);
+      const color = resolveThemeColor(activePath, scrolled);
+      const metas = ensureMeta();
+      metas.forEach((m) => m.setAttribute('content', color));
     };
 
     apply();

@@ -26,7 +26,11 @@ export default function SafeAreaTopFill() {
   }, []);
 
   useEffect(() => {
-    const sync = () => setFill(getFill(pathname || '/', window.scrollY > 50));
+    const sync = () => {
+      const activePath = window.location.pathname || pathname || '/';
+      setFill(getFill(activePath, window.scrollY > 50));
+    };
+
     sync();
     window.addEventListener('scroll', sync, { passive: true });
     window.addEventListener('resize', sync);

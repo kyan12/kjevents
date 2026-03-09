@@ -32,12 +32,17 @@ export default function Nav({ mode }: NavProps) {
   }, []);
 
   useEffect(() => {
-    // On route transitions, force nav to initial (unscrolled) state.
-    // This mirrors a hard refresh and prevents stale scrolled background carry-over.
-    setScrolled(false);
+    const syncScrollState = () => setScrolled(window.scrollY > 50);
 
-    // Ensure page starts at top after route transitions in mobile browsers.
-    window.scrollTo(0, 0);
+    // Ensure nav state is correct after client-side page transitions.
+    syncScrollState();
+    const raf = requestAnimationFrame(syncScrollState);
+    const t = setTimeout(syncScrollState, 120);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(t);
+    };
   }, [pathname]);
 
   useEffect(() => {

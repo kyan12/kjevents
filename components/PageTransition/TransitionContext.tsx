@@ -28,8 +28,28 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     if (isTransitioning) return;
 
     const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
-    const coverDelay = isMobile ? 260 : 500;
-    const revealDelay = isMobile ? 240 : 400;
+
+    // Mobile: avoid fixed overlay entirely (causes browser address-bar paint artifacts on route changes).
+    // Use a lightweight content fade on body instead.
+    if (isMobile) {
+      const previousTransition = document.body.style.transition;
+      const previousOpacity = document.body.style.opacity;
+
+      document.body.style.transition = 'opacity 180ms ease';
+      document.body.style.opacity = '0.6';
+
+      setTimeout(() => {
+        router.push(href);
+        window.scrollTo(0, 0);
+
+        setTimeout(() => {
+          document.body.style.transition = previousTransition;
+          document.body.style.opacity = previousOpacity || '1';
+        }, 220);
+      }, 140);
+
+      return;
+    }
 
     setTransitionColor(color || 'var(--w-bg)');
     setIsTransitioning(true);
@@ -41,8 +61,8 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
       // Hold briefly for page mount, then reveal
       setTimeout(() => {
         setIsTransitioning(false);
-      }, revealDelay);
-    }, coverDelay);
+      }, 400);
+    }, 500);
   }, [router, isTransitioning]);
 
   return (

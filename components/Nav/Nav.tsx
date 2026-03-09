@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import TransitionLink from '@/components/PageTransition/TransitionLink';
 import styles from './Nav.module.css';
 
@@ -18,9 +19,9 @@ const anchors: Record<string, { label: string; wedding: string; events: string }
 };
 
 export default function Nav({ mode }: NavProps) {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [activeId, setActiveId] = useState('');
-  const [isMobile, setIsMobile] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
@@ -31,12 +32,18 @@ export default function Nav({ mode }: NavProps) {
   }, []);
 
   useEffect(() => {
-    const mql = window.matchMedia('(max-width: 768px)');
-    const onChange = () => setIsMobile(mql.matches);
-    onChange();
-    mql.addEventListener('change', onChange);
-    return () => mql.removeEventListener('change', onChange);
-  }, []);
+    const syncScrollState = () => setScrolled(window.scrollY > 50);
+
+    // Ensure nav state is correct after client-side page transitions.
+    syncScrollState();
+    const raf = requestAnimationFrame(syncScrollState);
+    const t = setTimeout(syncScrollState, 120);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(t);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     const ids = anchors.links.map(a => mode === 'wedding' ? a.wedding : a.events);
@@ -67,15 +74,7 @@ export default function Nav({ mode }: NavProps) {
   const crossLabel = mode === 'wedding' ? 'EVENTS' : 'WEDDINGS';
 
   return (
-    <nav
-      className={`${styles.nav} ${scrolled ? styles.scrolled : ''} ${styles[mode]}`}
-      style={isMobile ? {
-        background: 'transparent',
-        backdropFilter: 'none',
-        WebkitBackdropFilter: 'none',
-        borderBottomColor: 'transparent',
-      } : undefined}
-    >
+    <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ''} ${styles[mode]}`}>
       <button className={styles.brand} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
         KIRA JIA EVENTS
       </button>

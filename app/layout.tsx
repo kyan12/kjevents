@@ -5,6 +5,7 @@ import './globals.css';
 import SmoothScroll from '@/components/SmoothScroll';
 import { TransitionProvider } from '@/components/PageTransition/TransitionContext';
 import TransitionOverlay from '@/components/PageTransition/TransitionOverlay';
+import ThemeColorSync from '@/components/ThemeColorSync';
 import { cn } from "@/lib/utils";
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
@@ -63,6 +64,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   viewportFit: 'cover',
+  themeColor: '#E8E0D4',
 };
 
 export default function RootLayout({
@@ -74,6 +76,7 @@ export default function RootLayout({
     <html lang="en" className={cn(helloParis.variable, cormorant.variable, jost.variable, bebas.variable, dmSans.variable, "font-sans", geist.variable)}>
       <body>
         <TransitionProvider>
+          <ThemeColorSync />
           <SmoothScroll>
             {children}
           </SmoothScroll>

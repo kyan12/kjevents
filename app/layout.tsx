@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Jost, Bebas_Neue, DM_Sans, Geist } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
@@ -59,6 +59,10 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
   },
+};
+
+export const viewport: Viewport = {
+  viewportFit: 'cover',
 };
 
 export default function RootLayout({

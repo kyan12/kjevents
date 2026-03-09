@@ -16,9 +16,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: true, simulated: true });
     }
 
+    const inquiryRecipient = process.env.INQUIRY_TO_EMAIL || 'kira@kirajiaevents.com';
+
     const { data: emailData, error } = await resend.emails.send({
       from: 'Kira Jia Events Inquiry <inquiry@kirajiaevents.com>', // MUST BE VERIFIED IN RESEND
-      to: ['hello@kirajiaevents.com'], // The address receiving inquiries
+      to: [inquiryRecipient],
       subject: `New Inquiry from ${name} - ${eventType}`,
       html: `
         <h2>New Inquiry Received</h2>

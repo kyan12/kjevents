@@ -38,10 +38,7 @@ export default function EventsHero() {
           </div>
         </h1>
 
-        <div className={`${styles.scrollIndicator} ${on ? styles.visibleScroll : ''}`}>
-          <div className={styles.scrollLine} />
-          <p className={styles.scrollText}>SCROLL</p>
-        </div>
+
       </div>
     </section>
   );

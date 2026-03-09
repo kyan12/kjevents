@@ -5,19 +5,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import styles from './IntroAnimation.module.css';
 
 export default function IntroAnimation() {
-  const [showAnimation, setShowAnimation] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  const [showAnimation, setShowAnimation] = useState(true);
 
   useEffect(() => {
-    setIsMounted(true);
-    setShowAnimation(true);
     const timer = setTimeout(() => {
       setShowAnimation(false);
     }, 3500);
     return () => clearTimeout(timer);
   }, []);
-
-  if (!isMounted) return null; // Prevent hydration mismatch
 
   return (
     <AnimatePresence>
@@ -37,7 +32,7 @@ export default function IntroAnimation() {
             >
               K
             </motion.div>
-            
+
             <motion.div
               className={styles.letterJ}
               initial={{ x: '50vw', y: '50vh', opacity: 0 }}

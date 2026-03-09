@@ -22,8 +22,8 @@ export default function EventsPage() {
         <PartnerBanner />
         <EventsStats />
         <EventsPortfolio />
-        <EventsTestimonials />
         <EventsProcess />
+        <EventsTestimonials />
         <EventsContact />
       </main>
     </ScrollEffectsProvider>

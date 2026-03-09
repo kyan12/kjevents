@@ -86,16 +86,9 @@
 }
 
 .goldHighlight {
-  color: #CDA84C;
-  /* E.gold */
-  background: var(--gold-foil);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: goldShimmer 6s ease-in-out infinite;
+  color: transparent;
+  -webkit-text-stroke: 4px var(--e-gold);
   text-shadow: none;
-  -webkit-text-stroke: 1px rgba(139, 107, 47, 0.35);
 }
 
 .letterRevealBase {

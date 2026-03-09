@@ -71,12 +71,12 @@
 
 .events.scrolled .anchor,
 .events.scrolled .divider {
-  color: var(--e-text);
+  color: var(--e-bg);
 }
 
 .events.scrolled .crossLink {
-  border-color: var(--e-text);
-  color: var(--e-text);
+  border-color: var(--e-bg);
+  color: var(--e-bg);
 }
 
 .events .cta {

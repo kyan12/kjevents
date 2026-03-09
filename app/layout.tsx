@@ -6,6 +6,7 @@ import SmoothScroll from '@/components/SmoothScroll';
 import { TransitionProvider } from '@/components/PageTransition/TransitionContext';
 import TransitionOverlay from '@/components/PageTransition/TransitionOverlay';
 import ThemeColorSync from '@/components/ThemeColorSync';
+import SafeAreaTopFill from '@/components/SafeAreaTopFill';
 import { cn } from "@/lib/utils";
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
@@ -77,6 +78,7 @@ export default function RootLayout({
       <body>
         <TransitionProvider>
           <ThemeColorSync />
+          <SafeAreaTopFill />
           <SmoothScroll>
             {children}
           </SmoothScroll>

@@ -45,8 +45,20 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Kira Jia Events | Refined, Intentional & Deeply Personal',
+  metadataBase: new URL('https://kirajiaevents.com'),
+  title: {
+    default: 'Kira Jia Events | Refined, Intentional & Deeply Personal',
+    template: '%s | Kira Jia Events',
+  },
   description: 'Bespoke weddings blending Western elegance, Chinese heritage, and modern fusion storytelling. Curated experiences at every scale.',
+  openGraph: {
+    type: 'website',
+    siteName: 'Kira Jia Events',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 };
 
 export default function RootLayout({

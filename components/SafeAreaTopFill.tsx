@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 function getFill(pathname: string, scrolled: boolean) {
+  // Events should always match nav fill exactly.
+  if (pathname.startsWith('/events')) return '#363830';
+
   if (!scrolled) return 'transparent';
-  if (pathname.startsWith('/events')) return 'rgba(54, 56, 48, 0.94)';
-  if (pathname.startsWith('/weddings')) return 'rgba(232, 224, 212, 0.94)';
+  if (pathname.startsWith('/weddings')) return '#E8E0D4';
   return 'transparent';
 }
 

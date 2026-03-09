@@ -1,13 +1,13 @@
 .contactSection {
   padding: 8rem 2rem;
-  background-color: var(--secondary-bg);
-  color: var(--text-main);
-  border-top: 1px solid var(--warm-taupe);
+  background-color: var(--w-bg-dark);
+  color: var(--w-ink);
+  border-top: 1px solid var(--w-border);
 }
 
 .contactSection.eventsTheme {
-  background-color: var(--events-bg);
-  border-top: 1px solid var(--events-secondary);
+  background-color: var(--e-bg);
+  border-top: 1px solid var(--e-banner);
 }
 
 .formContainer {
@@ -21,24 +21,24 @@
 }
 
 .title {
-  font-family: var(--font-aboreto);
+  font-family: var(--font-cormorant), Georgia, serif;
   font-size: 2.5rem;
   margin-bottom: 1rem;
 }
 
 .eventsTheme .title {
-  color: var(--events-accent);
+  color: var(--e-gold);
 }
 
 .subtitle {
-  font-family: var(--font-montserrat);
+  font-family: var(--font-jost), system-ui, sans-serif;
   font-size: 1.1rem;
   line-height: 1.6;
   font-weight: 300;
 }
 
 .eventsTheme .subtitle {
-  color: var(--events-text);
+  color: var(--e-text);
 }
 
 .form {
@@ -60,55 +60,55 @@
 }
 
 .label {
-  font-family: var(--font-montserrat);
+  font-family: var(--font-jost), system-ui, sans-serif;
   font-size: 0.9rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--warm-taupe);
+  color: var(--w-border);
 }
 
 .eventsTheme .label {
-  color: var(--events-secondary);
+  color: var(--e-banner);
 }
 
 .inputField, .selectField, .textareaField {
   width: 100%;
   padding: 1rem;
-  background-color: var(--primary-bg);
+  background-color: var(--w-bg);
   border: 1px solid transparent;
-  border-bottom: 1px solid var(--warm-taupe);
-  font-family: var(--font-montserrat);
+  border-bottom: 1px solid var(--w-border);
+  font-family: var(--font-jost), system-ui, sans-serif;
   font-size: 1rem;
-  color: var(--text-main);
+  color: var(--w-ink);
   transition: border-color 0.3s ease;
   outline: none;
 }
 
-.eventsTheme .inputField, 
-.eventsTheme .selectField, 
+.eventsTheme .inputField,
+.eventsTheme .selectField,
 .eventsTheme .textareaField {
   background-color: transparent;
-  border-bottom: 1px solid var(--events-secondary);
-  color: var(--events-text);
+  border-bottom: 1px solid var(--e-banner);
+  color: var(--e-text);
 }
 
 .inputField:focus, .selectField:focus, .textareaField:focus {
-  border-color: var(--accent-garnet);
+  border-color: var(--w-burgundy);
 }
 
-.eventsTheme .inputField:focus, 
-.eventsTheme .selectField:focus, 
+.eventsTheme .inputField:focus,
+.eventsTheme .selectField:focus,
 .eventsTheme .textareaField:focus {
-  border-color: var(--events-accent);
+  border-color: var(--e-gold);
 }
 
 .submitBtn {
   margin-top: 2rem;
   padding: 1.25rem 3rem;
   background-color: transparent;
-  color: var(--text-main);
-  border: 1px solid var(--text-main);
-  font-family: var(--font-montserrat);
+  color: var(--w-ink);
+  border: 1px solid var(--w-ink);
+  font-family: var(--font-jost), system-ui, sans-serif;
   font-size: 0.9rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -118,18 +118,18 @@
 }
 
 .eventsTheme .submitBtn {
-  color: var(--events-accent);
-  border: 1px solid var(--events-accent);
+  color: var(--e-gold);
+  border: 1px solid var(--e-gold);
 }
 
 .submitBtn:hover:not(:disabled) {
-  background-color: var(--text-main);
-  color: var(--primary-bg);
+  background-color: var(--w-ink);
+  color: var(--w-bg);
 }
 
 .eventsTheme .submitBtn:hover:not(:disabled) {
-  background-color: var(--events-accent);
-  color: var(--events-bg);
+  background-color: var(--e-gold);
+  color: var(--e-bg);
 }
 
 .submitBtn:disabled {
@@ -146,7 +146,7 @@
 
 .errorMessage {
   text-align: center;
-  color: var(--accent-garnet);
+  color: var(--w-burgundy);
   font-weight: 500;
   margin-top: 1rem;
 }

@@ -1,0 +1,146 @@
+.section {
+  background: var(--w-ink);
+  padding: 120px 80px;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.preLabel {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.5em;
+  color: var(--w-border);
+  margin-bottom: 28px;
+}
+
+.heading {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(28px, 3.2vw, 46px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--w-cream);
+  margin-bottom: 64px;
+  line-height: 1.25;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 36px;
+}
+
+.row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--w-border);
+  color: var(--w-cream);
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  padding: 14px 0;
+  outline: none;
+  letter-spacing: 0.04em;
+  transition: border-color 0.3s ease;
+}
+
+.textarea {
+  resize: none;
+}
+
+.input:focus,
+.textarea:focus {
+  border-bottom-color: var(--w-burgundy-lt);
+  background: rgba(107, 51, 51, 0.03);
+}
+
+.submitBtn:focus-visible {
+  outline: 2px solid var(--w-burgundy);
+  outline-offset: 2px;
+}
+
+.submitBtn:active {
+  transform: scale(0.97);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--w-ash);
+}
+
+.submitBtn {
+  grid-column: 1 / -1;
+  margin-top: 20px;
+  width: 100%;
+  padding: 18px;
+  background: transparent;
+  border: 1px solid var(--w-border);
+  color: var(--w-cream);
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: var(--w-burgundy);
+  border-color: var(--w-burgundy);
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.footnote {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  font-style: italic;
+  color: var(--w-ash);
+  text-align: center;
+  margin-top: 18px;
+}
+
+.successMsg {
+  text-align: center;
+  color: #81b29a;
+  font-weight: 400;
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.errorMsg {
+  text-align: center;
+  color: var(--w-burgundy-lt);
+  font-weight: 400;
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 80px 24px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

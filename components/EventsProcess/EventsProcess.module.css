@@ -1,0 +1,300 @@
+.section {
+  background: var(--e-bg-mid);
+  padding: 8vh 0;
+  position: relative;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.headerArea {
+  text-align: center;
+  margin-bottom: 4vh;
+  padding: 0 4vw;
+}
+
+.preLabel {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.5em;
+  color: #CDA84C;
+  margin-bottom: 20px;
+  background: var(--gold-foil);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heading {
+  font-family: var(--font-bebas), Impact, sans-serif;
+  font-size: clamp(48px, 6vw, 84px);
+  color: #111;
+  letter-spacing: 0.02em;
+  line-height: 0.9;
+  margin: 0;
+  font-weight: 400;
+}
+
+.trackViewport {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.trackViewport::-webkit-scrollbar {
+  display: none;
+}
+
+.horizontalTrack {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2vw;
+  position: relative;
+  padding: 60px 4vw;
+  width: 100%;
+}
+
+/* ─── Card: grid rows for vertical alignment ─── */
+.stepColumn {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: auto auto auto auto auto 1fr;
+  align-content: start;
+  position: relative;
+  z-index: 1;
+
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.7) 0%, rgba(252, 250, 245, 0.4) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(205, 168, 76, 0.15);
+  border-radius: 20px;
+  padding: 40px 32px;
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: hidden;
+  min-height: 240px;
+}
+
+.stepColumn:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow:
+    0 20px 40px -15px rgba(205, 168, 76, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(252, 250, 245, 0.6) 100%);
+  border-color: rgba(205, 168, 76, 0.35);
+}
+
+/* ─── Journey progress bar ─── */
+.stepColumn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: var(--progress, 0%);
+  background: linear-gradient(90deg, var(--e-gold), var(--e-gold-lt));
+  border-radius: 0 0 0 20px;
+  opacity: 0.25;
+  transition: opacity 0.4s ease;
+}
+
+.stepColumn:hover::after {
+  opacity: 0.6;
+}
+
+/* ─── Top header: number left, icon right ─── */
+.topHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.cardNumber {
+  font-family: var(--font-bebas), Impact, sans-serif;
+  font-size: clamp(48px, 4vw, 72px);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(205, 168, 76, 0.6);
+  background: var(--gold-foil);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  line-height: 0.8;
+  margin: 0;
+  font-weight: 400;
+  transition: all 0.5s ease;
+}
+
+.cardNumberActive {
+  color: rgba(205, 168, 76, 0.1);
+  -webkit-text-stroke: 1px rgba(205, 168, 76, 0.9);
+}
+
+.iconWrapper {
+  opacity: 0.35;
+  transform: translateY(6px);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.iconActive {
+  opacity: 1;
+  transform: translateY(0);
+  filter: drop-shadow(0 0 8px rgba(205, 168, 76, 0.4));
+}
+
+/* ─── Gold accent line ─── */
+.goldLine {
+  width: 20px;
+  height: 1px;
+  background: var(--e-gold);
+  margin-bottom: 12px;
+  transition: width 0.4s ease;
+}
+
+.goldLineActive {
+  width: 60px;
+}
+
+/* ─── Phase label ─── */
+.phaseLabel {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  color: var(--e-gold);
+  margin: 0 0 6px;
+  line-height: 1;
+}
+
+/* ─── Title & description ─── */
+.cardTitle {
+  font-family: var(--font-bebas), Impact, sans-serif;
+  font-size: clamp(20px, 2vw, 24px);
+  color: #111;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.cardDesc {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: clamp(14px, 1.1vw, 15px);
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ─── Ghost watermark icon ─── */
+.ghostWatermark {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  opacity: 0.045;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.ghostWatermark svg {
+  width: 90px;
+  height: 90px;
+}
+
+.stepColumn:hover .ghostWatermark {
+  opacity: 0.1;
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 768px) {
+  .section {
+    padding: 6vh 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .horizontalTrack {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 16px 20px;
+  }
+
+  .stepColumn {
+    padding: 20px 16px;
+    border-radius: 16px;
+    min-height: auto;
+  }
+
+  .topHeader {
+    margin-bottom: 8px;
+  }
+
+  .cardNumber {
+    font-size: 36px;
+  }
+
+  .iconWrapper svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .goldLine {
+    width: 16px;
+    margin-bottom: 8px;
+  }
+
+  .goldLineActive {
+    width: 40px;
+  }
+
+  .phaseLabel {
+    font-size: 8px;
+    margin-bottom: 4px;
+  }
+
+  .cardTitle {
+    font-size: 16px;
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+  }
+
+  .cardDesc {
+    font-size: 11px;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  .ghostWatermark svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  /* No hover effects on touch */
+  .stepColumn:hover {
+    transform: none;
+    box-shadow:
+      0 10px 30px -10px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.7) 0%, rgba(252, 250, 245, 0.4) 100%);
+    border-color: rgba(205, 168, 76, 0.15);
+  }
+
+  .stepColumn:hover .ghostWatermark {
+    opacity: 0.045;
+  }
+
+  .stepColumn:hover::after {
+    opacity: 0.25;
+  }
+}

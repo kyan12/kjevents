@@ -1,0 +1,146 @@
+.section {
+  background: var(--w-bg);
+  padding: 120px 0 120px 80px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 45% 1fr;
+  gap: 0;
+  align-items: center;
+}
+
+.textCol {
+  display: flex;
+  flex-direction: column;
+  max-width: 520px;
+  padding-right: 60px;
+  position: relative;
+  z-index: 20;
+}
+
+.preLabel {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.5em;
+  color: var(--w-ash);
+  margin-bottom: 28px;
+}
+
+.heading {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(30px, 3.2vw, 48px);
+  font-weight: 300;
+  color: var(--w-ink);
+  line-height: 1.25;
+  margin-bottom: 36px;
+}
+
+.accentBlock {
+  border-left: 2px solid var(--w-burgundy);
+  padding-left: 28px;
+  margin-bottom: 28px;
+}
+
+.accentBlock p {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.95;
+  color: var(--w-ash);
+}
+
+.bodyText {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.95;
+  color: var(--w-ash);
+  margin-bottom: 40px;
+}
+
+.signature {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-size: 24px;
+  font-weight: 300;
+  color: var(--w-burgundy);
+}
+
+.signatureRole {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: var(--w-ash);
+  margin-top: 4px;
+}
+
+.photoCol {
+  position: relative;
+  align-self: stretch;
+}
+
+.photoPrimary {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  /* Softly diffuse the left edge into the background */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.05) 5%, rgba(0, 0, 0, 0.3) 12%, rgba(0, 0, 0, 1) 25%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.05) 5%, rgba(0, 0, 0, 0.3) 12%, rgba(0, 0, 0, 1) 25%);
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0.12) 0%, transparent 15%),
+    linear-gradient(to top, rgba(0, 0, 0, 0.08) 0%, transparent 20%);
+}
+
+.waveOverlay {
+  position: absolute;
+  top: -120px;
+  bottom: -120px;
+  left: -50%;
+  width: 76%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.waveLayer {
+  will-change: transform;
+  transition: transform 0.05s linear;
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding: 80px 24px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .textCol {
+    max-width: none;
+    padding-right: 0;
+    margin-bottom: 32px;
+  }
+
+  .photoCol {
+    min-height: 400px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .waveOverlay {
+    display: none;
+  }
+
+  .photoPrimary {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 8%, rgba(0,0,0,1) 18%, rgba(0,0,0,1) 85%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 8%, rgba(0,0,0,1) 18%, rgba(0,0,0,1) 85%, transparent 100%);
+  }
+}

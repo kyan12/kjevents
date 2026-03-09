@@ -1,0 +1,248 @@
+.section {
+  background: var(--w-bg-dark);
+  padding: 120px 80px 160px;
+}
+
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.preLabel {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.5em;
+  color: var(--w-ash);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.heading {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(36px, 4.5vw, 60px);
+  font-weight: 300;
+  color: var(--w-ink);
+  text-align: center;
+  letter-spacing: 0.12em;
+  margin-bottom: 72px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+/* Supreme 3D Elegance Card Base */
+.card {
+  background: var(--w-bg);
+  padding: 56px 48px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  border: 1px solid rgba(139, 43, 49, 0.05);
+  /* Subtle burgundy tint */
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.02),
+    0 40px 80px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  /* Top highlight for 3D depth */
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(0) scale(1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  z-index: 51;
+}
+
+.cardHover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow:
+    0 20px 40px rgba(139, 43, 49, 0.06),
+    0 60px 100px rgba(139, 43, 49, 0.08),
+    0 0 0 1px rgba(139, 43, 49, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.ghostNumber {
+  position: absolute;
+  top: -20px;
+  right: -10px;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 160px;
+  font-weight: 300;
+  color: var(--w-cream);
+  opacity: 0.3;
+  line-height: 1;
+  pointer-events: none;
+  transition: transform 0.6s ease, color 0.6s ease;
+}
+
+.cardHover .ghostNumber {
+  transform: translateX(-10px) translateY(10px);
+  color: var(--w-sand);
+}
+
+.cardBorder {
+  height: 2px;
+  width: 40px;
+  background: var(--w-burgundy);
+  margin-bottom: 40px;
+  transition: width 0.6s ease, background 0.6s ease;
+}
+
+.cardHover .cardBorder {
+  width: 80px;
+  background: var(--w-copper);
+}
+
+.cardTitle {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--w-ink);
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+  height: 72px;
+  white-space: pre-line;
+  line-height: 1;
+}
+
+.chineseSubtext {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--w-copper);
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.cardDesc {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 14px;
+  color: var(--w-ash);
+  line-height: 1.8;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+  height: 110px;
+  /* Strict height ensures all lists start at the same vertical offset */
+  display: flex;
+  align-items: flex-start;
+}
+
+.itemList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+  flex-grow: 1;
+}
+
+.item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.itemDash {
+  color: var(--w-burgundy);
+  flex-shrink: 0;
+}
+
+.item p {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 13px;
+  color: var(--w-ash);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+}
+
+.price {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--w-burgundy);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+}
+
+.priceVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ctaButton {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--w-burgundy);
+  background: transparent;
+  border: 1px solid var(--w-burgundy);
+  padding: 12px 28px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.ctaButtonHover {
+  background: var(--w-burgundy);
+  color: var(--w-cream);
+}
+
+/* Mobile: Compact Horizontal Snap Scroll */
+@media (max-width: 1024px) {
+  .section {
+    padding: 80px 0 120px;
+    /* Removing horizontal padding to allow full-bleed scroll */
+  }
+
+  .container {
+    padding: 0;
+  }
+
+  .preLabel,
+  .heading {
+    padding: 0 24px;
+  }
+
+  .grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    padding: 20px 24px 60px 24px;
+    /* Bottom padding for scrollbar and shadow */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  .grid::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari */
+  }
+
+  .card {
+    min-width: 85vw;
+    /* Almost full width but peeks the next card */
+    scroll-snap-align: center;
+    padding: 40px 32px;
+  }
+
+  /* cardHover uses same desktop lift/shadow styles on mobile (driven by IntersectionObserver) */
+}

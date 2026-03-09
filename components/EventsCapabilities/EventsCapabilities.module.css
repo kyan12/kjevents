@@ -1,0 +1,253 @@
+.section {
+  background: var(--e-bg);
+  padding: 6vw 4vw;
+}
+
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.preLabel {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  color: var(--e-gold);
+  margin-bottom: 16px;
+}
+
+.heading {
+  font-family: var(--font-bebas), Impact, sans-serif;
+  font-size: clamp(48px, 6vw, 96px);
+  color: var(--e-text);
+  letter-spacing: 0.02em;
+  line-height: 0.9;
+  margin: 0;
+  font-weight: 400;
+}
+
+.headerDesc {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 15px;
+  color: var(--e-muted);
+  max-width: 440px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px 20px;
+  background: transparent;
+}
+
+.tileWrapper {
+  background: rgba(205, 168, 76, 0.03);
+  border: 1px solid rgba(205, 168, 76, 0.15);
+  padding: 24px 20px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.tileWrapper:hover {
+  border-color: rgba(205, 168, 76, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.spotlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tileContent {
+  position: relative;
+  z-index: 1;
+}
+
+.topHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.ghostNum {
+  display: block;
+  font-family: var(--font-bebas), Impact, sans-serif;
+  font-size: 56px;
+  color: var(--e-gold-lt);
+  opacity: 0.2;
+  line-height: 1;
+  font-weight: 400;
+  transform: translateX(-10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.ghostNumActive {
+  opacity: 0.6;
+  transform: translateX(0);
+}
+
+.iconWrapper {
+  opacity: 0.4;
+  transform: translateY(10px);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.iconActive {
+  opacity: 1;
+  transform: translateY(0);
+  filter: drop-shadow(0 0 8px rgba(205, 168, 76, 0.4));
+}
+
+.goldLine {
+  width: 20px;
+  height: 1px;
+  background: var(--e-gold);
+  margin-bottom: 16px;
+  transition: width 0.4s ease;
+}
+
+.goldLineActive {
+  width: 60px;
+}
+
+.cardTitle {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--e-text);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.cardDesc {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 13px;
+  color: var(--e-muted);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.itemsContainer {
+  opacity: 0.5;
+  transition: opacity 0.4s ease;
+}
+
+.itemsContainerActive {
+  opacity: 1;
+}
+
+.item {
+  display: flex;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.itemDash {
+  color: var(--e-gold-lt);
+  flex-shrink: 0;
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 12px;
+}
+
+.item p {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--e-text);
+  line-height: 1.4;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding: 40px 16px;
+  }
+
+  .headerRow {
+    margin-bottom: 24px;
+    gap: 16px;
+  }
+
+  .preLabel {
+    margin-bottom: 8px;
+  }
+
+  .heading {
+    font-size: clamp(32px, 8vw, 48px);
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 12px;
+  }
+
+  .tileWrapper {
+    padding: 16px 12px;
+  }
+
+  .ghostNum {
+    font-size: 40px;
+  }
+
+  .cardTitle {
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  .cardDesc {
+    font-size: 12px;
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .item p {
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  .itemDash {
+    font-size: 11px;
+  }
+
+  .item {
+    gap: 6px;
+    padding: 2px 0;
+  }
+
+  .goldLine {
+    margin-bottom: 8px;
+  }
+
+  .topHeader {
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 400px) {
+  .grid {
+    gap: 12px 8px;
+  }
+
+  .tileWrapper {
+    padding: 12px 8px;
+  }
+}

@@ -14,6 +14,11 @@
   letter-spacing: 0.5em;
   color: var(--e-gold);
   margin-bottom: 24px;
+  background: var(--gold-foil);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .heading {
@@ -33,7 +38,9 @@
 }
 
 .testimonialCard {
-  background: transparent;
+  background: rgba(205, 168, 76, 0.03);
+  border: 1px solid rgba(205, 168, 76, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
   position: relative;
   padding: 60px 40px;
   border-radius: 12px;
@@ -42,7 +49,9 @@
 }
 
 .testimonialCard:hover {
-  background: rgba(205, 168, 76, 0.04);
+  background: rgba(205, 168, 76, 0.07);
+  border-color: rgba(205, 168, 76, 0.18);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
   transform: translateY(-8px);
 }
 
@@ -59,9 +68,14 @@
   font-size: 80px;
   line-height: 0.8;
   color: var(--e-gold-lt);
-  opacity: 0.4;
+  opacity: 0.5;
   display: block;
   margin-bottom: 24px;
+  background: var(--gold-foil);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .quote {

@@ -21,6 +21,11 @@
   color: #CDA84C;
   /* E.gold */
   margin-bottom: 16px;
+  background: var(--gold-foil);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .heading {
@@ -91,6 +96,11 @@
   color: #CDA84C;
   /* E.gold */
   margin-bottom: 20px;
+  background: var(--gold-foil);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .panelDiv {
@@ -126,6 +136,11 @@
   color: #E2C275;
   /* E.goldLt */
   letter-spacing: 0.05em;
+  background: var(--gold-foil);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .anchorLabel {

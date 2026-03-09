@@ -31,7 +31,10 @@ export default function EventsHero() {
             <LetterReveal text="EVENTS THAT" delayOffset={0.7} on={on} />
           </div>
           <div className={`${styles.wordWrapper} ${styles.goldHighlight}`}>
-            <LetterReveal text="PEOPLE TALK ABOUT." delayOffset={1.0} on={on} />
+            <LetterReveal text="PEOPLE TALK" delayOffset={1.0} on={on} />
+          </div>
+          <div className={`${styles.wordWrapper} ${styles.goldHighlight}`}>
+            <LetterReveal text="ABOUT." delayOffset={1.3} on={on} />
           </div>
         </h1>
 

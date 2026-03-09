@@ -37,7 +37,7 @@ export default function FallingPetals() {
     if (petals.length === 0 || !isVisible) return null;
 
     return (
-        <div className="fixed inset-0 pointer-events-none z-[999] overflow-hidden">
+        <div className="fixed inset-0 pointer-events-none z-[40] overflow-hidden">
             {petals.map((p) => (
                 <div
                     key={p.id}

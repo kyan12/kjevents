@@ -3,16 +3,16 @@
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, Variants, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import styles from './WeddingPortfolio.module.css';
 
 const images = [
-  { src: '/images/jialin-jonathan-ceremony.jpg', alt: 'Jialin & Jonathan ceremony' },
-  { src: '/images/felicity-stairs-group.jpg', alt: 'Felicity & Leon staircase group' },
-  { src: '/images/wedding_bouquet.jpg', alt: 'Wedding bouquet detail' },
-  { src: '/images/felicity-detail.jpg', alt: 'Felicity & Leon invitation details' },
-  { src: '/images/wedding_mansion_ext.jpg', alt: 'Wedding mansion exterior' },
-  { src: '/images/felicity-flowers.jpg', alt: 'Felicity & Leon bridal bouquet' },
+  { src: '/images/jialin-jonathan-ceremony.jpg', alt: 'Jialin & Jonathan ceremony', title: 'Jialin & Jonathan', photographer: 'Justin Jun Lee', photographerUrl: 'https://www.justinleeweddings.com' },
+  { src: '/images/felicity-stairs-group.jpg', alt: 'Felicity & Leon staircase group', title: 'Felicity & Leon', photographer: 'Alex Gooden' },
+  { src: '/images/wedding_bouquet.jpg', alt: 'Wedding bouquet detail', title: 'Bouquet Detail', photographer: 'Studio TBD' },
+  { src: '/images/felicity-detail.jpg', alt: 'Felicity & Leon invitation details', title: 'Felicity & Leon', photographer: 'Alex Gooden' },
+  { src: '/images/wedding_mansion_ext.jpg', alt: 'Wedding mansion exterior', title: 'Venue Exterior', photographer: 'Studio TBD' },
+  { src: '/images/felicity-flowers.jpg', alt: 'Felicity & Leon bridal bouquet', title: 'Felicity & Leon', photographer: 'Alex Gooden' },
 ];
 
 const fadeInUp: Variants = {
@@ -24,30 +24,32 @@ const fadeInUp: Variants = {
 };
 
 export default function WeddingPortfolio() {
-  const [showMasterAlbum, setShowMasterAlbum] = useState(false);
+  const [galleryMainIndex, setGalleryMainIndex] = useState<number | null>(null);
+  const [activeMobilePhoto, setActiveMobilePhoto] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const [activeBento, setActiveBento] = useState<number | null>(0);
+  const galleryOpen = galleryMainIndex !== null;
 
   useEffect(() => {
-    if (showMasterAlbum) {
+    if (galleryOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
     return () => { document.body.style.overflow = ''; };
-  }, [showMasterAlbum]);
+  }, [galleryOpen]);
 
   return (
     <>
       <section id="wedding-portfolio" className={styles.section}>
         <motion.div
           className={styles.container}
+          ref={containerRef}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
         >
-          <div className="flex flex-col items-center text-center mb-[48px] md:mb-[80px] gap-4">
+          <div className="flex flex-col items-center text-center mb-[64px] md:mb-[100px] gap-4">
             <div>
               <motion.p className={styles.preLabel} custom={0} variants={fadeInUp}>
                 OUR WORK
@@ -55,6 +57,9 @@ export default function WeddingPortfolio() {
               <motion.h2 className={styles.heading} custom={1} variants={fadeInUp}>
                 Moments We&rsquo;ve Had the<br />Honor of Holding
               </motion.h2>
+              <motion.p className={styles.subLabel} custom={1.5} variants={fadeInUp}>
+                CAPTURED BY AWARD-WINNING PHOTOGRAPHERS
+              </motion.p>
             </div>
           </div>
 
@@ -74,6 +79,7 @@ export default function WeddingPortfolio() {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: '-60px' }}
+                    onClick={() => setGalleryMainIndex(i)}
                   >
                     <div className={styles.imageWrapper} style={{ aspectRatio }}>
                       <Image
@@ -84,7 +90,16 @@ export default function WeddingPortfolio() {
                         style={{ objectFit: 'cover' }}
                         loading="lazy"
                       />
-                      <div className={styles.imageOverlay} />
+                      <div className={styles.imageOverlay}>
+                        <p className={styles.overlayTitle}>{img.title}</p>
+                        <p className={styles.overlayPhotographer}>
+                          {img.photographerUrl ? (
+                            <a href={img.photographerUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                              {img.photographer}
+                            </a>
+                          ) : img.photographer}
+                        </p>
+                      </div>
                     </div>
                   </motion.div>
                 );
@@ -105,6 +120,7 @@ export default function WeddingPortfolio() {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: '-60px' }}
+                    onClick={() => setGalleryMainIndex(i)}
                   >
                     <div className={styles.imageWrapper} style={{ aspectRatio }}>
                       <Image
@@ -115,7 +131,16 @@ export default function WeddingPortfolio() {
                         style={{ objectFit: 'cover' }}
                         loading="lazy"
                       />
-                      <div className={styles.imageOverlay} />
+                      <div className={styles.imageOverlay}>
+                        <p className={styles.overlayTitle}>{img.title}</p>
+                        <p className={styles.overlayPhotographer}>
+                          {img.photographerUrl ? (
+                            <a href={img.photographerUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                              {img.photographer}
+                            </a>
+                          ) : img.photographer}
+                        </p>
+                      </div>
                     </div>
                   </motion.div>
                 );
@@ -123,7 +148,7 @@ export default function WeddingPortfolio() {
               <motion.button
                 className={styles.seeAllBtn}
                 variants={fadeInUp}
-                onClick={() => setShowMasterAlbum(true)}
+                onClick={() => setGalleryMainIndex(0)}
               >
                 ALL WORK
               </motion.button>
@@ -143,6 +168,7 @@ export default function WeddingPortfolio() {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: '-60px' }}
+                    onClick={() => setGalleryMainIndex(i)}
                   >
                     <div className={styles.imageWrapper} style={{ aspectRatio }}>
                       <Image
@@ -153,7 +179,16 @@ export default function WeddingPortfolio() {
                         style={{ objectFit: 'cover' }}
                         loading="lazy"
                       />
-                      <div className={styles.imageOverlay} />
+                      <div className={styles.imageOverlay}>
+                        <p className={styles.overlayTitle}>{img.title}</p>
+                        <p className={styles.overlayPhotographer}>
+                          {img.photographerUrl ? (
+                            <a href={img.photographerUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                              {img.photographer}
+                            </a>
+                          ) : img.photographer}
+                        </p>
+                      </div>
                     </div>
                   </motion.div>
                 );
@@ -161,26 +196,65 @@ export default function WeddingPortfolio() {
             </div>
           </div>
 
-          {/* Mobile Stable Linear Bento Grid */}
-          <div className={styles.mobileLinearGrid}>
-            {images.map((img, i) => {
-              const isHero = i === 0 || i === 3;
-              const isExpanded = activeBento === i;
-              return (
-                <div
-                  key={`bento-${i}`}
-                  className={`${styles.mobileTile} ${isHero ? styles.mobileTileHero : ''} ${isExpanded ? styles.expanded : ''}`}
-                  onClick={() => isHero ? setActiveBento(isExpanded ? null : i) : undefined}
+          {/* Mobile Hero Card Layout */}
+          <div className={styles.mobileHeroLayout}>
+            <div className={styles.mobileHeroCard}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeMobilePhoto}
+                  className={styles.mobileHeroImageWrap}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4 }}
                 >
-                  <Image src={img.src} alt={img.alt} fill sizes="100vw" style={{ objectFit: 'cover' }} />
-                  {isHero && <div className={styles.bentoOverlay} />}
-                </div>
-              );
-            })}
+                  <Image
+                    src={images[activeMobilePhoto].src}
+                    alt={images[activeMobilePhoto].alt}
+                    fill
+                    sizes="100vw"
+                    style={{ objectFit: 'cover' }}
+                    priority
+                  />
+                </motion.div>
+              </AnimatePresence>
+              <div className={styles.mobileHeroGradient}>
+                <p className={styles.mobileHeroTitle}>{images[activeMobilePhoto].title}</p>
+                <p className={styles.mobileHeroPhotographer}>{images[activeMobilePhoto].photographer}</p>
+              </div>
+              {/* Nav arrows */}
+              <button
+                className={`${styles.mobileHeroNav} ${styles.mobileHeroNavLeft}`}
+                onClick={() => setActiveMobilePhoto((p) => (p - 1 + images.length) % images.length)}
+                aria-label="Previous photo"
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <button
+                className={`${styles.mobileHeroNav} ${styles.mobileHeroNavRight}`}
+                onClick={() => setActiveMobilePhoto((p) => (p + 1) % images.length)}
+                aria-label="Next photo"
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
+
+            <div className={styles.mobileThumbStrip}>
+              {images.map((img, i) => (
+                <button
+                  key={i}
+                  className={`${styles.mobileThumb} ${activeMobilePhoto === i ? styles.mobileThumbActive : ''}`}
+                  onClick={() => setActiveMobilePhoto(i)}
+                  aria-label={`View ${img.title}`}
+                >
+                  <Image src={img.src} alt={img.alt} fill sizes="56px" style={{ objectFit: 'cover' }} />
+                </button>
+              ))}
+            </div>
 
             <button
               className={styles.mobileSeeAllBtn}
-              onClick={() => setShowMasterAlbum(true)}
+              onClick={() => setGalleryMainIndex(0)}
             >
               ALL WORK
             </button>
@@ -188,9 +262,9 @@ export default function WeddingPortfolio() {
         </motion.div>
       </section>
 
-      {/* Master Gallery Overlay */}
+      {/* Featured Gallery Overlay */}
       <AnimatePresence>
-        {showMasterAlbum && (
+        {galleryOpen && (
           <motion.div
             className={styles.masterGallery}
             initial={{ opacity: 0, y: '100%' }}
@@ -199,26 +273,60 @@ export default function WeddingPortfolio() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className={styles.masterHeader}>
-              <h3 className={styles.masterTitle}>MASTER ALBUM</h3>
+              <h3 className={styles.masterTitle}>PORTFOLIO</h3>
               <button
                 className={styles.closeBtn}
-                onClick={() => setShowMasterAlbum(false)}
+                onClick={() => setGalleryMainIndex(null)}
               >
                 <X size={24} color="var(--w-ink)" />
               </button>
             </div>
+
+            {/* Featured Image */}
+            <div className={styles.featuredImageWrap}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={galleryMainIndex}
+                  className={styles.featuredImageInner}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Image
+                    src={images[galleryMainIndex!].src}
+                    alt={images[galleryMainIndex!].alt}
+                    fill
+                    sizes="100vw"
+                    style={{ objectFit: 'cover' }}
+                    priority
+                  />
+                  <div className={styles.featuredOverlay}>
+                    <p className={styles.featuredTitle}>{images[galleryMainIndex!].title}</p>
+                    <p className={styles.featuredPhotographer}>
+                      Photo by {images[galleryMainIndex!].photographer}
+                    </p>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Thumbnail Grid */}
             <div className={styles.masterGrid}>
-              {/* Loop images multiple times just to show a full gallery visually */}
-              {[...images, ...images, ...images].map((img, i) => (
-                <div key={`master-${i}`} className={styles.masterGridItem}>
+              {images.map((img, i) => (
+                <button
+                  key={`gallery-${i}`}
+                  className={`${styles.masterGridItem} ${i === galleryMainIndex ? styles.masterGridItemActive : ''}`}
+                  onClick={() => setGalleryMainIndex(i)}
+                >
                   <Image
                     src={img.src}
                     alt={img.alt}
                     fill
-                    sizes="(max-width: 768px) 50vw, 25vw"
+                    sizes="(max-width: 768px) 33vw, 16vw"
                     style={{ objectFit: 'cover' }}
                   />
-                </div>
+                </button>
               ))}
             </div>
           </motion.div>

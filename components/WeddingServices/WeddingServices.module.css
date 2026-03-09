@@ -1,6 +1,6 @@
 .section {
   background: var(--w-bg-dark);
-  padding: 120px 80px;
+  padding: 120px 80px 160px;
 }
 
 .container {
@@ -52,6 +52,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  z-index: 51;
 }
 
 .cardHover {
@@ -206,7 +207,7 @@
 /* Mobile: Compact Horizontal Snap Scroll */
 @media (max-width: 1024px) {
   .section {
-    padding: 80px 0;
+    padding: 80px 0 120px;
     /* Removing horizontal padding to allow full-bleed scroll */
   }
 
@@ -243,17 +244,5 @@
     padding: 40px 32px;
   }
 
-  /* Force hover states to be active/visible on mobile since hover doesn't exist */
-  .cardHover {
-    transform: none;
-    box-shadow:
-      0 10px 30px rgba(0, 0, 0, 0.05),
-      0 20px 40px rgba(0, 0, 0, 0.08);
-    /* Static profound shadow */
-  }
-
-  .price {
-    opacity: 1;
-    transform: none;
-  }
+  /* cardHover uses same desktop lift/shadow styles on mobile (driven by IntersectionObserver) */
 }

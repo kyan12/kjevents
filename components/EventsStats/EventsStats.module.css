@@ -63,6 +63,20 @@
 
 @media (max-width: 500px) {
   .container {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat {
+    padding: 24px 16px;
+  }
+
+  .number {
+    font-size: clamp(40px, 12vw, 64px);
+    margin-bottom: 16px;
+  }
+
+  .label {
+    font-size: 8px;
+    letter-spacing: 0.2em;
   }
 }

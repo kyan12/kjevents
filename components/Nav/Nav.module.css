@@ -60,20 +60,47 @@
 .events .anchor,
 .events .divider {
   color: var(--e-muted);
+  transition: color 0.35s ease;
 }
 
 .events .crossLink {
   border-color: var(--e-muted);
   color: var(--e-muted);
+  transition: color 0.35s ease, border-color 0.35s ease;
 }
 
-.events .cta {
-  background: var(--e-gold);
+.events.scrolled .anchor,
+.events.scrolled .divider {
   color: var(--e-text);
 }
 
+.events.scrolled .crossLink {
+  border-color: var(--e-text);
+  color: var(--e-text);
+}
+
+.events .cta {
+  background: var(--gold-foil);
+  background-size: 200% 100%;
+  color: var(--e-text);
+  animation: goldShimmer 6s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.events .cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold-noise);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
 .events .cta:hover {
-  background: var(--e-gold-lt);
+  background: var(--gold-foil);
+  background-size: 200% 100%;
 }
 
 .events.scrolled {

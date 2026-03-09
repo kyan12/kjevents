@@ -75,6 +75,7 @@
   margin-bottom: 12px;
   /* Reduced from 24px */
   position: relative;
+  z-index: 51;
   transition: all 0.5s var(--ease-lux);
   padding: 16px 20px;
   /* Reduced from 24px */
@@ -216,6 +217,8 @@
   align-items: center;
   justify-content: center;
   padding: 32px;
+  position: relative;
+  z-index: 51;
 }
 
 .bouquetWrapper svg {
@@ -244,6 +247,8 @@
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  touch-action: pan-y;
+  overflow: hidden;
 }
 
 .mobileControls {

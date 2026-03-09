@@ -22,8 +22,12 @@
   font-size: 9px;
   letter-spacing: 0.5em;
   color: #CDA84C;
-  /* E.gold */
   margin-bottom: 20px;
+  background: var(--gold-foil);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .heading {
@@ -43,9 +47,7 @@
   align-items: center;
   overflow-x: auto;
   scrollbar-width: none;
-  /* Firefox */
   -ms-overflow-style: none;
-  /* IE and Edge */
 }
 
 .trackViewport::-webkit-scrollbar {
@@ -53,54 +55,23 @@
 }
 
 .horizontalTrack {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
   gap: 2vw;
   position: relative;
   padding: 60px 4vw;
   width: 100%;
-  justify-content: space-between;
 }
 
-/* 
- * The continuous gold line running behind the nodes.
- * We attach it to the horizontal track and inset it precisely
- * through the midline of the number nodes.
- */
-.horizontalTrack::before {
-  content: "";
-  position: absolute;
-  top: 130px;
-  /* Lowered to accommodate thicker top padding of polished tiles */
-  left: 4vw;
-  right: 4vw;
-  height: 1px;
-  background: rgba(205, 168, 76, 0.2);
-  /* Lighter E.gold */
-  z-index: 0;
-}
-
-.trackSpacer {
-  display: none;
-}
-
-.halfTrack {
-  display: flex;
-  gap: 2vw;
-  flex: 1;
-}
-
+/* ─── Card: grid rows for vertical alignment ─── */
 .stepColumn {
-  flex: 1;
   min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: grid;
+  grid-template-rows: auto auto auto auto auto 1fr;
+  align-content: start;
   position: relative;
   z-index: 1;
 
-  /* Deep Premium Polish */
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.7) 0%, rgba(252, 250, 245, 0.4) 100%);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -112,20 +83,7 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
   transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
   overflow: hidden;
-  min-height: 280px;
-  /* Ensure uniform height on desktop */
-}
-
-/* Decorative corner accent */
-.stepDecor {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 60px;
-  height: 60px;
-  background: radial-gradient(circle at top right, rgba(205, 168, 76, 0.1) 0%, transparent 70%);
-  border-radius: 0 20px 0 100%;
-  pointer-events: none;
+  min-height: 240px;
 }
 
 .stepColumn:hover {
@@ -137,12 +95,30 @@
   border-color: rgba(205, 168, 76, 0.35);
 }
 
-.stepColumn:hover .stepDecor {
-  background: radial-gradient(circle at top right, rgba(205, 168, 76, 0.2) 0%, transparent 70%);
+/* ─── Journey progress bar ─── */
+.stepColumn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: var(--progress, 0%);
+  background: linear-gradient(90deg, var(--e-gold), var(--e-gold-lt));
+  border-radius: 0 0 0 20px;
+  opacity: 0.25;
+  transition: opacity 0.4s ease;
 }
 
-.nodeAnchor {
-  margin-bottom: 24px;
+.stepColumn:hover::after {
+  opacity: 0.6;
+}
+
+/* ─── Top header: number left, icon right ─── */
+.topHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
 }
 
 .cardNumber {
@@ -150,7 +126,8 @@
   font-size: clamp(48px, 4vw, 72px);
   color: transparent;
   -webkit-text-stroke: 1px rgba(205, 168, 76, 0.6);
-  background: linear-gradient(180deg, rgba(205, 168, 76, 1) 0%, rgba(205, 168, 76, 0.4) 100%);
+  background: var(--gold-foil);
+  background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   line-height: 0.8;
@@ -159,19 +136,47 @@
   transition: all 0.5s ease;
 }
 
-.stepColumn:hover .cardNumber {
+.cardNumberActive {
   color: rgba(205, 168, 76, 0.1);
   -webkit-text-stroke: 1px rgba(205, 168, 76, 0.9);
 }
 
-.cardContent {
-  /* Minimalist spacing for the narrative text */
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+.iconWrapper {
+  opacity: 0.35;
+  transform: translateY(6px);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.iconActive {
+  opacity: 1;
+  transform: translateY(0);
+  filter: drop-shadow(0 0 8px rgba(205, 168, 76, 0.4));
+}
+
+/* ─── Gold accent line ─── */
+.goldLine {
+  width: 20px;
+  height: 1px;
+  background: var(--e-gold);
+  margin-bottom: 12px;
+  transition: width 0.4s ease;
+}
+
+.goldLineActive {
+  width: 60px;
+}
+
+/* ─── Phase label ─── */
+.phaseLabel {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  color: var(--e-gold);
+  margin: 0 0 6px;
+  line-height: 1;
+}
+
+/* ─── Title & description ─── */
 .cardTitle {
   font-family: var(--font-bebas), Impact, sans-serif;
   font-size: clamp(20px, 2vw, 24px);
@@ -190,6 +195,26 @@
   margin: 0;
 }
 
+/* ─── Ghost watermark icon ─── */
+.ghostWatermark {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  opacity: 0.045;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.ghostWatermark svg {
+  width: 90px;
+  height: 90px;
+}
+
+.stepColumn:hover .ghostWatermark {
+  opacity: 0.1;
+}
+
+/* ─── Mobile ─── */
 @media (max-width: 768px) {
   .section {
     padding: 6vh 0;
@@ -199,59 +224,43 @@
     justify-content: center;
   }
 
-  /* The track is now a simple flex row or flex grid */
   .horizontalTrack {
-    display: flex;
-    flex-direction: row;
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     padding: 16px 20px;
-    width: 100%;
-    align-items: stretch;
   }
 
-  /* Each halfTrack acts as a column holding 3 tiles */
-  .halfTrack {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    flex: 1;
-    /* Both columns take equal exactly half width */
-    min-width: 0;
-  }
-
-  /* Hide the horizontal line */
-  .horizontalTrack::before {
-    display: none;
-  }
-
-  /* No vertical line either */
-  .horizontalTrack::after {
-    display: none;
-  }
-
-  /* Tiles become more compact and perfectly uniform */
   .stepColumn {
-    width: 100%;
     padding: 20px 16px;
     border-radius: 16px;
     min-height: auto;
-    flex: 1;
-    /* This ensures all 3 tiles stretch to be the exact same height */
-    justify-content: flex-start;
   }
 
-  /* Maintain decor in mobile but slightly smaller */
-  .stepDecor {
-    width: 40px;
-    height: 40px;
-  }
-
-  .nodeAnchor {
-    margin-bottom: 12px;
+  .topHeader {
+    margin-bottom: 8px;
   }
 
   .cardNumber {
     font-size: 36px;
+  }
+
+  .iconWrapper svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .goldLine {
+    width: 16px;
+    margin-bottom: 8px;
+  }
+
+  .goldLineActive {
+    width: 40px;
+  }
+
+  .phaseLabel {
+    font-size: 8px;
+    margin-bottom: 4px;
   }
 
   .cardTitle {
@@ -263,5 +272,29 @@
   .cardDesc {
     font-size: 11px;
     line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  .ghostWatermark svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  /* No hover effects on touch */
+  .stepColumn:hover {
+    transform: none;
+    box-shadow:
+      0 10px 30px -10px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.7) 0%, rgba(252, 250, 245, 0.4) 100%);
+    border-color: rgba(205, 168, 76, 0.15);
+  }
+
+  .stepColumn:hover .ghostWatermark {
+    opacity: 0.045;
+  }
+
+  .stepColumn:hover::after {
+    opacity: 0.25;
   }
 }

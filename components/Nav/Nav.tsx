@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from 'react';
-import Link from 'next/link';
+import TransitionLink from '@/components/PageTransition/TransitionLink';
 import styles from './Nav.module.css';
 
 interface NavProps {
@@ -78,9 +78,13 @@ export default function Nav({ mode }: NavProps) {
           })}
         </div>
         <div className={styles.divider} />
-        <Link href={crossLink} className={styles.crossLink}>
+        <TransitionLink
+          href={crossLink}
+          color={mode === 'wedding' ? 'var(--e-bg)' : 'var(--w-bg)'}
+          className={styles.crossLink}
+        >
           {crossLabel}
-        </Link>
+        </TransitionLink>
         <button className={styles.cta} onClick={() => scrollTo(contactId)}>
           {ctaLabel} &rarr;
         </button>

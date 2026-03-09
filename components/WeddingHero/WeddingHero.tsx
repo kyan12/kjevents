@@ -18,7 +18,7 @@ export default function WeddingHero() {
         <blockquote className={styles.quote}>
           &ldquo;The most beautiful celebrations begin with the quietest planning.&rdquo;
         </blockquote>
-        <p className={styles.attribution}>&mdash; Kira Jia</p>
+        <p className={styles.attribution}>- Kira Jia</p>
         <div className={styles.scrollIndicator}>
           <div className={styles.scrollLine} />
         </div>

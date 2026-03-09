@@ -9,10 +9,10 @@ import BouquetSVG from './BouquetSVG';
 import styles from './WeddingProcess.module.css';
 
 const steps = [
-  { n: '01', title: 'Consultation', desc: 'Two hours. Just conversation. We learn how you love \u2014 and what your day should feel like.' },
+  { n: '01', title: 'Consultation', desc: 'Two hours. Just conversation. We learn how you love, and what your day should feel like.' },
   { n: '02', title: 'Vision & Design', desc: 'Mood boards, palette, venue shortlist. Everything aligned to your story, your people, your style.' },
   { n: '03', title: 'Vendor Curation', desc: 'We only recommend vendors we trust absolutely. Every photographer, florist, and caterer is vetted.' },
-  { n: '04', title: 'Planning & Logistics', desc: 'Every timeline, contract, and contingency \u2014 organized, confirmed, and communicated.' },
+  { n: '04', title: 'Planning & Logistics', desc: 'Every timeline, contract, and contingency: organized, confirmed, and communicated.' },
   { n: '05', title: 'Your Wedding Day', desc: 'Our team is everywhere. You are present only for the joy.' },
 ];
 
@@ -56,6 +56,19 @@ export default function WeddingProcess() {
     return () => cancelAnimationFrame(raf);
   }, [isMobile, progressRef]);
 
+  // Track swipe on bouquet area
+  const touchStartX = useRef<number | null>(null);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    if (dx < -50 && activeStep < steps.length - 1) jumpTo(activeStep + 1);
+    if (dx > 50 && activeStep > 0) jumpTo(activeStep - 1);
+  };
+
   // Mobile: static layout
   if (isMobile) {
     return (
@@ -66,7 +79,11 @@ export default function WeddingProcess() {
             <h2 className={styles.heading}>The Process</h2>
           </div>
 
-          <div className={styles.mobileBouquet}>
+          <div
+            className={styles.mobileBouquet}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
             <BouquetSVG activeStep={activeStep} progressRef={progressRef} static />
           </div>
 
@@ -77,6 +94,13 @@ export default function WeddingProcess() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.3}
+              onDragEnd={(_, info) => {
+                if (info.offset.x < -50 && activeStep < steps.length - 1) jumpTo(activeStep + 1);
+                if (info.offset.x > 50 && activeStep > 0) jumpTo(activeStep - 1);
+              }}
             >
               <div className={styles.stepHeader}>
                 <p className={styles.stepNum}>{steps[activeStep].n}</p>

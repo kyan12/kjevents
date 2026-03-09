@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { motion } from 'framer-motion';
+import TransitionLink from '@/components/PageTransition/TransitionLink';
 import styles from './SplitScreen.module.css';
 
 export default function SplitScreen() {
@@ -9,14 +9,14 @@ export default function SplitScreen() {
 
   return (
     <section className={styles.container}>
-      <Link href="/weddings" className={`${styles.half} ${styles.weddings}`}>
-        <motion.div 
+      <TransitionLink href="/weddings" color="var(--w-bg)" className={`${styles.half} ${styles.weddings}`}>
+        <motion.div
           className={styles.overlay}
           initial={{ backgroundColor: 'rgba(50, 59, 74, 0.5)' }}
           whileHover={{ backgroundColor: 'rgba(50, 59, 74, 0.2)' }}
           transition={{ duration: 0.6 }}
         />
-        <motion.div 
+        <motion.div
           className={styles.content}
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -26,16 +26,16 @@ export default function SplitScreen() {
           <h2 className={styles.title}>Weddings</h2>
           <span className={styles.exploreBtn}>Explore</span>
         </motion.div>
-      </Link>
+      </TransitionLink>
 
-      <Link href="/events" className={`${styles.half} ${styles.otherEvents}`}>
-        <motion.div 
+      <TransitionLink href="/events" color="var(--e-bg)" className={`${styles.half} ${styles.otherEvents}`}>
+        <motion.div
           className={styles.overlay}
           initial={{ backgroundColor: 'rgba(50, 59, 74, 0.5)' }}
           whileHover={{ backgroundColor: 'rgba(50, 59, 74, 0.2)' }}
           transition={{ duration: 0.6 }}
         />
-        <motion.div 
+        <motion.div
           className={styles.content}
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -45,7 +45,7 @@ export default function SplitScreen() {
           <h2 className={styles.title}>Events</h2>
           <span className={styles.exploreBtn}>Explore</span>
         </motion.div>
-      </Link>
+      </TransitionLink>
     </section>
   );
 }

@@ -126,7 +126,7 @@ export default function EventsContact() {
           <div className="col-span-full">
             <Textarea
               name="brief"
-              placeholder="PROJECT BRIEF — tell us about your event, vision, and timeline"
+              placeholder="PROJECT BRIEF: tell us about your event, vision, and timeline"
               rows={5}
               className={cn(
                 inputClasses,

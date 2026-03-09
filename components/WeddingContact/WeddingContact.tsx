@@ -96,7 +96,7 @@ export default function WeddingContact() {
           />
           <input
             name="weddingDate"
-            placeholder="WEDDING DATE — approximate is fine"
+            placeholder="WEDDING DATE (approximate is fine)"
             className={`${styles.input} ${styles.fullWidth}`}
             disabled={isSubmitting}
           />

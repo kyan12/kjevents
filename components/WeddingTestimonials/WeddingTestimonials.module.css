@@ -37,6 +37,8 @@
   grid-template-columns: 1fr 1fr;
   gap: 80px;
   align-items: center;
+  position: relative;
+  z-index: 51;
 }
 
 .storyCardAlt {

@@ -16,14 +16,33 @@ const fadeInUp: Variants = {
 
 export default function WeddingPhilosophy() {
   const sectionRef = useRef<HTMLElement>(null);
-  const ribbonRef = useRef<HTMLDivElement>(null);
   const progress = useScrollInSection(sectionRef);
+
+  const wave1Ref = useRef<SVGPathElement>(null);
+  const wave2Ref = useRef<SVGPathElement>(null);
+  const wave3Ref = useRef<SVGPathElement>(null);
+  const wave4Ref = useRef<SVGPathElement>(null);
+  const wave5Ref = useRef<SVGPathElement>(null);
 
   useEffect(() => {
     let raf: number;
     const update = () => {
-      if (ribbonRef.current) {
-        ribbonRef.current.style.setProperty('--shimmer-progress', String(progress.current));
+      const p = progress.current;
+      // Each wave layer gets a different parallax offset
+      if (wave1Ref.current) {
+        wave1Ref.current.style.transform = `translateY(${p * -30}px)`;
+      }
+      if (wave2Ref.current) {
+        wave2Ref.current.style.transform = `translateY(${p * -20}px)`;
+      }
+      if (wave3Ref.current) {
+        wave3Ref.current.style.transform = `translateY(${p * -10}px)`;
+      }
+      if (wave4Ref.current) {
+        wave4Ref.current.style.transform = `translateY(${p * 10}px)`;
+      }
+      if (wave5Ref.current) {
+        wave5Ref.current.style.transform = `translateY(${p * 20}px)`;
       }
       raf = requestAnimationFrame(update);
     };
@@ -52,7 +71,7 @@ export default function WeddingPhilosophy() {
             </p>
           </motion.div>
           <motion.p className={styles.bodyText} custom={3} variants={fadeInUp}>
-            Drawing from extensive experience in event planning and large-scale production management, she brings a balance of creativity and logistical precision to every celebration. We take on a limited number of couples each year &mdash; by design. Our process is intentional, our attention is total, and the results are unlike anyone else&rsquo;s celebration.
+            Drawing from extensive experience in event planning and large-scale production management, she brings a balance of creativity and logistical precision to every celebration. We take on a limited number of couples each year, by design. Our process is intentional, our attention is total, and the results are unlike anyone else&rsquo;s celebration.
           </motion.p>
           <motion.p className={styles.signature} custom={4} variants={fadeInUp}>
             Kira Jia
@@ -63,154 +82,53 @@ export default function WeddingPhilosophy() {
         </div>
 
         <motion.div className={styles.photoCol} custom={1.5} variants={fadeInUp}>
-          {/* Organic Sheer Wavy Cloth Ribbon Mirrored Onto Itself */}
-          <div className={styles.leftRibbonOverlay}>
+          {/* Layered flowing wave transition overlay */}
+          <div className={styles.waveOverlay}>
             <svg
-              viewBox="-100 0 200 200"
+              viewBox="0 0 200 800"
               preserveAspectRatio="none"
               className="w-full h-full"
             >
-              <defs>
-                {/* Blur filter for feathering the outer edge into the background */}
-                <filter id="featheringBlend" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="3" />
-                </filter>
-                <filter id="lightDropShadow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feDropShadow dx="2" dy="1" stdDeviation="3" floodColor="#000" floodOpacity="0.08" />
-                </filter>
-                <filter id="deepDropShadow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feDropShadow dx="4" dy="2" stdDeviation="5" floodColor="#000" floodOpacity="0.12" />
-                </filter>
-
-                {/* Fabric noise texture */}
-                <filter id="fabricNoise" x="0%" y="0%" width="100%" height="100%">
-                  <feTurbulence type="fractalNoise" baseFrequency="0.02 0.8" numOctaves="2" result="noise" />
-                  <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.04 0" in="noise" result="alphaNoise" />
-                  <feComposite operator="in" in="alphaNoise" in2="SourceGraphic" result="texture" />
-                  <feBlend mode="multiply" in="texture" in2="SourceGraphic" />
-                </filter>
-
-                {/* Gradients that merge into the cream background on the left and trail off translucent on the right */}
-                <linearGradient id="solidToSheer" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="var(--w-bg)" stopOpacity="1" />
-                  <stop offset="25%" stopColor="var(--w-bg)" stopOpacity="0.9" />
-                  <stop offset="60%" stopColor="var(--w-bg)" stopOpacity="0.5" />
-                  <stop offset="100%" stopColor="var(--w-bg)" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient id="sheerFold1" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="var(--w-bg)" stopOpacity="0" />
-                  <stop offset="40%" stopColor="var(--w-bg)" stopOpacity="0.7" />
-                  <stop offset="80%" stopColor="var(--w-bg)" stopOpacity="0.2" />
-                  <stop offset="100%" stopColor="var(--w-bg)" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient id="sheerFold2" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="var(--w-bg)" stopOpacity="0" />
-                  <stop offset="30%" stopColor="var(--w-bg)" stopOpacity="0.5" />
-                  <stop offset="100%" stopColor="var(--w-bg)" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient id="sheerHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="var(--w-bg)" stopOpacity="0" />
-                  <stop offset="50%" stopColor="var(--w-bg)" stopOpacity="0.5" />
-                  <stop offset="100%" stopColor="var(--w-bg)" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient id="sheerShadow" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#000000" stopOpacity="0" />
-                  <stop offset="50%" stopColor="#000000" stopOpacity="0.05" />
-                  <stop offset="100%" stopColor="#000000" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-
-              {/* Base background layer that completely blends into the center. */}
-              {/* It acts as the solid foundation for the actual photo edge behind it */}
-              <rect x="-20" y="-10" width="40" height="220" fill="var(--w-bg)" />
-
-              <g filter="url(#fabricNoise)">
-                {/* Main fabric drape sweeping across (Right side) */}
-                <path
-                  d="M 0,-10 L 40,-10 C 70,50  10,90   50,140 C 80,180  25,195  35,210 L 0,210 Z"
-                  fill="url(#solidToSheer)"
-                  filter="url(#featheringBlend)"
-                />
-
-                {/* Deep background fold shadow */}
-                <path
-                  d="M 0,-10 L 50,-10 C 90,40  20,100  65,150 C 95,190  35,200  45,210 L 0,210 Z"
-                  fill="url(#sheerShadow)"
-                  filter="url(#featheringBlend)"
-                />
-
-                {/* Primary textured fold overlapping */}
-                <path
-                  d="M 0,-10 L 55,-10 C 85,25  30,75   60,130 C 85,175  40,195  50,210 L 0,210 Z"
-                  fill="url(#sheerFold1)"
-                  filter="url(#deepDropShadow)"
-                />
-
-                {/* Secondary highlight tracking the primary fold */}
-                <path
-                  d="M 0,-10 L 60,-10 C 88,28  33,78   63,133 C 88,178  43,198  53,210 L 0,210 Z"
-                  fill="url(#sheerHighlight)"
-                  opacity="0.6"
-                />
-
-                {/* Third cascading layer */}
-                <path
-                  d="M 0,-10 L 75,-10 C 110,60  45,115  85,165 C 110,195  60,205  70,210 L 0,210 Z"
-                  fill="url(#sheerFold2)"
-                  filter="url(#lightDropShadow)"
-                />
-
-                {/* Delicate outer edge sheer highlight */}
-                <path
-                  d="M 0,-10 L 80,-10 C 115,62  50,117  90,167 C 115,197  65,207  75,210 L 0,210 Z"
-                  fill="url(#sheerHighlight)"
-                  opacity="0.8"
-                />
-              </g>
-
-              <g filter="url(#fabricNoise)" transform="scale(-1, 1)">
-                {/* Mirrored fabric drape sweeping across (Left side) */}
-                <path
-                  d="M 0,-10 L 40,-10 C 70,50  10,90   50,140 C 80,180  25,195  35,210 L 0,210 Z"
-                  fill="url(#solidToSheer)"
-                  filter="url(#featheringBlend)"
-                />
-
-                {/* Deep background fold shadow */}
-                <path
-                  d="M 0,-10 L 50,-10 C 90,40  20,100  65,150 C 95,190  35,200  45,210 L 0,210 Z"
-                  fill="url(#sheerShadow)"
-                  filter="url(#featheringBlend)"
-                />
-
-                {/* Primary textured fold overlapping */}
-                <path
-                  d="M 0,-10 L 55,-10 C 85,25  30,75   60,130 C 85,175  40,195  50,210 L 0,210 Z"
-                  fill="url(#sheerFold1)"
-                  filter="url(#deepDropShadow)"
-                />
-
-                {/* Secondary highlight tracking the primary fold */}
-                <path
-                  d="M 0,-10 L 60,-10 C 88,28  33,78   63,133 C 88,178  43,198  53,210 L 0,210 Z"
-                  fill="url(#sheerHighlight)"
-                  opacity="0.6"
-                />
-
-                {/* Third cascading layer */}
-                <path
-                  d="M 0,-10 L 75,-10 C 110,60  45,115  85,165 C 110,195  60,205  70,210 L 0,210 Z"
-                  fill="url(#sheerFold2)"
-                  filter="url(#lightDropShadow)"
-                />
-
-                {/* Delicate outer edge sheer highlight */}
-                <path
-                  d="M 0,-10 L 80,-10 C 115,62  50,117  90,167 C 115,197  65,207  75,210 L 0,210 Z"
-                  fill="url(#sheerHighlight)"
-                  opacity="0.8"
-                />
-              </g>
+              {/* Wave 1 — faintest, furthest right edge */}
+              <path
+                ref={wave1Ref}
+                className={styles.waveLayer}
+                d="M0,0 L80,0 C95,80 60,160 90,240 C110,320 55,400 85,480 C105,560 65,640 80,720 L75,800 L0,800 Z"
+                fill="var(--w-bg)"
+                opacity="0.15"
+              />
+              {/* Wave 2 — subtle inner layer */}
+              <path
+                ref={wave2Ref}
+                className={styles.waveLayer}
+                d="M0,0 L70,0 C88,90 50,170 78,260 C100,340 48,420 75,500 C95,580 55,660 70,740 L65,800 L0,800 Z"
+                fill="var(--w-bg)"
+                opacity="0.3"
+              />
+              {/* Wave 3 — mid-opacity, central wave */}
+              <path
+                ref={wave3Ref}
+                className={styles.waveLayer}
+                d="M0,0 L58,0 C78,100 40,185 65,280 C88,360 42,440 62,520 C82,600 45,680 58,760 L55,800 L0,800 Z"
+                fill="var(--w-bg)"
+                opacity="0.5"
+              />
+              {/* Wave 4 — strong coverage */}
+              <path
+                ref={wave4Ref}
+                className={styles.waveLayer}
+                d="M0,0 L45,0 C65,110 30,200 52,300 C72,380 35,460 50,540 C68,620 38,700 45,770 L42,800 L0,800 Z"
+                fill="var(--w-bg)"
+                opacity="0.75"
+              />
+              {/* Wave 5 — fully opaque, blends into text column */}
+              <path
+                ref={wave5Ref}
+                className={styles.waveLayer}
+                d="M0,0 L30,0 C48,120 20,220 38,320 C55,400 25,480 38,560 C52,640 28,720 32,780 L28,800 L0,800 Z"
+                fill="var(--w-bg)"
+                opacity="1.0"
+              />
             </svg>
           </div>
 

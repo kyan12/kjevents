@@ -3,6 +3,8 @@ import { Cormorant_Garamond, Jost, Bebas_Neue, DM_Sans, Geist } from 'next/font/
 import localFont from 'next/font/local';
 import './globals.css';
 import SmoothScroll from '@/components/SmoothScroll';
+import { TransitionProvider } from '@/components/PageTransition/TransitionContext';
+import TransitionOverlay from '@/components/PageTransition/TransitionOverlay';
 import { cn } from "@/lib/utils";
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
@@ -55,9 +57,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn(helloParis.variable, cormorant.variable, jost.variable, bebas.variable, dmSans.variable, "font-sans", geist.variable)}>
       <body>
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
+        <TransitionProvider>
+          <SmoothScroll>
+            {children}
+          </SmoothScroll>
+          <TransitionOverlay />
+        </TransitionProvider>
       </body>
     </html>
   );

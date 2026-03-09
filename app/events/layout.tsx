@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   viewportFit: 'cover',
-  themeColor: 'transparent',
+  themeColor: '#363830',
 };
 
 export default function EventsLayout({ children }: { children: React.ReactNode }) {

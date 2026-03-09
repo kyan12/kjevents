@@ -7,11 +7,13 @@ function resolveThemeColor(pathname: string, scrolled: boolean) {
   const isEvents = pathname.startsWith('/events');
   const isWeddings = pathname.startsWith('/weddings');
 
-  // Home split-screen and hero-top states should blend with content/no solid strip.
+  // Events: always match nav fill in browser chrome area.
+  if (isEvents) return '#363830';
+
+  // Home split-screen and wedding hero-top should blend with content/no solid strip.
   if (!scrolled) return 'transparent';
 
-  // Match scrolled nav backgrounds exactly (solid approximation of rgba colors).
-  if (isEvents) return '#363830';
+  // Match scrolled wedding nav background.
   if (isWeddings) return '#E8E0D4';
 
   return 'transparent';

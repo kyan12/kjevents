@@ -44,8 +44,8 @@ export default function IntroAnimation() {
 
             <motion.div
               className={styles.fullName}
-              initial={{ opacity: 0, y: 10, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
+              initial={{ opacity: 0, y: 2, scale: 0.98 }}
+              animate={{ opacity: 1, y: -8, scale: 1 }}
               transition={{ delay: 1.4, duration: 1, ease: 'easeOut' }}
             >
               Kira Jia Events

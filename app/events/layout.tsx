@@ -11,5 +11,10 @@ export const viewport: Viewport = {
 };
 
 export default function EventsLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <style>{`html, body { background-color: #363830; }`}</style>
+      {children}
+    </>
+  );
 }

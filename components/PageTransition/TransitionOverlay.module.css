@@ -11,3 +11,14 @@
   opacity: 1;
   pointer-events: all;
 }
+
+/* Mobile: clip transition overlay to dynamic viewport to avoid browser chrome paint artifacts */
+@media (max-width: 768px) {
+  .overlay {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100dvh;
+  }
+}

@@ -28,13 +28,8 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     if (isTransitioning) return;
 
     const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
-
-    // On mobile, skip full-screen transition overlay to avoid browser chrome paint artifacts.
-    if (isMobile) {
-      router.push(href);
-      window.scrollTo(0, 0);
-      return;
-    }
+    const coverDelay = isMobile ? 260 : 500;
+    const revealDelay = isMobile ? 240 : 400;
 
     setTransitionColor(color || 'var(--w-bg)');
     setIsTransitioning(true);
@@ -46,8 +41,8 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
       // Hold briefly for page mount, then reveal
       setTimeout(() => {
         setIsTransitioning(false);
-      }, 400);
-    }, 500);
+      }, revealDelay);
+    }, coverDelay);
   }, [router, isTransitioning]);
 
   return (

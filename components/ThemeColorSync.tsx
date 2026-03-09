@@ -44,10 +44,12 @@ export default function ThemeColorSync() {
     apply();
     window.addEventListener('scroll', apply, { passive: true });
     window.addEventListener('resize', apply);
+    window.addEventListener('app-route-transition', apply as EventListener);
 
     return () => {
       window.removeEventListener('scroll', apply);
       window.removeEventListener('resize', apply);
+      window.removeEventListener('app-route-transition', apply as EventListener);
     };
   }, [pathname]);
 

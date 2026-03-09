@@ -31,12 +31,21 @@ export default function SafeAreaTopFill() {
       setFill(getFill(activePath, window.scrollY > 50));
     };
 
-    sync();
+    // Extra post-navigation sync for iOS Safari repaint timing.
+    const delayedSync = () => {
+      sync();
+      requestAnimationFrame(sync);
+      setTimeout(sync, 60);
+    };
+
+    delayedSync();
     window.addEventListener('scroll', sync, { passive: true });
     window.addEventListener('resize', sync);
+    window.addEventListener('app-route-transition', delayedSync as EventListener);
     return () => {
       window.removeEventListener('scroll', sync);
       window.removeEventListener('resize', sync);
+      window.removeEventListener('app-route-transition', delayedSync as EventListener);
     };
   }, [pathname]);
 

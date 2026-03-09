@@ -41,6 +41,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
       setTimeout(() => {
         router.push(href);
         window.scrollTo(0, 0);
+        window.dispatchEvent(new Event('app-route-transition'));
 
         setTimeout(() => {
           document.body.style.transition = previousTransition;
@@ -58,6 +59,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     setTimeout(() => {
       router.push(href);
       window.scrollTo(0, 0);
+      window.dispatchEvent(new Event('app-route-transition'));
       // Hold briefly for page mount, then reveal
       setTimeout(() => {
         setIsTransitioning(false);

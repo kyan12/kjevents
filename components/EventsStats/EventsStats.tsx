@@ -8,7 +8,7 @@ const stats = [
   { value: 100, prefix: '', suffix: '+', label: 'Events Produced' },
   { value: 10, prefix: '', suffix: '+', label: 'Cities' },
   { value: 300, prefix: '', suffix: '+', label: 'Guests Managed' },
-  { value: 3, prefix: '', suffix: '-Day', label: 'Festival Experience' },
+  { value: 3, prefix: '', suffix: '', label: 'Festival Days' },
 ];
 
 function AnimatedNumber({ value, prefix, suffix }: { value: number; prefix?: string; suffix?: string }) {

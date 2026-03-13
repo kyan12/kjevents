@@ -28,8 +28,9 @@
 
 .logoWrap {
   position: relative;
-  height: 92px;
-  padding: 12px 10px;
+  height: 120px;
+  padding: 16px 12px;
+  overflow: visible;
   filter: grayscale(100%);
   opacity: 0.82;
 }
@@ -50,7 +51,7 @@
   }
 
   .logoWrap {
-    height: 72px;
+    height: 88px;
     padding: 10px 8px;
   }
 }

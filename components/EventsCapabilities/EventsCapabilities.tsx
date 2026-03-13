@@ -100,11 +100,11 @@ export default function EventsCapabilities() {
               WHAT WE DO
             </motion.p>
             <motion.h2 className={styles.heading} custom={1} variants={fadeInUp}>
-              WHAT WE DO
+              SERVICES
             </motion.h2>
           </div>
           <motion.p className={styles.headerDesc} custom={2} variants={fadeInUp}>
-            From private celebrations to live cultural productions, we coordinate the moving parts behind the scenes so guests experience a seamless, memorable event.
+            From private celebrations to live cultural productions, we manage the moving parts behind the scenes so the event feels seamless, elevated, and fully lived in.
           </motion.p>
         </div>
 

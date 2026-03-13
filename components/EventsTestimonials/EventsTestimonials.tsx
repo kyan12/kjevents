@@ -6,19 +6,19 @@ import styles from './EventsTestimonials.module.css';
 const testimonials = [
   {
     quote:
-      'Kira Jia is one of the most professional and dependable event professionals I’ve worked with in the live events industry. As an event planner, talent curator, and stage manager, she brings exceptional organization, attention to detail, and leadership that helps ensure every event runs seamlessly. She also brings a rare combination of creative vision and operational discipline. I would confidently recommend her to any organization looking for a highly capable professional who can help produce a polished, well-executed, and truly memorable event.',
+      'Kira is one of the most dependable event professionals I’ve worked with. She brings exceptional organization, attention to detail, and leadership that helps every event run seamlessly. What sets her apart is the combination of creative vision and operational discipline — the kind that leads to a polished, memorable event.',
     name: 'Jason Rittenberry',
     title: 'Founder & CEO, Tristar Production Group',
   },
   {
     quote:
-      'Kira was a huge asset to our team at A Round Entertainment. She’s proactive, organized, and very good at keeping things moving under pressure. What stood out most to me was her ability to manage details without losing sight of the overall client experience. She’s dependable, easy to work with, and brings a level of care and professionalism that’s hard to find.',
+      'Kira was a huge asset to our team at A Round Entertainment. She’s proactive, organized, and very good at keeping things moving under pressure. She manages the details without losing sight of the overall guest experience, and brings a level of care and professionalism that’s hard to find.',
     name: 'Eric Jeong',
     title: 'COO & Co-Founder, A Round Entertainment Group',
   },
   {
     quote:
-      'Planning our daughter Bella’s first birthday was incredibly special to us, and Kira made the entire experience feel easy and joyful even though we hired her very last minute. From helping us find the right vendors to making sure every detail came together beautifully, she handled everything with such care and professionalism. Even when we had a few last-minute requests, Kira pulled through and made everything run smoothly so we could simply enjoy the celebration with our family and friends.',
+      'Planning our daughter Bella’s first birthday was incredibly special to us, and Kira made the entire experience feel easy and joyful — even though we hired her very last minute. She handled every detail with care, and made everything run smoothly so we could simply enjoy the celebration with our family and friends.',
     name: 'Anny',
     title: 'Bella’s Mom',
   },

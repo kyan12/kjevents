@@ -11,7 +11,7 @@ const projects = [
     title: 'A:Round Events Series',
     city: 'New York City',
     stats: '300+ Guests · 50+ Events',
-    quote: '“High-energy nightlife and social events centered on guest experience, atmosphere, and entertainment.”',
+    quote: '“High-energy nightlife and social events built around atmosphere, entertainment, and guest experience.”',
     attr: '- Event planning, coordination, and on-site operations',
   },
   {
@@ -19,7 +19,7 @@ const projects = [
     title: 'Dream Asia Festival',
     city: 'Large-Scale Cultural Festival',
     stats: '3-Day Festival',
-    quote: '“Multi-layered event production involving stage coordination, cultural programming, and live-event logistics.”',
+    quote: '“Multi-day production shaped by stage coordination, cultural programming, and live-event logistics.”',
     attr: '- Production / Stage Director',
   },
   {
@@ -27,7 +27,7 @@ const projects = [
     title: 'Rico Rico Fiesta',
     city: 'Cultural & Entertainment Event',
     stats: 'Live Production · Guest Experience',
-    quote: '“A high-energy cultural event designed around crowd experience, live entertainment, and seamless production flow.”',
+    quote: '“A high-energy event designed around crowd experience, live entertainment, and seamless production flow.”',
     attr: '- Production / Stage Coordination',
   },
   {
@@ -35,7 +35,7 @@ const projects = [
     title: 'Bella’s Wild One',
     city: 'Private Milestone Celebration',
     stats: 'New York City',
-    quote: '“A personalized celebration designed around strong flow, thoughtful details, and a fun guest experience.”',
+    quote: '“A personalized celebration shaped by strong flow, thoughtful details, and a fun guest experience.”',
     attr: '- Planning and on-site coordination',
   },
 ];

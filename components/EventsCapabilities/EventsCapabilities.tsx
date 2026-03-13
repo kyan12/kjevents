@@ -7,9 +7,9 @@ import styles from './EventsCapabilities.module.css';
 
 const caps = [
   {
-    n: '01', title: 'Special & Private Events',
-    desc: 'Refined gatherings produced with careful attention to atmosphere, entertainment, and guest experience.',
-    items: ['Birthday celebrations', 'Corporate celebrations', 'Private receptions & milestone events', 'Curated entertainment programming'],
+    n: '01', title: 'Private Celebrations',
+    desc: 'Milestone gatherings shaped around guest experience, thoughtful flow, and polished on-site coordination.',
+    items: ['Birthday celebrations', 'Anniversaries & milestone events', 'Engagement parties & private receptions', 'Vendor coordination, entertainment, and event flow'],
     icon: (
       <svg viewBox="0 0 24 24" width="28" height="28" stroke="var(--e-gold)" strokeWidth="1.2" fill="none">
         <path d="M7 5h10M8 5c0 6 4 8 4 11M16 5c0 6-4 8-4 11M12 16v5M9 21h6" strokeLinecap="round" />
@@ -17,9 +17,9 @@ const caps = [
     )
   },
   {
-    n: '02', title: 'Cultural, Music Festival & Stage Productions',
-    desc: 'Live performance production and cultural programming developed in collaboration with artists, agents, and production teams.',
-    items: ['Festival production planning & curation', 'Stage management & coordination', 'Artist booking and talent relations', 'Live performance scheduling'],
+    n: '02', title: 'Cultural & Stage Productions',
+    desc: 'Live events that require tight coordination across performers, schedules, vendors, and production teams behind the scenes.',
+    items: ['Stage management', 'Performance scheduling', 'Talent logistics & hospitality', 'Run of show coordination and on-site execution'],
     icon: (
       <svg viewBox="0 0 24 24" width="28" height="28" stroke="var(--e-gold)" strokeWidth="1.2" fill="none">
         <path d="M6 16v-8 M12 20v-16 M18 14v-4" strokeLinecap="round" strokeLinejoin="round" />
@@ -27,9 +27,9 @@ const caps = [
     )
   },
   {
-    n: '03', title: 'Corporate Conferences',
-    desc: 'Multi-day strategic events from 50 to 5,000 attendees. AV, logistics, speaker management.',
-    items: ['Full AV production management', 'Speaker & agenda coordination', 'Multi-day logistics planning', 'Breakout & session management'],
+    n: '03', title: 'Private Event Management',
+    desc: 'For hosts who need a composed operator managing vendors, timing, and guest experience from arrival through final toast.',
+    items: ['On-site event management', 'Entertainment coordination', 'Guest flow & timeline control', 'Vendor communication in real time'],
     icon: (
       <svg viewBox="0 0 24 24" width="28" height="28" stroke="var(--e-gold)" strokeWidth="1.2" fill="none">
         <path d="M4 18h16 M8 14h8 M12 10v4 M12 4v2 M9 4h6" strokeLinecap="round" strokeLinejoin="round" />
@@ -37,9 +37,9 @@ const caps = [
     )
   },
   {
-    n: '04', title: 'Product Launches',
-    desc: 'The moment your brand makes its next statement. Experiential activations that are unforgettable.',
-    items: ['Brand activation strategy', 'Experiential venue design', 'Press & media coordination', 'Launch moment production'],
+    n: '04', title: 'Production Support',
+    desc: 'Operational support for events with multiple moving parts, where timing, coordination, and calm execution matter most.',
+    items: ['Production support', 'Vendor & backstage coordination', 'Schedule management', 'Live event troubleshooting'],
     icon: (
       <svg viewBox="0 0 24 24" width="28" height="28" stroke="var(--e-gold)" strokeWidth="1.2" fill="none">
         <path d="M12 3L15 9L21 12L15 15L12 21L9 15L3 12L9 9Z" strokeLinecap="round" strokeLinejoin="round" />
@@ -47,9 +47,9 @@ const caps = [
     )
   },
   {
-    n: '05', title: 'Annual Galas & Fundraisers',
-    desc: 'Black-tie excellence. Table design to paddle raise, managed with precision and care.',
-    items: ['Gala design & full theming', 'Auction & fundraiser management', 'Table curation & seating', 'Entertainment & flow management'],
+    n: '05', title: 'Festival & Cultural Programming',
+    desc: 'Programming support for events that blend entertainment, community, and culture in a way that still feels organized and elevated.',
+    items: ['Cultural programming support', 'Talent coordination', 'Performance flow', 'Stage-adjacent operations'],
     icon: (
       <svg viewBox="0 0 24 24" width="28" height="28" stroke="var(--e-gold)" strokeWidth="1.2" fill="none">
         <path d="M12 3v18 M7 14c0-4 5-5 5-5 M17 14c0-4-5-5-5-5 M9 18c0-3 3-4 3-4 M15 18c0-3-3-4-3-4" strokeLinecap="round" />
@@ -57,9 +57,9 @@ const caps = [
     )
   },
   {
-    n: '06', title: 'Executive Retreats',
-    desc: 'Intimate, high-stakes off-site gatherings that sharpen teams and honor relationships.',
-    items: ['Venue sourcing & negotiation', 'Program & agenda design', 'Travel & accommodation logistics', 'Facilitation support'],
+    n: '06', title: 'Guest Experience & Atmosphere',
+    desc: 'The final layer that makes an event feel effortless: pacing, hospitality, entertainment, and the details guests remember.',
+    items: ['Atmosphere and flow', 'Guest-facing coordination', 'Entertainment timing', 'Experience-focused execution'],
     icon: (
       <svg viewBox="0 0 24 24" width="28" height="28" stroke="var(--e-gold)" strokeWidth="1.2" fill="none">
         <path d="M4 18L10 8L14 14L20 6" strokeLinecap="round" strokeLinejoin="round" />
@@ -100,11 +100,11 @@ export default function EventsCapabilities() {
               WHAT WE DO
             </motion.p>
             <motion.h2 className={styles.heading} custom={1} variants={fadeInUp}>
-              CAPABILITIES
+              WHAT WE DO
             </motion.h2>
           </div>
           <motion.p className={styles.headerDesc} custom={2} variants={fadeInUp}>
-            We engineer environments. From private enclaves to large-scale productions, our methodology ensures flawless execution and striking aesthetics.
+            From private celebrations to live cultural productions, we coordinate the moving parts behind the scenes so guests experience a seamless, memorable event.
           </motion.p>
         </div>
 

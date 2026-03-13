@@ -1,24 +1,26 @@
 "use client";
 
 import { motion, Variants } from 'framer-motion';
-import { cn } from '@/lib/utils';
 import styles from './EventsTestimonials.module.css';
 
 const testimonials = [
   {
-    quote: 'Kira turned our vision into something beyond what we imagined. Every detail was flawless, every moment intentional.',
-    name: 'Michelle T.',
-    title: 'Founder, A:Round Events',
+    quote:
+      'Kira Jia is one of the most professional and dependable event professionals I’ve worked with in the live events industry. As an event planner, talent curator, and stage manager, she brings exceptional organization, attention to detail, and leadership that helps ensure every event runs seamlessly. She also brings a rare combination of creative vision and operational discipline. I would confidently recommend her to any organization looking for a highly capable professional who can help produce a polished, well-executed, and truly memorable event.',
+    name: 'Jason Rittenberry',
+    title: 'Founder & CEO, Tristar Production Group',
   },
   {
-    quote: 'From concept to execution, the level of professionalism and creativity was unmatched. Our guests are still talking about it.',
-    name: 'David L.',
-    title: 'Director, Dream Asia Festival',
+    quote:
+      'Kira was a huge asset to our team at A Round Entertainment. She’s proactive, organized, and very good at keeping things moving under pressure. What stood out most to me was her ability to manage details without losing sight of the overall client experience. She’s dependable, easy to work with, and brings a level of care and professionalism that’s hard to find.',
+    name: 'Eric Jeong',
+    title: 'COO & Co-Founder, A Round Entertainment Group',
   },
   {
-    quote: 'Working with KJ Events felt effortless. They handled the complexity so we could enjoy the celebration.',
-    name: 'Andrea R.',
-    title: 'Event Chair, Annual Gala',
+    quote:
+      'Planning our daughter Bella’s first birthday was incredibly special to us, and Kira made the entire experience feel easy and joyful even though we hired her very last minute. From helping us find the right vendors to making sure every detail came together beautifully, she handled everything with such care and professionalism. Even when we had a few last-minute requests, Kira pulled through and made everything run smoothly so we could simply enjoy the celebration with our family and friends.',
+    name: 'Anny',
+    title: 'Bella’s Mom',
   },
 ];
 
@@ -40,10 +42,10 @@ export default function EventsTestimonials() {
         viewport={{ once: true, margin: '-100px' }}
       >
         <motion.p className={styles.preLabel} custom={0} variants={fadeInUp}>
-          CLIENT VOICES
+          WHAT THEY SAY
         </motion.p>
         <motion.h2 className={styles.heading} custom={1} variants={fadeInUp}>
-          WHAT THEY SAY
+          CLIENT TESTIMONIALS
         </motion.h2>
         <div className={styles.grid}>
           {testimonials.map((t, i) => (

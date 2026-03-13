@@ -5,10 +5,10 @@ import { motion, useInView, animate, useMotionValue, useTransform } from 'framer
 import styles from './EventsStats.module.css';
 
 const stats = [
-  { value: 200, suffix: '+', label: 'Events Produced' },
-  { value: 10, prefix: '$', suffix: 'M+', label: 'Production Value' },
-  { value: 8, suffix: '+', label: 'Cities' },
-  { value: 96, suffix: '%', label: 'Client Return Rate' },
+  { value: 100, suffix: '+', label: 'Events Produced' },
+  { value: 10, suffix: '+', label: 'Cities' },
+  { value: 2, suffix: '', label: 'Core Event Verticals' },
+  { value: 24, suffix: '/7', label: 'On-Site Support' },
 ];
 
 function AnimatedNumber({ value, prefix, suffix }: { value: number; prefix?: string; suffix?: string }) {

@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react';
 import styles from './EventsHero.module.css';
 
-const words = ['WE', 'PRODUCE', 'EVENTS THAT', 'PEOPLE', 'TALK ABOUT.'];
-
 export default function EventsHero() {
   const [on, setOn] = useState(false);
   useEffect(() => {
@@ -19,7 +17,7 @@ export default function EventsHero() {
         <div className={`${styles.categoryBar} ${on ? styles.visible : ''}`}>
           <div className={styles.goldLine} />
           <p className={styles.categoryText}>
-            CORPORATE &middot; GALAS &middot; LAUNCHES &middot; SUMMITS
+            PRIVATE EVENTS &middot; CELEBRATIONS &middot; STAGE MANAGEMENT &middot; CULTURAL PRODUCTIONS
           </p>
         </div>
 

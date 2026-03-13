@@ -1,10 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import styles from './EventsPortfolio.module.css';
 
@@ -13,33 +10,33 @@ const projects = [
     image: '/images/events-replacements/a-round.jpg',
     title: 'A:Round Events Series',
     city: 'New York City',
-    stats: '300+ Guests · Multi-Night Series',
-    quote: '\u201CEvery edition raises the bar. The energy, the design, the crowd. It\u2019s the event people plan their weekends around.\u201D',
-    attr: '- Series Producer',
+    stats: '300+ Guests · 50+ Events',
+    quote: '“High-energy nightlife and social events centered on guest experience, atmosphere, and entertainment.”',
+    attr: '- Event planning, coordination, and on-site operations',
   },
   {
     image: '/images/events-replacements/dream-asia.jpg',
     title: 'Dream Asia Festival',
-    city: 'New York City',
-    stats: 'Multi-Day · Large-Scale Outdoor',
-    quote: '\u201CA celebration of culture, food, and art, produced at a scale that honored every detail.\u201D',
-    attr: '- Festival Director',
+    city: 'Large-Scale Cultural Festival',
+    stats: '3-Day Festival',
+    quote: '“Multi-layered event production involving stage coordination, cultural programming, and live-event logistics.”',
+    attr: '- Production / Stage Director',
   },
   {
     image: '/images/events-replacements/rico.jpg',
     title: 'Rico Rico Fiesta',
-    city: 'New York City',
-    stats: 'Full Sensory Production',
-    quote: '\u201CBold, vibrant, completely alive. You could feel the energy before you even walked through the door.\u201D',
-    attr: '- Event Host',
+    city: 'Cultural & Entertainment Event',
+    stats: 'Live Production · Guest Experience',
+    quote: '“A high-energy cultural event designed around crowd experience, live entertainment, and seamless production flow.”',
+    attr: '- Production / Stage Coordination',
   },
   {
     image: '/images/events-replacements/bella.jpg',
-    title: "Bella\u2019s Wild One",
-    city: 'New York City',
-    stats: 'Milestone Celebration',
-    quote: '\u201CIntimate yet grand. Every detail was designed with whimsy and elegance.\u201D',
-    attr: '- Client Family',
+    title: 'Bella’s Wild One',
+    city: 'Private Milestone Celebration',
+    stats: 'New York City',
+    quote: '“A personalized celebration designed around strong flow, thoughtful details, and a fun guest experience.”',
+    attr: '- Planning and on-site coordination',
   },
 ];
 

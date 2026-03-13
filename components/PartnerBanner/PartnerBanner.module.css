@@ -27,17 +27,29 @@
 }
 
 .logoWrap {
-  position: relative;
-  height: 120px;
-  padding: 16px 12px;
-  overflow: visible;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 6px;
+}
+
+.logo {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
   filter: grayscale(100%);
   opacity: 0.82;
 }
 
-.logo {
-  object-fit: contain;
-  object-position: center;
+.logoTall {
+  max-height: 92px;
+}
+
+.logoStandard {
+  max-height: 72px;
 }
 
 @media (max-width: 768px) {
@@ -51,7 +63,15 @@
   }
 
   .logoWrap {
-    height: 88px;
-    padding: 10px 8px;
+    min-height: 88px;
+    padding: 6px 4px;
+  }
+
+  .logoTall {
+    max-height: 72px;
+  }
+
+  .logoStandard {
+    max-height: 58px;
   }
 }

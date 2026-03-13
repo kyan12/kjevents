@@ -23,19 +23,20 @@ export default function EventsHero() {
 
         <h1 className={styles.heading}>
           <div className={styles.wordWrapper}>
-            <LetterReveal text="WE PRODUCE EVENTS" delayOffset={0.4} on={on} />
+            <LetterReveal text="WE PRODUCE" delayOffset={0.4} on={on} />
           </div>
           <div className={styles.wordWrapper}>
-            <LetterReveal text="THAT PEOPLE" delayOffset={0.75} on={on} />
+            <LetterReveal text="EVENTS THAT" delayOffset={0.7} on={on} />
           </div>
           <div className={`${styles.wordWrapper} ${styles.goldHighlight}`}>
-            <LetterReveal text="TALK ABOUT." delayOffset={1.1} on={on} />
+            <LetterReveal text="PEOPLE TALK" delayOffset={1.0} on={on} />
+          </div>
+          <div className={`${styles.wordWrapper} ${styles.goldHighlight}`}>
+            <LetterReveal text="ABOUT." delayOffset={1.3} on={on} />
           </div>
         </h1>
 
-        <p className={`${styles.subhead} ${on ? styles.visible : ''}`}>
-          From private milestone celebrations to large-scale cultural productions, every detail is shaped so the experience feels seamless, elevated, and unforgettable.
-        </p>
+
       </div>
     </section>
   );

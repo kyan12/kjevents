@@ -11,32 +11,36 @@ const projects = [
     title: 'A:Round Events Series',
     city: 'New York City',
     stats: '300+ Guests · 50+ Events',
-    quote: '“High-energy nightlife and social events built around atmosphere, entertainment, and guest experience.”',
+    quote: '"High-energy nightlife and social events built around atmosphere, entertainment, and guest experience."',
     attr: '- Event planning, coordination, and on-site operations',
+    photographer: 'Jason Moy',
   },
   {
     image: '/images/events-replacements/dream-asia.jpg',
     title: 'Dream Asia Festival',
     city: 'Large-Scale Cultural Festival',
     stats: '3-Day Festival',
-    quote: '“Multi-day production shaped by stage coordination, cultural programming, and live-event logistics.”',
+    quote: '"Multi-day production shaped by stage coordination, cultural programming, and live-event logistics."',
     attr: '- Production / Stage Director',
+    photographer: 'Jason Moy',
   },
   {
     image: '/images/events-replacements/rico.jpg',
     title: 'Rico Rico Fiesta',
     city: 'Cultural & Entertainment Event',
     stats: 'Live Production · Guest Experience',
-    quote: '“A high-energy event designed around crowd experience, live entertainment, and seamless production flow.”',
+    quote: '"A high-energy event designed around crowd experience, live entertainment, and seamless production flow."',
     attr: '- Production / Stage Coordination',
+    photographer: 'Jason Moy',
   },
   {
     image: '/images/events-replacements/bella.jpg',
-    title: 'Bella’s Wild One',
+    title: 'Bella\u2019s Wild One',
     city: 'Private Milestone Celebration',
     stats: 'New York City',
-    quote: '“A personalized celebration shaped by strong flow, thoughtful details, and a fun guest experience.”',
+    quote: '"A personalized celebration shaped by strong flow, thoughtful details, and a fun guest experience."',
     attr: '- Planning and on-site coordination',
+    photographer: 'Jason Moy',
   },
 ];
 
@@ -100,6 +104,9 @@ export default function EventsPortfolio() {
                   <p className={styles.panelStats}>{p.stats}</p>
                   <p className={styles.panelQuote}>{p.quote}</p>
                   <p className={styles.panelAttr}>{p.attr}</p>
+                  {p.photographer && (
+                    <p className={styles.panelPhotographer}>Photo by {p.photographer}</p>
+                  )}
                 </div>
 
                 <div className={cn(styles.anchorLabel, hov === i ? styles.anchorLabelHidden : '')}>

@@ -7,7 +7,7 @@ import styles from './EventsStats.module.css';
 const stats = [
   { value: 100, prefix: '', suffix: '+', label: 'Events Produced' },
   { value: 10, prefix: '', suffix: '+', label: 'Cities' },
-  { value: 300, prefix: '', suffix: '+', label: 'Guests Managed' },
+  { value: 30000, prefix: '', suffix: '+', label: 'Guests Managed' },
   { value: 50, prefix: '', suffix: '+', label: 'Festival Days Managed' },
 ];
 

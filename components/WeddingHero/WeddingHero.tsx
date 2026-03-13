@@ -16,7 +16,7 @@ export default function WeddingHero() {
       <div className={`${styles.content} ${on ? styles.visible : ''}`}>
         <p className={styles.brandLabel}>KIRA JIA EVENTS &middot; WEDDING PLANNING</p>
         <blockquote className={styles.quote}>
-          &ldquo;The most beautiful celebrations begin with the quietest planning.&rdquo;
+          &ldquo;The most beautiful celebrations allow you to be present for every moment.&rdquo;
         </blockquote>
         <p className={styles.attribution}>- Kira Jia</p>
         <div className={styles.scrollIndicator}>

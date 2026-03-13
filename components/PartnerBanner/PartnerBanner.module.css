@@ -21,17 +21,28 @@
 
 .logoRow {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: 1.2fr 1.2fr 1fr 0.9fr;
   gap: 28px;
   align-items: center;
 }
 
 .logoWrap {
-  min-height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 8px 6px;
+}
+
+.wrapHero {
+  min-height: 150px;
+}
+
+.wrapStandard {
+  min-height: 110px;
+}
+
+.wrapCompact {
+  min-height: 96px;
 }
 
 .logo {
@@ -40,16 +51,21 @@
   height: auto;
   object-fit: contain;
   object-position: center;
+  display: block;
   filter: grayscale(100%);
   opacity: 0.82;
 }
 
-.logoTall {
-  max-height: 92px;
+.logoHero {
+  max-height: 118px;
 }
 
 .logoStandard {
-  max-height: 72px;
+  max-height: 78px;
+}
+
+.logoCompact {
+  max-height: 58px;
 }
 
 @media (max-width: 768px) {
@@ -62,16 +78,24 @@
     gap: 18px 22px;
   }
 
-  .logoWrap {
-    min-height: 88px;
-    padding: 6px 4px;
+  .wrapHero {
+    min-height: 108px;
   }
 
-  .logoTall {
-    max-height: 72px;
+  .wrapStandard,
+  .wrapCompact {
+    min-height: 82px;
+  }
+
+  .logoHero {
+    max-height: 84px;
   }
 
   .logoStandard {
-    max-height: 58px;
+    max-height: 56px;
+  }
+
+  .logoCompact {
+    max-height: 48px;
   }
 }

@@ -10,7 +10,7 @@ import styles from './EventsPortfolio.module.css';
 
 const projects = [
   {
-    image: '/images/other_hero_1.png',
+    image: '/images/events-replacements/a-round.jpg',
     title: 'A:Round Events Series',
     city: 'New York City',
     stats: '300+ Guests · Multi-Night Series',
@@ -18,7 +18,7 @@ const projects = [
     attr: '- Series Producer',
   },
   {
-    image: '/images/other_hero_2.png',
+    image: '/images/events-replacements/dream-asia.jpg',
     title: 'Dream Asia Festival',
     city: 'New York City',
     stats: 'Multi-Day · Large-Scale Outdoor',
@@ -26,7 +26,7 @@ const projects = [
     attr: '- Festival Director',
   },
   {
-    image: '/images/other_hero_1.png',
+    image: '/images/events-replacements/rico.jpg',
     title: 'Rico Rico Fiesta',
     city: 'New York City',
     stats: 'Full Sensory Production',
@@ -34,7 +34,7 @@ const projects = [
     attr: '- Event Host',
   },
   {
-    image: '/images/other_hero_2.png',
+    image: '/images/events-replacements/bella.jpg',
     title: "Bella\u2019s Wild One",
     city: 'New York City',
     stats: 'Milestone Celebration',

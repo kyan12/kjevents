@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useIsMobile } from '../ScrollEffects/useIsMobile';
 import styles from './IntroAnimation.module.css';
 
 export default function IntroAnimation() {
   const [showAnimation, setShowAnimation] = useState(true);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -45,7 +47,7 @@ export default function IntroAnimation() {
             <motion.div
               className={styles.fullName}
               initial={{ opacity: 0, y: 0, scale: 0.98 }}
-              animate={{ opacity: 1, y: -20, scale: 1 }}
+              animate={{ opacity: 1, y: isMobile ? -20 : 3, scale: 1 }}
               transition={{ delay: 1.4, duration: 1, ease: 'easeOut' }}
             >
               Kira Jia Events

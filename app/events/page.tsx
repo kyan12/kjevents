@@ -3,6 +3,7 @@
 import Nav from '@/components/Nav/Nav';
 import EventsHero from '@/components/EventsHero/EventsHero';
 import EventsCapabilities from '@/components/EventsCapabilities/EventsCapabilities';
+import PartnerBanner from '@/components/PartnerBanner/PartnerBanner';
 import EventsStats from '@/components/EventsStats/EventsStats';
 import EventsPortfolio from '@/components/EventsPortfolio/EventsPortfolio';
 import EventsTestimonials from '@/components/EventsTestimonials/EventsTestimonials';
@@ -18,6 +19,7 @@ export default function EventsPage() {
       <main className={styles.main}>
         <EventsHero />
         <EventsCapabilities />
+        <PartnerBanner />
         <EventsStats />
         <EventsPortfolio />
         <EventsProcess />

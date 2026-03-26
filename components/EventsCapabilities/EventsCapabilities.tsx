@@ -3,70 +3,11 @@
 import { useState } from 'react';
 import { motion, Variants } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import TransitionLink from '@/components/PageTransition/TransitionLink';
+import { caps } from './capsData';
 import styles from './EventsCapabilities.module.css';
 
-const caps = [
-  {
-    n: '01', title: 'Private Celebrations',
-    desc: 'Milestone gatherings shaped around guest experience, thoughtful flow, and polished on-site coordination.',
-    items: ['Birthday celebrations', 'Anniversaries & milestone events', 'Engagement parties & private receptions', 'Vendor coordination, entertainment, and event flow'],
-    icon: (
-      <svg viewBox="0 0 24 24" width="28" height="28" stroke="var(--e-gold)" strokeWidth="1.2" fill="none">
-        <path d="M7 5h10M8 5c0 6 4 8 4 11M16 5c0 6-4 8-4 11M12 16v5M9 21h6" strokeLinecap="round" />
-      </svg>
-    )
-  },
-  {
-    n: '02', title: 'Cultural & Stage Productions',
-    desc: 'Live events that require tight coordination across performers, schedules, vendors, and production teams behind the scenes.',
-    items: ['Stage management', 'Performance scheduling', 'Talent logistics & hospitality', 'Run of show coordination and on-site execution'],
-    icon: (
-      <svg viewBox="0 0 24 24" width="28" height="28" stroke="var(--e-gold)" strokeWidth="1.2" fill="none">
-        <path d="M6 16v-8 M12 20v-16 M18 14v-4" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    )
-  },
-  {
-    n: '03', title: 'Private Event Management',
-    desc: 'For hosts who need a composed operator managing vendors, timing, and guest experience from arrival through final toast.',
-    items: ['On-site event management', 'Entertainment coordination', 'Guest flow & timeline control', 'Vendor communication in real time'],
-    icon: (
-      <svg viewBox="0 0 24 24" width="28" height="28" stroke="var(--e-gold)" strokeWidth="1.2" fill="none">
-        <path d="M4 18h16 M8 14h8 M12 10v4 M12 4v2 M9 4h6" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    )
-  },
-  {
-    n: '04', title: 'Production Support',
-    desc: 'Operational support for events with multiple moving parts, where timing, coordination, and calm execution matter most.',
-    items: ['Production support', 'Vendor & backstage coordination', 'Schedule management', 'Live event troubleshooting'],
-    icon: (
-      <svg viewBox="0 0 24 24" width="28" height="28" stroke="var(--e-gold)" strokeWidth="1.2" fill="none">
-        <path d="M12 3L15 9L21 12L15 15L12 21L9 15L3 12L9 9Z" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    )
-  },
-  {
-    n: '05', title: 'Festival & Cultural Programming',
-    desc: 'Programming support for events that blend entertainment, community, and culture in a way that still feels organized and elevated.',
-    items: ['Cultural programming support', 'Talent coordination', 'Performance flow', 'Stage-adjacent operations'],
-    icon: (
-      <svg viewBox="0 0 24 24" width="28" height="28" stroke="var(--e-gold)" strokeWidth="1.2" fill="none">
-        <path d="M12 3v18 M7 14c0-4 5-5 5-5 M17 14c0-4-5-5-5-5 M9 18c0-3 3-4 3-4 M15 18c0-3-3-4-3-4" strokeLinecap="round" />
-      </svg>
-    )
-  },
-  {
-    n: '06', title: 'Guest Experience & Atmosphere',
-    desc: 'The final layer that makes an event feel effortless: pacing, hospitality, entertainment, and the details guests remember.',
-    items: ['Atmosphere and flow', 'Guest-facing coordination', 'Entertainment timing', 'Experience-focused execution'],
-    icon: (
-      <svg viewBox="0 0 24 24" width="28" height="28" stroke="var(--e-gold)" strokeWidth="1.2" fill="none">
-        <path d="M4 18L10 8L14 14L20 6" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    )
-  },
-];
+const highlighted = caps.slice(0, 2);
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 32 },
@@ -100,20 +41,20 @@ export default function EventsCapabilities() {
               WHAT WE DO
             </motion.p>
             <motion.h2 className={styles.heading} custom={1} variants={fadeInUp}>
-              SERVICES
+              CAPABILITIES
             </motion.h2>
           </div>
           <motion.p className={styles.headerDesc} custom={2} variants={fadeInUp}>
-            From private celebrations to live cultural productions, we manage the moving parts behind the scenes so the event feels seamless, elevated, and fully lived in.
+            We engineer environments. From private enclaves to large-scale productions, our methodology ensures flawless execution and striking aesthetics.
           </motion.p>
         </div>
 
-        <div className={styles.grid}>
-          {caps.map((c, i) => (
+        <div className={styles.showcaseGrid}>
+          {highlighted.map((c, i) => (
             <motion.div
               key={i}
-              className={styles.tileWrapper}
-              custom={i}
+              className={cn(styles.showcaseTile, mousePos.index === i ? styles.showcaseTileActive : '')}
+              custom={i + 1}
               variants={fadeInUp}
               onMouseMove={(e) => handleMouseMove(e, i)}
               onMouseLeave={() => setMousePos((prev) => ({ ...prev, index: -1 }))}
@@ -121,10 +62,11 @@ export default function EventsCapabilities() {
               <div
                 className={styles.spotlight}
                 style={{
-                  background: `radial-gradient(circle 350px at ${mousePos.index === i ? mousePos.x : -500}px ${mousePos.index === i ? mousePos.y : -500}px, rgba(205,168,76,0.06), transparent 80%)`,
+                  background: `radial-gradient(circle 500px at ${mousePos.index === i ? mousePos.x : -500}px ${mousePos.index === i ? mousePos.y : -500}px, rgba(205,168,76,0.08), transparent 70%)`,
                   transition: mousePos.index === i ? 'none' : 'background 0.3s ease',
                 }}
               />
+              <div className={styles.shimmerBorder} />
               <div className={styles.tileContent}>
                 <div className={styles.topHeader}>
                   <span className={cn(styles.ghostNum, mousePos.index === i ? styles.ghostNumActive : '')}>
@@ -149,6 +91,16 @@ export default function EventsCapabilities() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div className={styles.viewAllRow} custom={4} variants={fadeInUp}>
+          <TransitionLink
+            href="/events/services"
+            color="var(--e-bg)"
+            className={styles.viewAllLink}
+          >
+            VIEW ALL SERVICES &rarr;
+          </TransitionLink>
+        </motion.div>
       </motion.div>
     </section>
   );

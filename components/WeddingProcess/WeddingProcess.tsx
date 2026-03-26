@@ -72,18 +72,19 @@ export default function WeddingProcess() {
   // Mobile: static layout
   if (isMobile) {
     return (
-      <section id="wedding-process" className={styles.section}>
+      <section
+        id="wedding-process"
+        className={styles.section}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <div className={styles.container}>
           <div className={styles.header}>
             <p className={styles.preLabel}>HOW WE WORK</p>
             <h2 className={styles.heading}>The Process</h2>
           </div>
 
-          <div
-            className={styles.mobileBouquet}
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-          >
+          <div className={styles.mobileBouquet}>
             <BouquetSVG activeStep={activeStep} progressRef={progressRef} static />
           </div>
 

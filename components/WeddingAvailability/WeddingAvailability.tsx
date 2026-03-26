@@ -15,7 +15,7 @@ export default function WeddingAvailability() {
             <div className={styles.tileContent}>
               <span className={styles.highlightYear}>2026</span>
               <p className={styles.availabilityText}>
-                Taking select bookings for Wedding Day Management, with limited Partial Planning remaining.
+                Bookings open for Wedding Day Management, with limited Partial Planning remaining for 2026.
               </p>
             </div>
             <a href="#wedding-contact" className={styles.ctaButton}>

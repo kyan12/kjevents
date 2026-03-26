@@ -1,101 +1,33 @@
 .banner {
   background: var(--e-banner);
-  padding: 44px 80px 56px;
-  border-top: 1px solid rgba(205, 168, 76, 0.08);
-  border-bottom: 1px solid rgba(205, 168, 76, 0.08);
+  padding: 56px 80px;
+  text-align: center;
 }
 
-.inner {
-  max-width: 1200px;
+.text {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 16px;
+  color: var(--e-text);
+  line-height: 1.8;
+  font-weight: 400;
+  max-width: 600px;
   margin: 0 auto;
 }
 
-.eyebrow {
-  font-family: var(--font-dm), system-ui, sans-serif;
-  font-size: 10px;
-  letter-spacing: 0.35em;
-  color: var(--e-gold);
-  text-align: center;
-  margin-bottom: 28px;
+.link {
+  color: var(--e-text);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
 }
 
-.logoRow {
-  display: grid;
-  grid-template-columns: 1.2fr 1.2fr 1fr 0.9fr;
-  gap: 28px;
-  align-items: center;
-}
-
-.logoWrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 6px;
-}
-
-.wrapHero {
-  min-height: 150px;
-}
-
-.wrapStandard {
-  min-height: 110px;
-}
-
-.wrapCompact {
-  min-height: 96px;
-}
-
-.logo {
-  width: auto;
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-  object-position: center;
-  display: block;
-  filter: grayscale(100%);
-  opacity: 0.82;
-}
-
-.logoHero {
-  max-height: 118px;
-}
-
-.logoStandard {
-  max-height: 78px;
-}
-
-.logoCompact {
-  max-height: 58px;
+.link:hover {
+  opacity: 0.7;
 }
 
 @media (max-width: 768px) {
   .banner {
-    padding: 36px 24px 44px;
-  }
-
-  .logoRow {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px 22px;
-  }
-
-  .wrapHero {
-    min-height: 108px;
-  }
-
-  .wrapStandard,
-  .wrapCompact {
-    min-height: 82px;
-  }
-
-  .logoHero {
-    max-height: 84px;
-  }
-
-  .logoStandard {
-    max-height: 56px;
-  }
-
-  .logoCompact {
-    max-height: 48px;
+    padding: 40px 24px;
   }
 }

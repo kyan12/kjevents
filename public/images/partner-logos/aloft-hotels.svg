@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 180" fill="#2E2A27">
+  <!-- a: solid rounded square block with letter cutout -->
+  <path d="M12 20 C12 8 20 0 32 0 L78 0 C90 0 98 8 98 20 L98 108 C98 116 93 120 85 120 L32 120 C20 120 12 112 12 100 L12 20z
+    M36 24 L36 96 C36 100 38 102 42 102 L74 102 L74 24 C74 20 72 18 68 18 L42 18 C38 18 36 20 36 24z
+    M50 56 L74 56 L74 78 L50 78 C46 78 44 76 44 72 L44 62 C44 58 46 56 50 56z" fill-rule="evenodd"/>
+  <!-- l: simple rounded vertical bar -->
+  <rect x="108" y="0" width="18" height="120" rx="4"/>
+  <!-- o: rounded square outline -->
+  <path d="M140 20 C140 8 148 0 160 0 L200 0 C212 0 220 8 220 20 L220 100 C220 112 212 120 200 120 L160 120 C148 120 140 112 140 100z
+    M160 20 L160 100 C160 102 162 104 164 104 L196 104 C198 104 200 102 200 100 L200 20 C200 18 198 16 196 16 L164 16 C162 16 160 18 160 20z" fill-rule="evenodd"/>
+  <!-- f: stem with curved top and crossbar -->
+  <path d="M234 30 L234 120 L252 120 L252 52 L280 52 L280 38 L252 38 L252 20 C252 12 256 8 264 8 L280 8 L280 0 L260 0 C244 0 234 10 234 26z"/>
+  <!-- t: vertical bar with crossbar -->
+  <path d="M310 0 L310 38 L292 38 L292 52 L310 52 L310 98 C310 112 318 120 332 120 L348 120 L348 106 L336 106 C330 106 328 104 328 98 L328 52 L348 52 L348 38 L328 38 L328 0z"/>
+  <!-- ® -->
+  <circle cx="365" cy="12" r="9" fill="none" stroke="#2E2A27" stroke-width="1.5"/>
+  <text x="365" y="16" text-anchor="middle" font-size="12" font-family="Arial, sans-serif" font-weight="600" fill="#2E2A27">R</text>
+  <!-- HOTELS -->
+  <text x="195" y="160" text-anchor="middle" font-size="30" letter-spacing="14" font-family="Arial, sans-serif" font-weight="300" fill="#2E2A27">HOTELS</text>
+</svg>

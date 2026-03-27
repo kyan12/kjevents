@@ -17,7 +17,13 @@ export default function EventsHero() {
         <div className={`${styles.categoryBar} ${on ? styles.visible : ''}`}>
           <div className={styles.goldLine} />
           <p className={styles.categoryText}>
-            PRIVATE EVENTS &middot; CELEBRATIONS &middot; STAGE MANAGEMENT &middot; CULTURAL PRODUCTIONS
+            <span className={styles.phrase}>PRIVATE EVENTS</span>
+            <span className={styles.separator}> · </span>
+            <span className={styles.phrase}>CELEBRATIONS</span>
+            <span className={styles.separator}> · </span>
+            <span className={styles.phrase}>STAGE MANAGEMENT</span>
+            <span className={styles.separator}> · </span>
+            <span className={styles.phrase}>CULTURAL PRODUCTIONS</span>
           </p>
         </div>
 

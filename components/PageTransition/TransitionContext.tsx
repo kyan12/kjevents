@@ -32,11 +32,8 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     // Mobile: avoid fixed overlay entirely (causes browser address-bar paint artifacts on route changes).
     // Use a lightweight content fade on body instead.
     if (isMobile) {
-      const previousTransition = document.body.style.transition;
-      const previousOpacity = document.body.style.opacity;
-
-      document.body.style.transition = 'opacity 180ms ease';
-      document.body.style.opacity = '0.6';
+      document.body.style.transition = 'opacity 350ms ease';
+      document.body.style.opacity = '0';
 
       setTimeout(() => {
         router.push(href);
@@ -44,10 +41,12 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
         window.dispatchEvent(new Event('app-route-transition'));
 
         setTimeout(() => {
-          document.body.style.transition = previousTransition;
-          document.body.style.opacity = previousOpacity || '1';
-        }, 220);
-      }, 140);
+          requestAnimationFrame(() => {
+            document.body.style.transition = 'opacity 350ms ease';
+            document.body.style.opacity = '1';
+          });
+        }, 300);
+      }, 350);
 
       return;
     }

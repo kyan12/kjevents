@@ -255,9 +255,9 @@
     gap: 20px;
     padding: 20px 24px 60px 24px;
     /* Bottom padding for shadow and scroll space */
-    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     /* Firefox */
+    overscroll-behavior-x: contain;
   }
 
   .grid::-webkit-scrollbar {

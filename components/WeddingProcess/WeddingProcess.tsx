@@ -28,6 +28,7 @@ export default function WeddingProcess() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const timelineFillRef = useRef<HTMLDivElement>(null);
   const bouquetWrapperRef = useRef<HTMLDivElement>(null);
+  const mobileSectionRef = useRef<HTMLElement>(null);
   const isMobile = useIsMobile();
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const { activeStep, progressRef, start, jumpTo } = useStepProgress(steps.length);
@@ -56,18 +57,40 @@ export default function WeddingProcess() {
     return () => cancelAnimationFrame(raf);
   }, [isMobile, progressRef]);
 
-  // Track swipe on bouquet area
+  // Track swipe on section
   const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
   };
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX.current === null) return;
     const dx = e.changedTouches[0].clientX - touchStartX.current;
     touchStartX.current = null;
+    touchStartY.current = null;
     if (dx < -50 && activeStep < steps.length - 1) jumpTo(activeStep + 1);
     if (dx > 50 && activeStep > 0) jumpTo(activeStep - 1);
   };
+
+  // Native touchmove listener (non-passive) to block browser back gesture
+  useEffect(() => {
+    if (!isMobile) return;
+    const el = mobileSectionRef.current;
+    if (!el) return;
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (touchStartX.current === null || touchStartY.current === null) return;
+      const dx = Math.abs(e.touches[0].clientX - touchStartX.current);
+      const dy = Math.abs(e.touches[0].clientY - touchStartY.current);
+      if (dx > dy && dx > 10) {
+        e.preventDefault();
+      }
+    };
+
+    el.addEventListener('touchmove', onTouchMove, { passive: false });
+    return () => el.removeEventListener('touchmove', onTouchMove);
+  }, [isMobile]);
 
   // Mobile: static layout
   if (isMobile) {
@@ -75,6 +98,7 @@ export default function WeddingProcess() {
       <section
         id="wedding-process"
         className={styles.section}
+        ref={mobileSectionRef}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
@@ -84,33 +108,28 @@ export default function WeddingProcess() {
             <h2 className={styles.heading}>The Process</h2>
           </div>
 
-          <div className={styles.mobileBouquet}>
-            <BouquetSVG activeStep={activeStep} progressRef={progressRef} static />
+          <div className={styles.mobileCard}>
+            <div className={styles.mobileBouquet}>
+              <BouquetSVG activeStep={activeStep} progressRef={progressRef} static />
+            </div>
+
+            <div className={styles.mobileTimeline}>
+              {steps.map((s, i) => (
+                <div
+                  key={i}
+                  className={`${styles.mobileStep} ${i === activeStep ? styles.mobileStepActive : ''}`}
+                >
+                  <div className={styles.stepHeader}>
+                    <p className={styles.stepNum}>{s.n}</p>
+                    <p className={styles.stepTitle}>{s.title}</p>
+                  </div>
+                  <p className={styles.stepDesc}>{s.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className={styles.mobileTimeline}>
-            <motion.div
-              key={`m-step-${activeStep}`}
-              className={styles.mobileStep}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.3}
-              onDragEnd={(_, info) => {
-                if (info.offset.x < -50 && activeStep < steps.length - 1) jumpTo(activeStep + 1);
-                if (info.offset.x > 50 && activeStep > 0) jumpTo(activeStep - 1);
-              }}
-            >
-              <div className={styles.stepHeader}>
-                <p className={styles.stepNum}>{steps[activeStep].n}</p>
-                <p className={styles.stepTitle}>{steps[activeStep].title}</p>
-              </div>
-              <p className={styles.stepDesc}>{steps[activeStep].desc}</p>
-            </motion.div>
-
-            <div className={styles.mobileControls}>
+          <div className={styles.mobileControls}>
               <button
                 className={styles.controlBtn}
                 onClick={() => jumpTo(Math.max(0, activeStep - 1))}
@@ -135,7 +154,6 @@ export default function WeddingProcess() {
                 <ChevronRight size={20} strokeWidth={1} />
               </button>
             </div>
-          </div>
         </div>
       </section>
     );

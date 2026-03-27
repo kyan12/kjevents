@@ -44,9 +44,6 @@ export default function EventsCapabilities() {
               CAPABILITIES
             </motion.h2>
           </div>
-          <motion.p className={styles.headerDesc} custom={2} variants={fadeInUp}>
-            We engineer environments. From private enclaves to large-scale productions, our methodology ensures flawless execution and striking aesthetics.
-          </motion.p>
         </div>
 
         <div className={styles.showcaseGrid}>
@@ -69,9 +66,6 @@ export default function EventsCapabilities() {
               <div className={styles.shimmerBorder} />
               <div className={styles.tileContent}>
                 <div className={styles.topHeader}>
-                  <span className={cn(styles.ghostNum, mousePos.index === i ? styles.ghostNumActive : '')}>
-                    {c.n}
-                  </span>
                   <div className={cn(styles.iconWrapper, mousePos.index === i ? styles.iconActive : '')}>
                     {c.icon}
                   </div>
@@ -92,11 +86,15 @@ export default function EventsCapabilities() {
           ))}
         </div>
 
-        <motion.div className={styles.viewAllRow} custom={4} variants={fadeInUp}>
+        <motion.div className={styles.statementBar} custom={4} variants={fadeInUp}>
+          <p className={styles.statementText}>
+            We engineer environments. From private enclaves to large-scale productions, our methodology ensures flawless execution and striking aesthetics.
+          </p>
+          <div className={styles.statementDivider} />
           <TransitionLink
             href="/events/services"
             color="var(--e-bg)"
-            className={styles.viewAllLink}
+            className={styles.statementCta}
           >
             VIEW ALL SERVICES &rarr;
           </TransitionLink>

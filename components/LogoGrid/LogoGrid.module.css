@@ -1,0 +1,180 @@
+.section {
+  background: var(--e-text);
+  padding: 48px 0 0;
+  border-top: 1px solid rgba(205, 168, 76, 0.15);
+  border-bottom: 1px solid rgba(205, 168, 76, 0.15);
+}
+
+.container {
+  margin: 0 auto;
+}
+
+.preLabel {
+  font-family: var(--font-dm), system-ui, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  color: var(--e-gold);
+  text-align: center;
+  margin-bottom: 16px;
+  font-weight: 500;
+  padding: 0 16px;
+}
+
+.sectionHeading {
+  font-family: var(--font-bebas), Impact, sans-serif;
+  font-size: clamp(48px, 6vw, 96px);
+  color: var(--e-gold-lt);
+  letter-spacing: 0.02em;
+  line-height: 0.9;
+  margin: 0 0 40px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  align-items: end;
+}
+
+.slot {
+  aspect-ratio: 1;
+  perspective: 600px;
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
+  border: none;
+  background:
+    linear-gradient(135deg, rgba(0,0,0,0.12) 0%, transparent 50%, rgba(184,144,64,0.03) 100%),
+    #38332E;
+  box-shadow:
+    inset 3px 3px 8px rgba(0, 0, 0, 0.45),
+    inset 1px 1px 3px rgba(0, 0, 0, 0.3),
+    inset -1px -1px 1px rgba(184, 144, 64, 0.08),
+    inset -2px -2px 5px rgba(184, 144, 64, 0.04),
+    inset 0 0 16px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.slot:hover {
+  box-shadow:
+    inset 4px 4px 12px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 5px rgba(0, 0, 0, 0.35),
+    inset -1px -1px 1px rgba(184, 144, 64, 0.12),
+    inset -2px -2px 5px rgba(184, 144, 64, 0.06),
+    inset 0 0 20px rgba(0, 0, 0, 0.2);
+  background:
+    linear-gradient(135deg, rgba(0,0,0,0.18) 0%, transparent 50%, rgba(184,144,64,0.04) 100%),
+    #342F2A;
+}
+
+.slot:active {
+  box-shadow:
+    inset 5px 5px 16px rgba(0, 0, 0, 0.55),
+    inset 3px 3px 6px rgba(0, 0, 0, 0.4),
+    inset 1px 1px 3px rgba(0, 0, 0, 0.25),
+    inset 0 0 24px rgba(0, 0, 0, 0.25);
+  background:
+    linear-gradient(135deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.08) 50%, transparent 100%),
+    #302B26;
+}
+
+.slot:active .logo {
+  opacity: 0.4;
+}
+
+.logoWrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18%;
+}
+
+.logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%) invert(1);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.logoNoInvert {
+  filter: grayscale(100%);
+}
+
+.slot:hover .logo {
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 32px 0;
+    background: var(--e-bg);
+    border-color: rgba(205, 168, 76, 0.08);
+  }
+
+  .sectionHeading {
+    font-size: clamp(32px, 8vw, 48px);
+    margin-bottom: 24px;
+    color: var(--e-text);
+  }
+
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .slot {
+    background:
+      linear-gradient(135deg, rgba(0,0,0,0.03) 0%, transparent 40%, rgba(255,255,255,0.02) 100%),
+      rgba(235, 228, 218, 0.5);
+    box-shadow:
+      inset 2px 2px 6px rgba(80, 60, 30, 0.12),
+      inset 1px 1px 2px rgba(80, 60, 30, 0.08),
+      inset -1px -1px 1px rgba(255, 252, 245, 0.7),
+      inset -2px -2px 4px rgba(255, 252, 245, 0.3),
+      inset 0 0 12px rgba(80, 60, 30, 0.04);
+  }
+
+  .logo {
+    filter: grayscale(100%);
+  }
+
+  .logoNoInvert {
+    filter: grayscale(100%) invert(1);
+  }
+
+  .slot:hover {
+    box-shadow:
+      inset 3px 3px 10px rgba(80, 60, 30, 0.18),
+      inset 2px 2px 4px rgba(80, 60, 30, 0.10),
+      inset -1px -1px 1px rgba(255, 252, 245, 0.25),
+      inset 0 0 20px rgba(80, 60, 30, 0.06);
+    background:
+      linear-gradient(135deg, rgba(0,0,0,0.05) 0%, transparent 40%, transparent 100%),
+      rgba(230, 222, 210, 0.6);
+  }
+
+  .slot:active {
+    box-shadow:
+      inset 4px 4px 14px rgba(80, 60, 30, 0.24),
+      inset 3px 3px 6px rgba(80, 60, 30, 0.14),
+      inset 1px 1px 3px rgba(80, 60, 30, 0.08),
+      inset 0 0 24px rgba(80, 60, 30, 0.08);
+    background:
+      linear-gradient(135deg, rgba(0,0,0,0.07) 0%, rgba(0,0,0,0.02) 50%, transparent 100%),
+      rgba(225, 216, 204, 0.7);
+  }
+
+  .slot:active .logo {
+    opacity: 0.45;
+  }
+
+  .logoWrap {
+    padding: 14%;
+  }
+}

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -5 380 130" fill="none" stroke="#2E2A27">
+  <!-- D: bold italic outline -->
+  <path d="M18 110 L38 10 L75 10 C105 10 118 30 113 55 L108 80 C103 105 85 110 55 110 Z
+    M48 95 L62 95 C82 95 90 88 94 70 L98 50 C102 32 96 25 76 25 L62 25 Z"
+    fill="#2E2A27" stroke="none" fill-rule="evenodd"/>
+  <!-- E: bold italic with speed stripes -->
+  <path d="M125 110 L145 10 L210 10 L207 25 L160 25 L155 50 L198 50 L195 62 L152 62 L147 95 L205 95 L202 110 Z"
+    fill="#2E2A27" stroke="none"/>
+  <!-- E speed lines extending right -->
+  <rect x="200" y="22" width="28" height="5" rx="2" fill="#2E2A27" transform="skewX(-12)"/>
+  <rect x="192" y="48" width="32" height="5" rx="2" fill="#2E2A27" transform="skewX(-12)"/>
+  <rect x="196" y="92" width="24" height="5" rx="2" fill="#2E2A27" transform="skewX(-12)"/>
+  <!-- N: bold italic -->
+  <path d="M240 110 L260 10 L278 10 L298 78 L310 10 L330 10 L310 110 L292 110 L272 42 L260 110 Z"
+    fill="#2E2A27" stroke="none"/>
+  <!-- SOCIAL subtitle (small, below) -->
+  <!-- Omitted to keep it clean — the webp only shows DEN prominently -->
+</svg>

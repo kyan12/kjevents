@@ -1,6 +1,6 @@
 .section {
   background: var(--w-bg-dark);
-  padding: 120px 80px 160px;
+  padding: 48px 80px 120px;
 }
 
 .container {
@@ -84,16 +84,38 @@
 }
 
 .cardBorder {
+  width: 80px;
   height: 2px;
-  width: 40px;
-  background: var(--w-burgundy);
   margin-bottom: 40px;
+  position: relative;
+}
+
+.cardBorder::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 50%;
+  background: var(--w-burgundy);
   transition: width 0.6s ease, background 0.6s ease;
 }
 
-.cardHover .cardBorder {
-  width: 80px;
+.cardHover .cardBorder::after {
+  width: 100%;
   background: var(--w-copper);
+}
+
+.cardBorderReverse::after {
+  opacity: 0;
+  transition: opacity 0s;
+}
+
+.cardHover .cardBorderReverse::after {
+  left: auto;
+  right: 0;
+  opacity: 1;
+  transition: width 0.6s ease, background 0.6s ease, opacity 0.15s ease;
 }
 
 .cardTitle {
@@ -207,8 +229,10 @@
 /* Mobile: Compact Horizontal Snap Scroll */
 @media (max-width: 1024px) {
   .section {
-    padding: 80px 0 120px;
-    /* Removing horizontal padding to allow full-bleed scroll */
+    padding: 48px 0 60px;
+    /* Reduced top padding so eyebrow + heading sit with cards in viewport */
+    display: block;
+    min-height: auto;
   }
 
   .container {
@@ -220,16 +244,20 @@
     padding: 0 24px;
   }
 
+  .heading {
+    margin-bottom: 32px;
+  }
+
   .grid {
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     gap: 20px;
     padding: 20px 24px 60px 24px;
-    /* Bottom padding for scrollbar and shadow */
-    -webkit-overflow-scrolling: touch;
+    /* Bottom padding for shadow and scroll space */
     scrollbar-width: none;
     /* Firefox */
+    overscroll-behavior-x: contain;
   }
 
   .grid::-webkit-scrollbar {
@@ -242,7 +270,15 @@
     /* Almost full width but peeks the next card */
     scroll-snap-align: center;
     padding: 40px 32px;
+    height: auto;
   }
 
-  /* cardHover uses same desktop lift/shadow styles on mobile (driven by IntersectionObserver) */
+  .cardHover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow:
+      0 12px 32px rgba(139, 43, 49, 0.08),
+      0 4px 16px rgba(139, 43, 49, 0.06),
+      0 0 0 1px rgba(139, 43, 49, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
 }

@@ -26,6 +26,31 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
 
   const startTransition = useCallback((href: string, color?: string) => {
     if (isTransitioning) return;
+
+    const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
+
+    // Mobile: avoid fixed overlay entirely (causes browser address-bar paint artifacts on route changes).
+    // Use a lightweight content fade on body instead.
+    if (isMobile) {
+      document.body.style.transition = 'opacity 350ms ease';
+      document.body.style.opacity = '0';
+
+      setTimeout(() => {
+        router.push(href);
+        window.scrollTo(0, 0);
+        window.dispatchEvent(new Event('app-route-transition'));
+
+        setTimeout(() => {
+          requestAnimationFrame(() => {
+            document.body.style.transition = 'opacity 350ms ease';
+            document.body.style.opacity = '1';
+          });
+        }, 300);
+      }, 350);
+
+      return;
+    }
+
     setTransitionColor(color || 'var(--w-bg)');
     setIsTransitioning(true);
 
@@ -33,6 +58,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     setTimeout(() => {
       router.push(href);
       window.scrollTo(0, 0);
+      window.dispatchEvent(new Event('app-route-transition'));
       // Hold briefly for page mount, then reveal
       setTimeout(() => {
         setIsTransitioning(false);

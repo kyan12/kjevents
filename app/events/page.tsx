@@ -9,6 +9,7 @@ import EventsPortfolio from '@/components/EventsPortfolio/EventsPortfolio';
 import EventsTestimonials from '@/components/EventsTestimonials/EventsTestimonials';
 import EventsProcess from '@/components/EventsProcess/EventsProcess';
 import EventsContact from '@/components/EventsContact/EventsContact';
+import LogoGrid from '@/components/LogoGrid/LogoGrid';
 import { ScrollEffectsProvider } from '@/components/ScrollEffects/ScrollEffectsProvider';
 import styles from './page.module.css';
 
@@ -23,6 +24,7 @@ export default function EventsPage() {
         <EventsStats />
         <EventsPortfolio />
         <EventsProcess />
+        <LogoGrid />
         <EventsTestimonials />
         <EventsContact />
       </main>

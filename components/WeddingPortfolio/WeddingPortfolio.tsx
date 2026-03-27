@@ -9,9 +9,9 @@ import styles from './WeddingPortfolio.module.css';
 const images = [
   { src: '/images/jialin-jonathan-ceremony.jpg', alt: 'Jialin & Jonathan ceremony', title: 'Jialin & Jonathan', photographer: 'Justin Jun Lee', photographerUrl: 'https://www.justinleeweddings.com' },
   { src: '/images/felicity-stairs-group.jpg', alt: 'Felicity & Leon staircase group', title: 'Felicity & Leon', photographer: 'Alex Gooden' },
-  { src: '/images/wedding_bouquet.jpg', alt: 'Wedding bouquet detail', title: 'Bouquet Detail', photographer: 'Studio TBD' },
+  { src: '/images/wedding_bouquet.jpg', alt: 'Felicity & Leon wedding', title: 'Felicity & Leon', photographer: 'Alex Gooden' },
   { src: '/images/felicity-detail.jpg', alt: 'Felicity & Leon invitation details', title: 'Felicity & Leon', photographer: 'Alex Gooden' },
-  { src: '/images/wedding_mansion_ext.jpg', alt: 'Wedding mansion exterior', title: 'Venue Exterior', photographer: 'Studio TBD' },
+  { src: '/images/jialin-jonathan-flatlay.jpg', alt: 'Jialin & Jonathan wedding invitation flat lay', title: 'Jialin & Jonathan', photographer: 'Justin Jun Lee', photographerUrl: 'https://www.justinleeweddings.com' },
   { src: '/images/felicity-flowers.jpg', alt: 'Felicity & Leon bridal bouquet', title: 'Felicity & Leon', photographer: 'Alex Gooden' },
 ];
 

@@ -1,6 +1,8 @@
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: calc(100vh + env(safe-area-inset-top));
+  margin-top: calc(env(safe-area-inset-top) * -1);
+  padding-top: env(safe-area-inset-top);
   display: flex;
   align-items: center;
   background-image: url('/images/wedding_hero.png');

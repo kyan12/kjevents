@@ -1,45 +1,46 @@
 "use client";
 
 import { useState } from 'react';
-import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import styles from './EventsPortfolio.module.css';
 
 const projects = [
   {
-    image: '/images/other_hero_1.png',
+    image: '/images/events-replacements/a-round.jpg',
     title: 'A:Round Events Series',
     city: 'New York City',
-    stats: '300+ Guests · Multi-Night Series',
-    quote: '\u201CEvery edition raises the bar. The energy, the design, the crowd. It\u2019s the event people plan their weekends around.\u201D',
-    attr: '- Series Producer',
+    stats: '300+ Guests · 50+ Events',
+    quote: '"High-energy nightlife and social events built around atmosphere, entertainment, and guest experience."',
+    attr: '- Event planning, coordination, and on-site operations',
+    photographer: 'Jason Moy',
   },
   {
-    image: '/images/other_hero_2.png',
+    image: '/images/events-replacements/dream-asia.jpg',
     title: 'Dream Asia Festival',
-    city: 'New York City',
-    stats: 'Multi-Day · Large-Scale Outdoor',
-    quote: '\u201CA celebration of culture, food, and art, produced at a scale that honored every detail.\u201D',
-    attr: '- Festival Director',
+    city: 'Large-Scale Cultural Festival',
+    stats: '3-Day Festival',
+    quote: '"Multi-day production shaped by stage coordination, cultural programming, and live-event logistics."',
+    attr: '- Production / Stage Director',
+    photographer: 'Jason Moy',
   },
   {
-    image: '/images/other_hero_1.png',
+    image: '/images/events-replacements/rico.jpg',
     title: 'Rico Rico Fiesta',
-    city: 'New York City',
-    stats: 'Full Sensory Production',
-    quote: '\u201CBold, vibrant, completely alive. You could feel the energy before you even walked through the door.\u201D',
-    attr: '- Event Host',
+    city: 'Cultural & Entertainment Event',
+    stats: 'Live Production · Guest Experience',
+    quote: '"A high-energy event designed around crowd experience, live entertainment, and seamless production flow."',
+    attr: '- Production / Stage Coordination',
+    photographer: 'Jason Moy',
   },
   {
-    image: '/images/other_hero_2.png',
-    title: "Bella\u2019s Wild One",
-    city: 'New York City',
-    stats: 'Milestone Celebration',
-    quote: '\u201CIntimate yet grand. Every detail was designed with whimsy and elegance.\u201D',
-    attr: '- Client Family',
+    image: '/images/events-replacements/bella.jpg',
+    title: 'Bella\u2019s Wild One',
+    city: 'Private Milestone Celebration',
+    stats: 'New York City',
+    quote: '"A personalized celebration shaped by strong flow, thoughtful details, and a fun guest experience."',
+    attr: '- Planning and on-site coordination',
+    photographer: 'Jason Moy',
   },
 ];
 
@@ -103,6 +104,9 @@ export default function EventsPortfolio() {
                   <p className={styles.panelStats}>{p.stats}</p>
                   <p className={styles.panelQuote}>{p.quote}</p>
                   <p className={styles.panelAttr}>{p.attr}</p>
+                  {p.photographer && (
+                    <p className={styles.panelPhotographer}>Photo by {p.photographer}</p>
+                  )}
                 </div>
 
                 <div className={cn(styles.anchorLabel, hov === i ? styles.anchorLabelHidden : '')}>

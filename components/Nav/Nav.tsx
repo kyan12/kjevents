@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import TransitionLink from '@/components/PageTransition/TransitionLink';
 import styles from './Nav.module.css';
 
@@ -18,6 +19,7 @@ const anchors: Record<string, { label: string; wedding: string; events: string }
 };
 
 export default function Nav({ mode }: NavProps) {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [activeId, setActiveId] = useState('');
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -28,6 +30,20 @@ export default function Nav({ mode }: NavProps) {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    const syncScrollState = () => setScrolled(window.scrollY > 50);
+
+    // Ensure nav state is correct after client-side page transitions.
+    syncScrollState();
+    const raf = requestAnimationFrame(syncScrollState);
+    const t = setTimeout(syncScrollState, 120);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(t);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     const ids = anchors.links.map(a => mode === 'wedding' ? a.wedding : a.events);

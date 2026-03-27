@@ -60,6 +60,8 @@ const fadeInUp: Variants = {
 export default function WeddingServices() {
   const [hov, setHov] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [scrollDir, setScrollDir] = useState<'forward' | 'reverse'>('forward');
+  const prevHov = useRef<number | null>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   /* Track viewport width */
@@ -71,7 +73,7 @@ export default function WeddingServices() {
     return () => mql.removeEventListener('change', onChange);
   }, []);
 
-  /* On mobile: IntersectionObserver highlights the centred card */
+  /* On mobile: IntersectionObserver highlights the centred card + tracks direction */
   useEffect(() => {
     if (!isMobile) return;
 
@@ -80,7 +82,13 @@ export default function WeddingServices() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const idx = cardRefs.current.indexOf(entry.target as HTMLDivElement);
-            if (idx !== -1) setHov(idx);
+            if (idx !== -1) {
+              if (prevHov.current !== null && idx !== prevHov.current) {
+                setScrollDir(idx < prevHov.current ? 'reverse' : 'forward');
+              }
+              prevHov.current = idx;
+              setHov(idx);
+            }
           }
         });
       },
@@ -127,7 +135,7 @@ export default function WeddingServices() {
               })}
             >
               <span className={styles.ghostNumber}>0{i + 1}</span>
-              <div className={styles.cardBorder} />
+              <div className={`${styles.cardBorder} ${isMobile && scrollDir === 'reverse' ? styles.cardBorderReverse : ''}`} />
               <p className={styles.cardTitle}>{s.en}</p>
               <p className={styles.chineseSubtext}>{s.zh}</p>
               <p className={styles.cardDesc}>{s.desc}</p>

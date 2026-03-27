@@ -238,6 +238,17 @@
     padding: 80px 24px;
   }
 
+  .heading {
+    font-size: clamp(30px, 8.2vw, 42px);
+    line-height: 1.08;
+  }
+
+  .subLabel {
+    font-size: 8px;
+    letter-spacing: 0.22em;
+    white-space: nowrap;
+  }
+
   .desktopMasonry {
     display: none;
   }

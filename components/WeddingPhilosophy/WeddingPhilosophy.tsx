@@ -67,7 +67,7 @@ export default function WeddingPhilosophy() {
           </motion.h2>
           <motion.div className={styles.accentBlock} custom={2} variants={fadeInUp}>
             <p>
-              Kira is the founder of Kira Jia Events, a boutique planning studio specializing in refined weddings that thoughtfully bridge cultures and traditions. With a bicultural background and deep understanding of both Western and Asian celebrations, Kira approaches each wedding with discernment, structure, and a strong sense of storytelling.
+              Kira is the founder of Kira Jia Events, a boutique planning studio specializing in refined weddings that thoughtfully bridge cultures and traditions. With a bicultural background and deep understanding of both Western and Asian celebrations, Kira approaches each wedding with discernment and care, especially attuned to celebrations that weave Western elegance with Chinese and Asian traditions, guiding couples through heritage, aesthetics, and the details that bring it all together.
             </p>
           </motion.div>
           <motion.p className={styles.bodyText} custom={3} variants={fadeInUp}>

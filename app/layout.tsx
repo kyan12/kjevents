@@ -1,10 +1,12 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Jost, Bebas_Neue, DM_Sans, Geist } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 import SmoothScroll from '@/components/SmoothScroll';
 import { TransitionProvider } from '@/components/PageTransition/TransitionContext';
 import TransitionOverlay from '@/components/PageTransition/TransitionOverlay';
+import ThemeColorSync from '@/components/ThemeColorSync';
+import SafeAreaTopFill from '@/components/SafeAreaTopFill';
 import { cn } from "@/lib/utils";
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
@@ -61,6 +63,11 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  viewportFit: 'cover',
+  themeColor: 'transparent',
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -70,6 +77,8 @@ export default function RootLayout({
     <html lang="en" className={cn(helloParis.variable, cormorant.variable, jost.variable, bebas.variable, dmSans.variable, "font-sans", geist.variable)}>
       <body>
         <TransitionProvider>
+          <ThemeColorSync />
+          <SafeAreaTopFill />
           <SmoothScroll>
             {children}
           </SmoothScroll>

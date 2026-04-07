@@ -34,27 +34,27 @@ export default function IntroAnimation() {
           <div className={styles.container}>
             <motion.div
               className={styles.letterK}
-              initial={{ x: '-50vw', y: '-50vh', opacity: 0 }}
-              animate={fontReady ? { x: 0, y: 0, opacity: 1 } : undefined}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ y: 30, opacity: 0, filter: 'blur(8px)', scale: 0.95 }}
+              animate={fontReady ? { y: 0, opacity: 1, filter: 'blur(0px)', scale: 1 } : undefined}
+              transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
             >
               K
             </motion.div>
 
             <motion.div
               className={styles.letterJ}
-              initial={{ x: '50vw', y: '50vh', opacity: 0 }}
-              animate={fontReady ? { x: 0, y: 0, opacity: 1 } : undefined}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ y: 30, opacity: 0, filter: 'blur(8px)', scale: 0.95 }}
+              animate={fontReady ? { y: 0, opacity: 1, filter: 'blur(0px)', scale: 1 } : undefined}
+              transition={{ delay: 0.2, duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
             >
               J
             </motion.div>
 
             <motion.div
               className={styles.fullName}
-              initial={{ opacity: 0, y: 0, scale: 0.98 }}
-              animate={fontReady ? { opacity: 1, y: isMobile ? -20 : -36, scale: 1 } : undefined}
-              transition={{ delay: 1.4, duration: 1, ease: 'easeOut' }}
+              initial={{ opacity: 0, y: isMobile ? -10 : -20, scale: 0.95, filter: 'blur(4px)' }}
+              animate={fontReady ? { opacity: 1, y: isMobile ? -20 : -36, scale: 1, filter: 'blur(0px)' } : undefined}
+              transition={{ delay: 1.2, duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
             >
               Kira Jia Events
             </motion.div>

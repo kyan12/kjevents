@@ -74,7 +74,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn(helloParis.variable, cormorant.variable, jost.variable, bebas.variable, dmSans.variable, "font-sans", geist.variable)}>
+    <html lang="en" suppressHydrationWarning className={cn(helloParis.variable, cormorant.variable, jost.variable, bebas.variable, dmSans.variable, "font-sans", geist.variable)}>
       <body>
         <TransitionProvider>
           <ThemeColorSync />

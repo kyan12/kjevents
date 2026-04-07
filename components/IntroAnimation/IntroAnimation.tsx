@@ -7,14 +7,20 @@ import styles from './IntroAnimation.module.css';
 
 export default function IntroAnimation() {
   const [showAnimation, setShowAnimation] = useState(true);
+  const [fontReady, setFontReady] = useState(false);
   const isMobile = useIsMobile();
 
   useEffect(() => {
+    document.fonts.ready.then(() => setFontReady(true));
+  }, []);
+
+  useEffect(() => {
+    if (!fontReady) return;
     const timer = setTimeout(() => {
       setShowAnimation(false);
     }, 3500);
     return () => clearTimeout(timer);
-  }, []);
+  }, [fontReady]);
 
   return (
     <AnimatePresence>
@@ -29,7 +35,7 @@ export default function IntroAnimation() {
             <motion.div
               className={styles.letterK}
               initial={{ x: '-50vw', y: '-50vh', opacity: 0 }}
-              animate={{ x: 0, y: 0, opacity: 1 }}
+              animate={fontReady ? { x: 0, y: 0, opacity: 1 } : undefined}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             >
               K
@@ -38,7 +44,7 @@ export default function IntroAnimation() {
             <motion.div
               className={styles.letterJ}
               initial={{ x: '50vw', y: '50vh', opacity: 0 }}
-              animate={{ x: 0, y: 0, opacity: 1 }}
+              animate={fontReady ? { x: 0, y: 0, opacity: 1 } : undefined}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             >
               J
@@ -47,7 +53,7 @@ export default function IntroAnimation() {
             <motion.div
               className={styles.fullName}
               initial={{ opacity: 0, y: 0, scale: 0.98 }}
-              animate={{ opacity: 1, y: isMobile ? -20 : -36, scale: 1 }}
+              animate={fontReady ? { opacity: 1, y: isMobile ? -20 : -36, scale: 1 } : undefined}
               transition={{ delay: 1.4, duration: 1, ease: 'easeOut' }}
             >
               Kira Jia Events

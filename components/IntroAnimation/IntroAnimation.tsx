@@ -11,7 +11,10 @@ export default function IntroAnimation() {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    document.fonts.ready.then(() => setFontReady(true));
+    document.fonts.ready.then(() => {
+      // Wait one frame after fonts load so the browser paints with the real font
+      requestAnimationFrame(() => setFontReady(true));
+    });
   }, []);
 
   useEffect(() => {

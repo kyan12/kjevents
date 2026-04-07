@@ -14,7 +14,7 @@ const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 const helloParis = localFont({
   src: '../public/fonts/hello-paris-serif.ttf',
   variable: '--font-hello-paris',
-  display: 'swap',
+  display: 'block',
 });
 
 const cormorant = Cormorant_Garamond({

@@ -54,6 +54,17 @@
   text-align: center;
 }
 
+/* Override the global prefers-reduced-motion rule that sets
+   transition-duration:0.01ms !important on *, which kills
+   Framer Motion's hardware-accelerated CSS transitions */
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .overlay * {
+    animation-duration: unset !important;
+    transition-duration: unset !important;
+  }
+}
+
 /* Mobile Adjustments */
 @media (max-width: 768px) {
   .letterK, .letterJ {

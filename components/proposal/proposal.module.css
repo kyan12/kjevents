@@ -1,0 +1,1864 @@
+/* ============================================================
+   Proposal renderer v2 — a typeset document, not a web page.
+
+   Design language: editorial report finesse. Hairline rules and
+   typography carry the structure — no card grids, no rounded
+   chips, no tinted panels. Chapters open under a running head
+   with folios; numerals are tabular; footnotes use ★ † ‡.
+
+   All color/font values are CSS custom properties so themes remap
+   the entire document (see lib/proposal/themes.ts). Layout accents
+   per style are keyed off [data-style] on .root.
+   ============================================================ */
+
+.root {
+  --p-bg: #f3efea;
+  --p-bg-2: #ece6dd;
+  --p-card: #fcfaf7;
+  --p-blush: #f8efe6;
+  --p-ink: #2f2a28;
+  --p-ink-soft: #55504b;
+  --p-taupe: #7a6b61;
+  --p-garnet: #6e0f17;
+  --p-maroon: #5a2b31;
+  --p-champagne: #f3e4d4;
+  --p-hairline: #ddd3c6;
+  --p-hairline-soft: #e7dfd4;
+
+  --p-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --p-sans: var(--font-jost), Jost, "Century Gothic", sans-serif;
+
+  --p-ease: cubic-bezier(0.25, 1, 0.5, 1);
+
+  position: relative;
+  min-height: 100vh;
+  background: var(--p-bg);
+  color: var(--p-ink);
+  font-family: var(--p-sans);
+  font-weight: 300;
+  font-variant-numeric: lining-nums;
+  counter-reset: fig;
+  /* full-bleed cover/closing imagery breaks out of the frame with 100vw */
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Scoped reset: the site's globals.css paints color/family/size directly onto
+   p/li/span/h* — direct matches beat inheritance, so themed text went site-ink
+   dark (invisible on noir). :where() keeps this at zero specificity: it beats
+   the globals but loses to every single-class rule below. */
+.root :where(h1, h2, h3, h4, p, li, span, button) {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+}
+
+.topBand {
+  height: 5px;
+  background: var(--p-garnet);
+}
+
+.frame {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 5vw, 3.5rem);
+}
+
+/* ------------------------------------------------ shared type */
+
+.eyebrow {
+  font-family: var(--p-sans);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--p-garnet);
+}
+
+.eyebrowRule {
+  width: 34px;
+  height: 1px;
+  background: var(--p-taupe);
+  margin-top: 0.7rem;
+}
+
+.sectionTitle {
+  font-family: var(--p-serif);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 4.4vw, 3.2rem);
+  line-height: 1.06;
+  letter-spacing: 0.005em;
+  margin: 0.9rem 0 0;
+  color: var(--p-ink);
+}
+
+.sectionIntro {
+  margin-top: 1rem;
+  max-width: 58ch;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--p-ink-soft);
+}
+
+.section {
+  padding: clamp(3.4rem, 8vw, 5.5rem) 0 0;
+}
+
+.factLabel {
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--p-taupe);
+}
+
+.factValue {
+  margin-top: 0.45rem;
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--p-ink);
+}
+
+/* footnote apparatus — † disclaimers, ‡ notes, ★ charges */
+
+.footnoteBlock {
+  display: grid;
+  grid-template-columns: 1.3rem 1fr;
+  gap: 0 0.4rem;
+  margin-top: 1.6rem;
+  max-width: 74ch;
+  font-family: var(--p-serif);
+  font-style: italic;
+  font-size: 0.98rem;
+  line-height: 1.68;
+  color: var(--p-ink-soft);
+}
+
+.fnGlyph {
+  color: var(--p-garnet);
+  font-style: normal;
+  font-family: var(--p-serif);
+  transform: translateY(0.05em);
+}
+
+/* ------------------------------------------------ chapter system */
+
+.chapterHead {
+  border-top: 1px solid var(--p-hairline);
+  padding-top: 0.65rem;
+}
+
+.chapterMetaRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+}
+
+.chapterRunning {
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--p-taupe);
+}
+
+.chapterFolio {
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  color: var(--p-taupe);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.chapterOpen {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 2rem;
+  margin-top: clamp(1.8rem, 4vw, 2.8rem);
+}
+
+.chapterNum {
+  font-family: var(--p-serif);
+  font-weight: 400;
+  font-size: clamp(3.4rem, 8vw, 5.2rem);
+  line-height: 0.9;
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in srgb, var(--p-garnet) 24%, var(--p-bg));
+  user-select: none;
+}
+
+/* ------------------------------------------------ cover */
+
+.cover {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - 5px);
+  padding-top: clamp(2.25rem, 5vw, 3.25rem);
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+/* arcs poke past the column — clip only when there is no full-bleed image */
+.cover:not([data-has-bg]) {
+  overflow: hidden;
+}
+
+.coverBg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 50vw);
+  width: 100vw;
+  z-index: 0;
+}
+
+.coverBgImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.coverBgScrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(15, 13, 14, 0.52) 0%, rgba(15, 13, 14, 0.18) 34%, rgba(15, 13, 14, 0.35) 62%, rgba(15, 13, 14, 0.82) 100%);
+}
+
+.coverTop {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.coverMonogram {
+  width: clamp(68px, 8.5vw, 92px);
+  height: auto;
+  opacity: 0.92;
+  filter: var(--p-monogram-filter, none);
+}
+
+.coverIssue {
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--p-taupe);
+  text-align: right;
+  padding-top: 0.4rem;
+}
+
+.coverArcs {
+  position: absolute;
+  right: -12%;
+  bottom: -6%;
+  width: min(58vw, 560px);
+  aspect-ratio: 1;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.coverBottom {
+  margin-top: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.coverName {
+  font-family: var(--p-serif);
+  font-weight: 300;
+  font-size: clamp(3.1rem, 10vw, 6.6rem);
+  line-height: 0.99;
+  letter-spacing: 0.005em;
+  margin: 1.2rem 0 0;
+  max-width: 14ch;
+  color: var(--p-ink);
+}
+
+.coverSubtitle {
+  font-family: var(--p-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.2rem, 2.8vw, 1.65rem);
+  color: var(--p-garnet);
+  margin-top: 0.7rem;
+}
+
+.coverFactBand {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.1rem 0;
+  margin-top: clamp(2.2rem, 5vw, 3.4rem);
+  padding: 1.15rem 0;
+  border-top: 1px solid var(--p-hairline);
+  border-bottom: 1px solid var(--p-hairline);
+}
+
+.coverFact + .coverFact {
+  border-left: 1px solid var(--p-hairline-soft);
+  padding-left: 1.6rem;
+  margin-left: -1px;
+}
+
+.coverFoot {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 2rem;
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--p-taupe);
+}
+
+/* cover over imagery — fixed light type on the scrim, no theme vars */
+
+.cover[data-has-bg="true"] .coverIssue,
+.cover[data-has-bg="true"] .coverFoot,
+.cover[data-has-bg="true"] .factLabel {
+  color: #d9d2c7;
+}
+
+.cover[data-has-bg="true"] .eyebrow {
+  color: #e8ddcd;
+}
+
+.cover[data-has-bg="true"] .eyebrowRule {
+  background: #d9d2c7;
+}
+
+.cover[data-has-bg="true"] .coverName,
+.cover[data-has-bg="true"] .factValue {
+  color: #f6f1e9;
+}
+
+.cover[data-has-bg="true"] .coverSubtitle {
+  color: #e9d8b8;
+}
+
+.cover[data-has-bg="true"] .coverFactBand {
+  border-color: rgba(246, 241, 233, 0.38);
+}
+
+.cover[data-has-bg="true"] .coverFact + .coverFact {
+  border-color: rgba(246, 241, 233, 0.22);
+}
+
+.cover[data-has-bg="true"] .coverMonogram {
+  filter: invert(0.92) sepia(0.18) brightness(1.4);
+}
+
+/* ------------------------------------------------ vision */
+
+.visionSpread {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(210px, 0.85fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  margin-top: 2.2rem;
+}
+
+.visionBody {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--p-ink-soft);
+}
+
+.visionBody > p:first-child {
+  font-family: var(--p-serif);
+  font-size: clamp(1.25rem, 2.4vw, 1.55rem);
+  line-height: 1.55;
+  font-weight: 400;
+  color: var(--p-ink);
+}
+
+.visionBody p + p {
+  margin-top: 1em;
+}
+
+.visionFactCol {
+  align-self: start;
+}
+
+.visionFact {
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--p-hairline);
+}
+
+.visionFact:last-child {
+  border-bottom: 1px solid var(--p-hairline);
+}
+
+/* full-width editorial spread image */
+
+.spreadFigure {
+  margin: clamp(2.2rem, 5vw, 3.2rem) 0 0;
+}
+
+.spreadImg {
+  display: block;
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  object-fit: cover;
+}
+
+.figCaption {
+  counter-increment: fig;
+  margin-top: 0.65rem;
+  font-size: 0.66rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--p-taupe);
+}
+
+/* photographer / listing credit appended to a caption (Google Places photos) */
+.figCredit {
+  font-size: 0.95em;
+  letter-spacing: 0.04em;
+}
+
+/* ------------------------------------------------ palette */
+
+.paletteOption {
+  margin-top: 2.6rem;
+}
+
+.paletteOption:first-of-type {
+  margin-top: 2.1rem;
+}
+
+.paletteHero {
+  position: relative;
+  overflow: hidden;
+  background: #17141a;
+}
+
+.paletteHeroBaked {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.paletteHeroFramed {
+  position: relative;
+  aspect-ratio: 21 / 9;
+  min-height: 320px;
+}
+
+.paletteHeroImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.paletteHeroShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(16, 14, 18, 0.05) 0%, rgba(16, 14, 18, 0.12) 45%, rgba(16, 14, 18, 0.78) 100%);
+}
+
+.paletteHeroContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: clamp(1.4rem, 4vw, 2.6rem);
+  color: #f7f3ec;
+}
+
+.paletteBadge {
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #e6ddcd;
+  padding-bottom: 0.7rem;
+}
+
+.paletteName {
+  font-family: var(--p-serif);
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 3.1rem);
+  line-height: 1.02;
+  color: inherit;
+}
+
+.paletteDesc {
+  margin-top: 0.7rem;
+  max-width: 62ch;
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: #e4ddd1;
+}
+
+.paletteBoard {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 0.9rem;
+}
+
+.paletteGallery {
+  margin-top: 0.9rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.9rem;
+}
+
+.paletteGalleryImg {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+/* color plates — a specification strip, not decorative dots */
+
+.plateRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.9rem;
+  margin-top: 1.6rem;
+}
+
+.plate {
+  display: flex;
+  flex-direction: column;
+}
+
+.plateChip {
+  width: 100%;
+  height: 64px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--p-ink) 16%, transparent);
+}
+
+.plateIndex {
+  margin-top: 0.55rem;
+  font-size: 0.54rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--p-taupe);
+  font-variant-numeric: tabular-nums;
+}
+
+.plateName {
+  margin-top: 0.2rem;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--p-ink);
+}
+
+.plateHex {
+  margin-top: 0.15rem;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--p-taupe);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------ venues — numbered rows */
+
+.venueList {
+  margin-top: 2.2rem;
+}
+
+.venueRow {
+  display: grid;
+  grid-template-columns: clamp(3rem, 6vw, 4.5rem) minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 1.2rem clamp(1.4rem, 3.5vw, 2.6rem);
+  padding: 1.7rem 0;
+  border-top: 1px solid var(--p-hairline);
+}
+
+.venueRow:last-child {
+  border-bottom: 1px solid var(--p-hairline);
+}
+
+.venueIndex {
+  font-family: var(--p-serif);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1;
+  color: color-mix(in srgb, var(--p-garnet) 42%, var(--p-bg));
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.2rem;
+}
+
+.venueBody:last-child {
+  grid-column: 2 / -1;
+}
+
+.venueName {
+  font-family: var(--p-serif);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 2.6vw, 1.75rem);
+  line-height: 1.12;
+  margin: 0;
+  color: var(--p-ink);
+}
+
+.venueArea {
+  margin-top: 0.35rem;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--p-taupe);
+}
+
+.venueDesc {
+  margin-top: 0.8rem;
+  max-width: 56ch;
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1.72;
+  color: var(--p-ink-soft);
+}
+
+.venueMeta {
+  margin-top: 0.9rem;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--p-garnet);
+}
+
+.venueFigure {
+  margin: 0;
+  align-self: start;
+}
+
+.venueImg {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+/* ------------------------------------------------ moments — vignettes */
+
+.momentGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.2rem clamp(1.6rem, 4vw, 3rem);
+  margin-top: 2.2rem;
+}
+
+.momentItem {
+  border-top: 1px solid var(--p-hairline);
+  padding-top: 1rem;
+}
+
+.momentFigure {
+  margin: 0.2rem 0 1.1rem;
+}
+
+.momentImg {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.momentIndex {
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: var(--p-garnet);
+  font-variant-numeric: tabular-nums;
+}
+
+.momentTitle {
+  font-family: var(--p-serif);
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 1.2;
+  margin: 0.5rem 0 0;
+  color: var(--p-ink);
+}
+
+.momentDesc {
+  margin-top: 0.55rem;
+  font-size: 0.82rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--p-ink-soft);
+  max-width: 52ch;
+}
+
+/* ------------------------------------------------ run of show — spine */
+
+.rosSpine {
+  margin-top: 2.2rem;
+}
+
+.rosRow {
+  display: grid;
+  grid-template-columns: clamp(84px, 12vw, 120px) 2.2rem minmax(0, 1fr);
+  gap: 0 clamp(0.6rem, 2vw, 1.4rem);
+  padding-bottom: 1.9rem;
+}
+
+.rosRow:last-child {
+  padding-bottom: 0.4rem;
+}
+
+.rosTime {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--p-garnet);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: right;
+  padding-top: 0.12rem;
+}
+
+.rosNode {
+  position: relative;
+}
+
+.rosNode::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--p-hairline);
+}
+
+.rosNode::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0.42rem;
+  width: 7px;
+  height: 7px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: var(--p-garnet);
+}
+
+.rosRow:first-child .rosNode::before {
+  top: 0.42rem;
+}
+
+.rosRow:last-child .rosNode::before {
+  bottom: auto;
+  height: 0.55rem;
+}
+
+.rosTitle {
+  font-size: 0.94rem;
+  font-weight: 500;
+  color: var(--p-ink);
+}
+
+.rosDesc {
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--p-ink-soft);
+  max-width: 62ch;
+}
+
+/* ------------------------------------------------ investment — typeset exhibit */
+
+.exhibit {
+  margin-top: 2.8rem;
+}
+
+.exhibitHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--p-ink);
+}
+
+.exhibitName {
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--p-ink);
+}
+
+.exhibitTagline {
+  margin-top: 0.35rem;
+  font-family: var(--p-serif);
+  font-style: italic;
+  font-size: 0.98rem;
+  color: var(--p-taupe);
+}
+
+.exhibitTotalFig {
+  font-family: var(--p-serif);
+  font-weight: 400;
+  font-size: clamp(1.7rem, 3.6vw, 2.3rem);
+  line-height: 1;
+  color: var(--p-ink);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+.exhibitRows {
+  border-bottom: 1px solid var(--p-hairline-soft);
+}
+
+.exRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.25rem 2.5rem;
+  padding: 0.95rem 0;
+  border-top: 1px solid var(--p-hairline-soft);
+}
+
+.exRow:first-child {
+  border-top: none;
+}
+
+.exName {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--p-ink);
+}
+
+.exBadge {
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--p-garnet);
+  margin-left: 0.55rem;
+}
+
+.exPrice {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: var(--p-ink);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.exDesc {
+  grid-column: 1;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--p-taupe);
+  max-width: 60ch;
+}
+
+.exNote {
+  grid-column: 1;
+  margin-top: 0.3rem;
+  font-family: var(--p-serif);
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--p-garnet);
+}
+
+/* double rule under the exhibit — the accountant's subtotal */
+
+.exTotal {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.05rem 0 0.4rem;
+  border-top: 3px double var(--p-ink);
+  margin-top: -1px;
+}
+
+.exTotalLabel {
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--p-ink);
+}
+
+.exTotalValue {
+  font-family: var(--p-serif);
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: var(--p-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.exFootnote {
+  display: grid;
+  grid-template-columns: 1.3rem 1fr;
+  gap: 0 0.4rem;
+  margin-top: 1.5rem;
+  font-size: 0.73rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--p-taupe);
+  max-width: 74ch;
+}
+
+/* ------------------------------------------------ scope — numbered register */
+
+.scopeList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 clamp(2rem, 5vw, 4rem);
+  margin-top: 2rem;
+}
+
+.scopeItem {
+  display: grid;
+  grid-template-columns: 2.3rem 1fr;
+  gap: 0 0.6rem;
+  align-items: baseline;
+  padding: 0.8rem 0;
+  border-top: 1px solid var(--p-hairline-soft);
+}
+
+.scopeIndex {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--p-garnet);
+  font-variant-numeric: tabular-nums;
+}
+
+.scopeText {
+  font-size: 0.86rem;
+  font-weight: 400;
+  line-height: 1.62;
+  color: var(--p-ink-soft);
+}
+
+/* ------------------------------------------------ services — typeset columns */
+
+.tierGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 2rem clamp(1.6rem, 4vw, 2.8rem);
+  margin-top: 2.2rem;
+}
+
+.tierCol {
+  display: flex;
+  flex-direction: column;
+  border-top: 2px solid var(--p-ink);
+  padding-top: 1.1rem;
+}
+
+.tierIndex {
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: var(--p-garnet);
+  font-variant-numeric: tabular-nums;
+}
+
+.tierName {
+  font-family: var(--p-serif);
+  font-weight: 400;
+  font-size: 1.45rem;
+  line-height: 1.12;
+  margin-top: 0.55rem;
+  color: var(--p-ink);
+}
+
+.tierNameAlt {
+  margin-top: 0.25rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  color: var(--p-taupe);
+}
+
+.tierDesc {
+  margin-top: 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--p-ink-soft);
+}
+
+.tierList {
+  margin: 1rem 0 0;
+  padding: 1rem 0 0;
+  border-top: 1px solid var(--p-hairline-soft);
+  list-style: none;
+}
+
+.tierList li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.76rem;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--p-ink-soft);
+}
+
+.tierList li + li {
+  margin-top: 0.45rem;
+}
+
+.tierList li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--p-garnet);
+}
+
+.tierPrice {
+  margin-top: auto;
+  padding-top: 1.1rem;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--p-garnet);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------ custom */
+
+.customBody {
+  margin-top: 1.6rem;
+  max-width: 70ch;
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--p-ink-soft);
+}
+
+.customBody p + p {
+  margin-top: 0.9em;
+}
+
+.customBody + .momentGrid {
+  margin-top: 1.8rem;
+}
+
+/* ------------------------------------------------ pull quote — one line of the pitch, set huge */
+
+.pullQuote {
+  margin: clamp(2.4rem, 5vw, 3.4rem) 0 0;
+  padding: 1.5rem 0 1.3rem;
+  border-top: 1px solid var(--p-hairline);
+  border-bottom: 1px solid var(--p-hairline);
+}
+
+.pullQuoteText {
+  position: relative;
+  margin: 0;
+  padding-left: clamp(1.7rem, 4vw, 2.7rem);
+  font-family: var(--p-serif);
+  font-weight: 400;
+  font-size: clamp(1.45rem, 3vw, 2.05rem);
+  line-height: 1.32;
+  color: var(--p-ink);
+  max-width: 32ch;
+}
+
+.pullQuoteText::before {
+  content: "\201C";
+  position: absolute;
+  left: 0;
+  top: -0.06em;
+  font-size: 1.6em;
+  line-height: 1;
+  color: var(--p-garnet);
+}
+
+.pullQuoteCite {
+  display: block;
+  margin-top: 0.9rem;
+  padding-left: clamp(1.7rem, 4vw, 2.7rem);
+  font-style: normal;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--p-taupe);
+}
+
+/* ------------------------------------------------ venue spec strip */
+
+.venueFacts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+  gap: 0.8rem 1.4rem;
+  margin-top: 1.05rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--p-hairline-soft);
+  max-width: 56ch;
+}
+
+.venueFacts .factLabel {
+  font-size: 0.54rem;
+}
+
+.venueFacts .factValue {
+  margin-top: 0.3rem;
+  font-size: 0.78rem;
+}
+
+/* ------------------------------------------------ run-of-show act headers */
+
+.rosPhase {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 1rem 0 1.6rem;
+}
+
+.rosPhase:first-child {
+  padding-top: 0.1rem;
+}
+
+.rosPhaseLabel {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--p-garnet);
+  white-space: nowrap;
+}
+
+.rosPhase::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--p-hairline);
+}
+
+/* the spine breaks at act headers: start at the dot after a header, stop short before one */
+.rosPhase + .rosRow .rosNode::before {
+  top: 0.42rem;
+}
+
+.rosRow:has(+ .rosPhase) .rosNode::before {
+  bottom: auto;
+  height: 0.55rem;
+}
+
+/* ------------------------------------------------ grouped scope — service index */
+
+.scopeGroups {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.6rem clamp(2rem, 5vw, 4rem);
+  margin-top: 2.2rem;
+}
+
+.scopeGroup {
+  border-top: 2px solid var(--p-ink);
+  padding-top: 1.05rem;
+  align-self: start;
+}
+
+.scopeGroupTitle {
+  font-family: var(--p-serif);
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 1.15;
+  margin: 0;
+  color: var(--p-ink);
+}
+
+.scopeGroupBlurb {
+  margin-top: 0.5rem;
+  font-family: var(--p-serif);
+  font-style: italic;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--p-taupe);
+}
+
+.scopeGroupItems {
+  margin-top: 0.6rem;
+}
+
+/* ------------------------------------------------ custom "index" — dense register */
+
+.indexGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 clamp(2rem, 5vw, 4rem);
+  margin-top: 2.2rem;
+}
+
+.indexRow {
+  display: grid;
+  grid-template-columns: 2.1rem minmax(0, 1fr) auto;
+  gap: 0 0.6rem;
+  align-items: baseline;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--p-hairline-soft);
+}
+
+.indexText {
+  font-size: 0.83rem;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--p-ink-soft);
+}
+
+.indexTitle {
+  font-weight: 500;
+  color: var(--p-ink);
+}
+
+.indexMeta {
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--p-garnet);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------ custom "schedule" — typeset table */
+
+.schedRows {
+  margin-top: 2.2rem;
+  border-bottom: 1px solid var(--p-hairline-soft);
+}
+
+.schedRow {
+  display: grid;
+  grid-template-columns: clamp(96px, 14vw, 150px) minmax(0, 1fr);
+  gap: 0 clamp(1.4rem, 3.5vw, 2.6rem);
+  padding: 0.95rem 0;
+  border-top: 1px solid var(--p-hairline-soft);
+}
+
+.schedMeta {
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--p-garnet);
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.2rem;
+}
+
+.schedTitle {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--p-ink);
+}
+
+.schedDesc {
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--p-ink-soft);
+  max-width: 62ch;
+}
+
+/* ------------------------------------------------ closing */
+
+.closing {
+  position: relative;
+  margin-top: clamp(3.4rem, 8vw, 5.5rem);
+  border-top: 1px solid var(--p-hairline);
+}
+
+.closingTexture {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 50vw);
+  width: 100vw;
+}
+
+.closingTextureImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.closingTextureScrim {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--p-bg) 86%, transparent);
+}
+
+.closingInner {
+  position: relative;
+  padding: clamp(3.2rem, 7vw, 4.75rem) 0 2.4rem;
+  text-align: center;
+}
+
+.closingTitle {
+  font-family: var(--p-serif);
+  font-weight: 300;
+  font-size: clamp(2rem, 4.8vw, 2.9rem);
+  line-height: 1.05;
+  color: var(--p-ink);
+}
+
+.closingBody {
+  margin: 1rem auto 0;
+  max-width: 46ch;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--p-ink-soft);
+}
+
+.closingContact {
+  margin-top: 2.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.closingName {
+  font-family: var(--p-serif);
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--p-ink);
+}
+
+.closingLink {
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--p-garnet);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--p-garnet) 30%, transparent);
+  transition: border-color 0.3s var(--p-ease);
+}
+
+.closingLink:hover {
+  border-color: var(--p-garnet);
+}
+
+.closingSite {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--p-taupe);
+}
+
+.closingMonogram {
+  width: 56px;
+  height: auto;
+  margin: 2.3rem auto 0;
+  opacity: 0.88;
+  filter: var(--p-monogram-filter, none);
+}
+
+.closingFoot {
+  margin-top: 1.7rem;
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--p-taupe);
+}
+
+/* ============================================================
+   Per-theme layout accents — same document, different edition
+   ============================================================ */
+
+/* ---- noir: deco rules, brass numerals, tracked display caps */
+
+.root[data-style="noir"] {
+  font-weight: 400;
+}
+
+.root[data-style="noir"] .sectionTitle,
+.root[data-style="noir"] .coverName,
+.root[data-style="noir"] .paletteName,
+.root[data-style="noir"] .venueName,
+.root[data-style="noir"] .scopeGroupTitle,
+.root[data-style="noir"] .pullQuoteText,
+.root[data-style="noir"] .closingTitle {
+  font-weight: 400;
+  letter-spacing: 0.045em;
+}
+
+.root[data-style="noir"] .pullQuoteText {
+  font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+  line-height: 1.22;
+}
+
+.root[data-style="noir"] .scopeGroupBlurb {
+  font-family: var(--p-sans);
+  font-style: normal;
+  font-size: 0.78rem;
+}
+
+.root[data-style="noir"] .coverName {
+  font-size: clamp(3.6rem, 11vw, 7.6rem);
+}
+
+.root[data-style="noir"] .chapterHead {
+  border-top: 3px double var(--p-garnet);
+}
+
+.root[data-style="noir"] .chapterNum,
+.root[data-style="noir"] .venueIndex {
+  color: color-mix(in srgb, var(--p-garnet) 55%, var(--p-bg));
+}
+
+.root[data-style="noir"] .exhibitHead {
+  border-bottom-color: var(--p-garnet);
+}
+
+.root[data-style="noir"] .exTotal {
+  border-top-color: var(--p-garnet);
+}
+
+.root[data-style="noir"] .exhibitTotalFig,
+.root[data-style="noir"] .exTotalValue {
+  color: var(--p-champagne);
+}
+
+.root[data-style="noir"] .coverSubtitle,
+.root[data-style="noir"] .exhibitTagline,
+.root[data-style="noir"] .closingName {
+  font-family: var(--p-sans);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.95em;
+}
+
+.root[data-style="noir"] .visionBody > p:first-child {
+  font-family: var(--p-sans);
+  font-weight: 300;
+  font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+  line-height: 1.62;
+}
+
+.root[data-style="noir"] .footnoteBlock,
+.root[data-style="noir"] .exNote,
+.root[data-style="noir"] .figCaption {
+  font-family: var(--p-sans);
+  font-style: normal;
+}
+
+.root[data-style="noir"] .plateChip {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--p-ink) 34%, transparent);
+}
+
+/* ---- editorial: Swiss grid — heavy top rules, giant opaque numerals */
+
+.root[data-style="editorial"] .eyebrow {
+  font-weight: 600;
+  letter-spacing: 0.22em;
+}
+
+.root[data-style="editorial"] .sectionTitle {
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.02;
+}
+
+.root[data-style="editorial"] .coverName {
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 0.96;
+}
+
+.root[data-style="editorial"] .coverSubtitle,
+.root[data-style="editorial"] .exhibitTagline,
+.root[data-style="editorial"] .closingName,
+.root[data-style="editorial"] .footnoteBlock,
+.root[data-style="editorial"] .exNote {
+  font-family: var(--p-sans);
+  font-style: normal;
+}
+
+.root[data-style="editorial"] .coverSubtitle {
+  font-weight: 500;
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  letter-spacing: 0.01em;
+}
+
+.root[data-style="editorial"] .chapterHead {
+  border-top: 3px solid var(--p-ink);
+}
+
+.root[data-style="editorial"] .chapterNum {
+  color: var(--p-ink);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  font-size: clamp(4rem, 10vw, 6.4rem);
+}
+
+.root[data-style="editorial"] .venueIndex {
+  color: var(--p-garnet);
+  font-weight: 650;
+  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+  letter-spacing: -0.02em;
+}
+
+.root[data-style="editorial"] .venueName,
+.root[data-style="editorial"] .momentTitle,
+.root[data-style="editorial"] .tierName,
+.root[data-style="editorial"] .paletteName,
+.root[data-style="editorial"] .scopeGroupTitle,
+.root[data-style="editorial"] .closingTitle {
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.root[data-style="editorial"] .pullQuoteText {
+  font-family: var(--p-sans);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.24;
+}
+
+.root[data-style="editorial"] .scopeGroupBlurb {
+  font-family: var(--p-sans);
+  font-style: normal;
+  font-size: 0.78rem;
+}
+
+.root[data-style="editorial"] .visionBody > p:first-child {
+  font-family: var(--p-sans);
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  font-size: clamp(1.2rem, 2.3vw, 1.5rem);
+  line-height: 1.5;
+}
+
+.root[data-style="editorial"] .exhibitTotalFig,
+.root[data-style="editorial"] .exTotalValue {
+  font-family: var(--p-sans);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.root[data-style="editorial"] .tierCol {
+  border-top-width: 3px;
+}
+
+/* ---- botanical: plate figures, italic captions, soft rules */
+
+.root[data-style="botanical"] .sectionIntro,
+.root[data-style="botanical"] .venueArea {
+  font-family: var(--p-serif);
+  font-style: italic;
+  font-size: 1.02rem;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+.root[data-style="botanical"] .figCaption {
+  font-family: var(--p-serif);
+  font-style: italic;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+}
+
+.root[data-style="botanical"] .figCaption::before {
+  content: "Fig. " counter(fig, decimal-leading-zero) "  —  ";
+  font-style: normal;
+  font-family: var(--p-sans);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--p-garnet);
+}
+
+.root[data-style="botanical"] .chapterNum {
+  font-style: italic;
+}
+
+.root[data-style="botanical"] .momentIndex,
+.root[data-style="botanical"] .scopeIndex,
+.root[data-style="botanical"] .tierIndex {
+  font-family: var(--p-serif);
+  font-style: italic;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+
+.root[data-style="botanical"] .pullQuoteText {
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+
+/* ---- festival: poster numerals on solid blocks, gold rules */
+
+.root[data-style="festival"] .sectionTitle,
+.root[data-style="festival"] .coverName,
+.root[data-style="festival"] .paletteName,
+.root[data-style="festival"] .venueName,
+.root[data-style="festival"] .scopeGroupTitle,
+.root[data-style="festival"] .pullQuoteText,
+.root[data-style="festival"] .closingTitle {
+  font-weight: 400;
+  letter-spacing: 0.035em;
+}
+
+.root[data-style="festival"] .rosPhaseLabel {
+  color: var(--p-maroon);
+}
+
+.root[data-style="festival"] .coverName {
+  font-size: clamp(3.6rem, 11vw, 7.6rem);
+}
+
+.root[data-style="festival"] .chapterNum {
+  background: var(--p-garnet);
+  color: var(--p-bg);
+  padding: 0.5rem 0.85rem 0.35rem;
+  font-size: clamp(2.6rem, 6vw, 4rem);
+}
+
+.root[data-style="festival"] .chapterHead {
+  border-top: 2px solid var(--p-garnet);
+}
+
+.root[data-style="festival"] .exhibitHead {
+  border-bottom-color: var(--p-garnet);
+}
+
+.root[data-style="festival"] .exTotal {
+  border-top-color: var(--p-garnet);
+}
+
+.root[data-style="festival"] .eyebrowRule,
+.root[data-style="festival"] .momentItem {
+  border-top-color: var(--p-champagne);
+}
+
+.root[data-style="festival"] .eyebrowRule {
+  height: 2px;
+  background: var(--p-champagne);
+}
+
+.root[data-style="festival"] .momentIndex {
+  color: var(--p-maroon);
+}
+
+.root[data-style="festival"] .coverSubtitle,
+.root[data-style="festival"] .exhibitTagline,
+.root[data-style="festival"] .closingName {
+  font-family: var(--p-sans);
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.9em;
+}
+
+.root[data-style="festival"] .visionBody > p:first-child {
+  font-family: var(--p-sans);
+  font-weight: 400;
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+  line-height: 1.6;
+}
+
+/* ------------------------------------------------ responsive */
+
+@media (max-width: 880px) {
+  .venueRow {
+    grid-template-columns: 2.8rem minmax(0, 1fr);
+  }
+
+  .venueFigure {
+    grid-column: 2;
+  }
+
+  .venueBody:last-child {
+    grid-column: 2;
+  }
+
+  .visionSpread {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .visionFactCol {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0 2rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .momentGrid,
+  .scopeList,
+  .scopeGroups,
+  .indexGrid,
+  .paletteGallery {
+    grid-template-columns: 1fr;
+  }
+
+  .plateRow {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+  }
+
+  .plateChip {
+    height: 44px;
+  }
+
+  .rosRow {
+    grid-template-columns: 64px 1.6rem minmax(0, 1fr);
+  }
+
+  .rosTime {
+    font-size: 0.7rem;
+  }
+
+  .coverFact + .coverFact {
+    border-left: none;
+    padding-left: 0;
+    margin-left: 0;
+  }
+
+  .chapterNum {
+    display: none;
+  }
+
+  .exhibitHead {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+}
+
+/* ------------------------------------------------ print */
+
+@media print {
+  :global(html),
+  :global(body) {
+    background: #f3efea !important;
+  }
+
+  .root {
+    background: var(--p-bg) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .root * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* defeat any in-flight reveal animations */
+  .root [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .frame {
+    max-width: none;
+    padding: 0 0.55in;
+  }
+
+  .cover {
+    min-height: 9.4in;
+    break-after: page;
+  }
+
+  /* each chapter opens its own sheet, running head at the top */
+  .section {
+    break-before: page;
+    padding-top: 0.35in;
+  }
+
+  .paletteOption,
+  .venueRow,
+  .momentItem,
+  .rosRow,
+  .tierCol,
+  .footnoteBlock,
+  .exRow,
+  .exTotal,
+  .indexRow,
+  .schedRow,
+  .pullQuote,
+  .scopeGroup,
+  .spreadFigure {
+    break-inside: avoid;
+  }
+
+  /* act headers never orphan at a page foot */
+  .rosPhase {
+    break-after: avoid;
+    break-inside: avoid;
+  }
+
+  /* exhibits flow under the chapter opener; rows and totals never split */
+  .exhibitHead {
+    break-after: avoid;
+    break-inside: avoid;
+  }
+
+  /* the letter page box (~816px) is narrower than the responsive breakpoints —
+     restore the desktop editorial grids for print */
+  .venueRow {
+    grid-template-columns: 3rem minmax(0, 1.05fr) minmax(0, 0.95fr);
+  }
+
+  .venueFigure {
+    grid-column: auto;
+  }
+
+  .venueBody:last-child {
+    grid-column: 2 / -1;
+  }
+
+  .visionSpread {
+    grid-template-columns: minmax(0, 1.6fr) minmax(200px, 0.85fr);
+    gap: 2.2rem;
+  }
+
+  .visionFactCol {
+    display: block;
+  }
+
+  .closing {
+    break-before: page;
+    border-top: none;
+  }
+
+  .coverArcs {
+    opacity: 0.4;
+  }
+}
+
+@page {
+  size: letter;
+  margin: 0;
+}

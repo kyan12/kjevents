@@ -14,24 +14,52 @@ const fadeInUp: Variants = {
   }),
 };
 
-const testimonials = [
+// mobileObjectPosition overrides objectPosition in the 4:3 mobile carousel crop
+type Photo = { src: string; alt: string; objectPosition?: string; mobileObjectPosition?: string };
+
+type Testimonial = {
+  quote: string;
+  // Shorter excerpt for the mobile carousel so long quotes don't stretch every slide
+  mobileQuote?: string;
+  name: string;
+  detail: string;
+  chineseName: string;
+  featuredImage: Photo;
+  detailImage: Photo | null;
+  imagePosition: 'left' | 'right';
+};
+
+// Longer quotes drop to a smaller type size so the card stays balanced against its photos
+const LONG_QUOTE_CHARS = 300;
+
+const testimonials: Testimonial[] = [
   {
     quote: "Kira brought structure, calm, and intention to every part of our wedding. She understood exactly how to blend our traditions while keeping the entire day elegant and seamless.",
     name: "JIALIN & JONATHAN",
     detail: "TWA Hotel, JFK",
     chineseName: "嘉琳 & 乔纳森", // Adding mock chinese name for the stamp concept
     featuredImage: { src: '/images/jialin-jonathan-ceremony.jpg', alt: 'Jialin & Jonathan wedding ceremony' },
-    detailImage: null as { src: string; alt: string } | null,
-    imagePosition: 'left' as const,
+    detailImage: null,
+    imagePosition: 'left',
+  },
+  {
+    quote: "If you are getting married or planning a large scale event, you need to hire Kira. We could not have done our 2 venue wedding without her. From the start she approached every meeting and task with a level of organization that I thought only my type A, control freak self was capable of. She asked all the questions I never would have thought of and kept on top of all our vendors across the dozens of group chats and email threads. But alongside her grit and attention to detail, Kira supported us with a profound level of compassion. It went 100% according to schedule and every moment was captured as we dreamed. I couldn’t recommend her more!!",
+    mobileQuote: "If you are getting married or planning a large scale event, you need to hire Kira. We could not have done our 2 venue wedding without her. It went 100% according to schedule and every moment was captured as we dreamed.",
+    name: "ANDIE & JAKE",
+    detail: "The Beekman & Clipper City, New York Harbor",
+    chineseName: "安迪 & 杰克",
+    featuredImage: { src: '/images/andie-jake-atrium.jpg', alt: 'Andie & Jake embracing on the balcony of The Beekman atrium', objectPosition: '62% center' },
+    detailImage: { src: '/images/andie-jake-harbor-kiss.jpg', alt: 'Andie & Jake kissing aboard the ship with the Brooklyn Bridge behind them', objectPosition: '40% center' },
+    imagePosition: 'right',
   },
   {
     quote: "Set within the historic Mansion at Glen Cove, our wedding brought together timeless romance with meaningful cultural traditions. Kira\u2019s full-service planning from concept development through execution made every detail feel intentional.",
     name: "FELICITY & LEON",
     detail: "The Mansion at Glen Cove, Long Island",
     chineseName: "费莉西蒂 & 里昂",
-    featuredImage: { src: '/images/felicity-stairs-couple.jpg', alt: 'Felicity & Leon on the staircase', objectPosition: '100% center' },
+    featuredImage: { src: '/images/felicity-stairs-couple.jpg', alt: 'Felicity & Leon on the staircase', objectPosition: '100% center', mobileObjectPosition: 'center 90%' },
     detailImage: { src: '/images/felicity-detail.jpg', alt: 'Felicity & Leon invitation details' },
-    imagePosition: 'right' as const,
+    imagePosition: 'left',
   }
 ];
 
@@ -137,7 +165,7 @@ export default function WeddingTestimonials() {
                         sizes="80vw"
                         style={{
                           objectFit: 'cover',
-                          objectPosition: (t.featuredImage as any).objectPosition || 'center'
+                          objectPosition: t.featuredImage.mobileObjectPosition || t.featuredImage.objectPosition || 'center'
                         }}
                         loading="lazy"
                       />
@@ -148,7 +176,7 @@ export default function WeddingTestimonials() {
                     </div>
                   </div>
                   <div className={styles.textColMobile}>
-                    <p className={styles.quoteMobile}>&ldquo;{t.quote}&rdquo;</p>
+                    <p className={styles.quoteMobile}>&ldquo;{t.mobileQuote ?? t.quote}&rdquo;</p>
                     <div className={styles.dividerMobile} />
                     <p className={styles.nameMobile}>{t.name}</p>
                     <p className={styles.detailMobile}>{t.detail}</p>
@@ -205,7 +233,7 @@ export default function WeddingTestimonials() {
                       sizes="45vw"
                       style={{
                         objectFit: 'cover',
-                        objectPosition: (t.featuredImage as any).objectPosition || 'center'
+                        objectPosition: t.featuredImage.objectPosition || 'center'
                       }}
                       loading="lazy"
                     />
@@ -217,7 +245,10 @@ export default function WeddingTestimonials() {
                         alt={t.detailImage.alt}
                         fill
                         sizes="25vw"
-                        style={{ objectFit: 'cover' }}
+                        style={{
+                          objectFit: 'cover',
+                          objectPosition: t.detailImage.objectPosition || 'center'
+                        }}
                         loading="lazy"
                       />
                     </div>
@@ -233,7 +264,7 @@ export default function WeddingTestimonials() {
                 </motion.div>
 
                 <motion.div className={styles.textCol} custom={1} variants={fadeInUp}>
-                  <p className={styles.quote}>&ldquo;{t.quote}&rdquo;</p>
+                  <p className={`${styles.quote} ${t.quote.length > LONG_QUOTE_CHARS ? styles.quoteLong : ''}`}>&ldquo;{t.quote}&rdquo;</p>
                   <div className={styles.divider} />
                   <p className={styles.name}>{t.name}</p>
                   <p className={styles.detail}>{t.detail}</p>

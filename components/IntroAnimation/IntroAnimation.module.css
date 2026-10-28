@@ -26,6 +26,12 @@
   font-weight: 400;
   letter-spacing: -0.05em;
   line-height: 1;
+  /* hello-paris swashes ink far outside the glyph box (the K's leg runs ~0.42em
+     past its right edge). Safari clips that ink to the element's box while the
+     letter is composited for its opacity animation, then paints it all at once
+     when the animation ends. Symmetric padding keeps the ink inside the box;
+     the letters are centred, so it doesn't move them. */
+  padding: 0.5em;
 }
 
 .letterK {

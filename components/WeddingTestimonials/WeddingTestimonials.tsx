@@ -26,6 +26,8 @@ type Testimonial = {
   chineseName: string;
   featuredImage: Photo;
   detailImage: Photo | null;
+  // Stack the featured photo above the detail photo instead of under it (desktop)
+  featuredOnTop?: boolean;
   imagePosition: 'left' | 'right';
 };
 
@@ -59,6 +61,7 @@ const testimonials: Testimonial[] = [
     chineseName: "费莉西蒂 & 里昂",
     featuredImage: { src: '/images/felicity-stairs-couple.jpg', alt: 'Felicity & Leon on the staircase', objectPosition: '100% center', mobileObjectPosition: 'center 90%' },
     detailImage: { src: '/images/felicity-detail.jpg', alt: 'Felicity & Leon invitation details' },
+    featuredOnTop: true,
     imagePosition: 'left',
   }
 ];
@@ -225,7 +228,7 @@ export default function WeddingTestimonials() {
                 viewport={{ once: true, margin: '-80px' }}
               >
                 <motion.div className={styles.photoCol} custom={0} variants={fadeInUp}>
-                  <div className={styles.photoPrimary}>
+                  <div className={`${styles.photoPrimary} ${t.featuredOnTop ? styles.photoPrimaryTop : ''}`}>
                     <Image
                       src={t.featuredImage.src}
                       alt={t.featuredImage.alt}

@@ -73,15 +73,27 @@
   overflow: hidden;
 }
 
+/* Secondary photo tucks under the open corner, opposite the side the primary hugs */
 .photoSecondary {
   position: absolute;
   bottom: -5%;
-  left: -5%;
+  right: -5%;
   width: 50%;
   height: 55%;
-  transform: rotate(-3deg);
+  transform: rotate(3deg);
   border: 4px solid var(--w-bg);
   overflow: hidden;
+}
+
+.storyCardAlt .photoSecondary {
+  right: auto;
+  left: -5%;
+  transform: rotate(-3deg);
+}
+
+/* Lift the primary photo above the secondary */
+.photoPrimaryTop {
+  z-index: 2;
 }
 
 /* Chinese Seal Accent */
